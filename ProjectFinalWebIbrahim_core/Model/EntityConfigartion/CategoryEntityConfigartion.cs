@@ -25,6 +25,12 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
 
 
             builder.HasMany<Service>().WithOne().HasForeignKey(x => x.CategoryId);
+            builder.Property(x => x.CreationDate).IsRequired();
+
+            builder.Property(x => x.ModifiedDate).IsRequired(false);
+
+            builder.Property(x => x.IsِActive).IsRequired();
+            builder.Property(x => x.IsِActive).HasDefaultValue(false);
         }
     }
 }

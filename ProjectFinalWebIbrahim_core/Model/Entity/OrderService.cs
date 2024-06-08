@@ -9,7 +9,10 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
         public int? OrderId { get; set; }
       
         public int? ServiceId { get; set; }
-    
+        public DateTime? CreationDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+
+        public bool IsِActive { get; set; }
 
     }
 }
