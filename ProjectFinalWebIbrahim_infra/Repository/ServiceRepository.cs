@@ -1,11 +1,13 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.Model.Entity;
+using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Repository
 {
@@ -22,22 +24,13 @@ namespace ProjectFinalWebIbrahim_infra.Repository
         }
 
 
-        public async Task CreateService(Service Inpute)
-        {
-            _context.Services.Add(Inpute);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteService(Service Inpute)
-        {
-            _context.Services.Remove(Inpute);
-            await _context.SaveChangesAsync();
-        }
 
         public async Task<List<GetServiceAllDTO>> GetServiceAll()
         {
             try
             {
+                Log.Information($"Service Is  strating GetServiceAll");
+
 
                 var Service = from p in _context.Services
                               join x in _context.User
@@ -55,7 +48,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                   CategoryId = p.CategoryId,
 
                                   //name provider
-                                  NameUser = x.FirstName,
+                                  ProviderUser = x.FirstName,
                                   Image = p.Image,
                                   Name = p.Name,
                                   Price = p.Price,
@@ -74,29 +67,36 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                 if (Services != null)
                 {
 
+
+                    Log.Information("Service Is Reached");
+                    Log.Debug($"Debugging Get Service By Id Has been Finised Successfully");
+
                     return Services;
                 }
                 else
                 {
-
+                    Log.Error($"Service Not Found");
                     throw new ArgumentNullException("Services", "Not Found Services");
 
                 }
             }
             catch (ArgumentNullException ex)
             {
+                Log.Error($"Services Not Found: {ex.Message}");
+                throw new DbUpdateException($"datebase Error: {ex.Message}");
 
-                throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
+                Log.Error($"An error occurred in datebase: {ex.Message}");
+                throw new DbUpdateException($"datebase Error: {ex.Message}");
 
-                throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception : {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
+
             }
         }
 
@@ -111,6 +111,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
         {
             try
             {
+                Log.Information($"Service Is  strating GetByID");
 
                 var Services = from p in _context.Services
                                where p.ServiceId == ServiceId
@@ -136,7 +137,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                    IsِActive = p.IsِActive,
                                    CategoryId = p.CategoryId,
                                    UserId = p.UserId,
-                                   UserName = x.FirstName,
+                                   ProviderName = x.FirstName,
 
 
                                };
@@ -144,45 +145,64 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                 var qu = await Services.LastOrDefaultAsync();
                 if (qu != null)
                 {
-
+                    Log.Information("Service Is Reached");
+                    Log.Debug($"Debugging Get Service By Id Has been Finised Successfully {qu.ServiceId}");
                     return qu;
                 }
                 else
                 {
-
+                    Log.Error($"Service Not Found");
                     throw new ArgumentNullException("Services", "Not Found Services");
 
                 }
             }
             catch (ArgumentNullException ex)
             {
+                Log.Error($"Services Not Found: {ex.Message}");
+                throw new DbUpdateException($"datebase Error: {ex.Message}");
 
-                throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
+                Log.Error($"An error occurred in datebase: {ex.Message}");
+                throw new DbUpdateException($"datebase Error: {ex.Message}");
 
-                throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception : {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
+
             }
 
-           
+
         }
+
+        public async Task CreateService(Service Inpute)
+        {
+            _context.Services.Add(Inpute);
+            await _context.SaveChangesAsync();
+        }
+
+
+        public async Task UpdateService(Service Inpute)
+        {
+            _context.Services.Update(Inpute);
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteService(Service Inpute)
+        {
+            _context.Services.Remove(Inpute);
+            await _context.SaveChangesAsync();
+        }
+
+      
 
 
     
 
 
 
-                          
-        public async Task UpdateService(Service Inpute)
-        {
-            _context.Services.Update(Inpute);
-            await _context.SaveChangesAsync();
-        }
+     
     }
 }

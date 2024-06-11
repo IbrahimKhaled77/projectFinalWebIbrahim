@@ -15,70 +15,40 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
             _context = context;
         }
-        public async Task<int> CreateUser(User Inpute)
-        {
-            _context.User.Add(Inpute);
-            await _context.SaveChangesAsync();
-            return Inpute.UserId;
 
-        }
 
-        public async Task DeleteUser(User Inpute)
-        {
-            _context.User.Remove(Inpute);
-            await _context.SaveChangesAsync();
-
-        }
 
         public async Task<List<GetUserAllDTO>> GetUserAll(int UserId)
         {
             var Provider = await IsProvider(UserId);
 
-            if (Provider) {
+            if (Provider)
+            {
                 var Clien = from x in _context.User
-                           where x.UserType== UserType.Clien
-                            orderby x.CreationDate descending 
-                           select new GetUserAllDTO {
-                               
-                               UserId = x.UserId,
-                               Email = x.Email,
-                               FirstName = x.FirstName,
-                               LastName = x.LastName,
-                               CreationDate = x.CreationDate,
-                               Gender = x.Gender,
-                               ImageProfile = x.ImageProfile,
-                               IsِActive=x.IsِActive,
-                               userType = x.UserType,
-                               ModifiedDate=x.ModifiedDate,
-                           };
+                            where x.UserType == UserType.Clien
+                            orderby x.CreationDate descending
+                            select new GetUserAllDTO
+                            {
+
+                                UserId = x.UserId,
+                                Email = x.Email,
+                                FirstName = x.FirstName,
+                                LastName = x.LastName,
+                                CreationDate = x.CreationDate,
+                                Gender = x.Gender,
+                                ImageProfile = x.ImageProfile,
+                                IsِActive = x.IsِActive,
+                                userType = x.UserType,
+                                ModifiedDate = x.ModifiedDate,
+                            };
 
                 return await Clien.ToListAsync();
 
-            } else if (await IsAdmin(UserId)) {
+            }
+            else if (await IsAdmin(UserId))
+            {
 
                 var user = from x in _context.User
-                                           orderby x.CreationDate descending
-                                           select new GetUserAllDTO
-                                           {
-
-                                               UserId = x.UserId,
-                                               Email = x.Email,
-                                               FirstName = x.FirstName,
-                                               LastName = x.LastName,
-                                               CreationDate = x.CreationDate,
-                                               Gender = x.Gender,
-                                               ImageProfile = x.ImageProfile,
-                                               IsِActive = x.IsِActive,
-                                               userType = x.UserType,
-                                               ModifiedDate = x.ModifiedDate,
-                                           };
-
-
-                return await user.ToListAsync() ;
-            } else {
-
-                var Providers = from x in _context.User
-                           where x.UserType == UserType.Provider
                            orderby x.CreationDate descending
                            select new GetUserAllDTO
                            {
@@ -95,16 +65,47 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                ModifiedDate = x.ModifiedDate,
                            };
 
+
+                return await user.ToListAsync();
+            }
+            else
+            {
+
+                var Providers = from x in _context.User
+                                where x.UserType == UserType.Provider
+                                orderby x.CreationDate descending
+                                select new GetUserAllDTO
+                                {
+
+                                    UserId = x.UserId,
+                                    Email = x.Email,
+                                    FirstName = x.FirstName,
+                                    LastName = x.LastName,
+                                    CreationDate = x.CreationDate,
+                                    Gender = x.Gender,
+                                    ImageProfile = x.ImageProfile,
+                                    IsِActive = x.IsِActive,
+                                    userType = x.UserType,
+                                    ModifiedDate = x.ModifiedDate,
+                                };
+
                 return await Providers.ToListAsync();
             }
 
-            
+
         }
 
         public async Task<User> GetUserById(int UserId)
         {
-            var user = await _context.User.FirstOrDefaultAsync(x=>x.UserId.Equals(UserId));
+            var user = await _context.User.FirstOrDefaultAsync(x => x.UserId.Equals(UserId));
             return user;
+        }
+        public async Task<int> CreateUser(User Inpute)
+        {
+            _context.User.Add(Inpute);
+            await _context.SaveChangesAsync();
+            return Inpute.UserId;
+
         }
 
         public async Task UpdateUser(User Inpute)
@@ -113,6 +114,16 @@ namespace ProjectFinalWebIbrahim_infra.Repository
             _context.User.Update(Inpute);
             await _context.SaveChangesAsync();
         }
+        public async Task DeleteUser(User Inpute)
+        {
+            _context.User.Remove(Inpute);
+            await _context.SaveChangesAsync();
+
+        }
+
+
+
+
 
         public async Task<bool> IsAdmin(int UserId)
         {

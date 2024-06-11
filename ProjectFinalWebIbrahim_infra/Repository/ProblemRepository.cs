@@ -5,6 +5,7 @@ using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.Model.Entity;
+using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Repository
 {
@@ -16,22 +17,14 @@ namespace ProjectFinalWebIbrahim_infra.Repository
             _context = context;
 
         }
-        public async Task CreateProblem(Problem Inpute)
-        {
-            _context.Problem.Add(Inpute);
-            await _context.SaveChangesAsync();
-        }
 
-        public async Task DeleteProblem(Problem Inpute)
-        {
-            _context.Problem.Remove(Inpute);
-            await _context.SaveChangesAsync();
-        }
 
         public async Task<List<GetProblemAllDTO>> GetProblemAll()
         {
 
-            try {
+            try
+            {
+                Log.Information("Problem Is strating GetProblemAll");
 
                 var Problems = from p in _context.Problem
                                join x in _context.Order
@@ -39,11 +32,11 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                select new GetProblemAllDTO
                                {
                                    OrderId = p.OrderId,
-                                   ProblemId=p.ProblemId,
-                                   Title = p.Title, 
-                                   Purpose  = p.Purpose,
-                                   IsِActive=p.IsِActive,
-                                 
+                                   ProblemId = p.ProblemId,
+                                   Title = p.Title,
+                                   Purpose = p.Purpose,
+                                   IsِActive = p.IsِActive,
+
                                };
 
 
@@ -52,28 +45,31 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                 if (Problem != null)
                 {
 
+                    Log.Information("Problem Is Geted");
+                    Log.Debug($"Debugging Get Problem By Id Has been Finised Successfully");
+
                     return Problem;
                 }
                 else
                 {
-
+                    Log.Error($"Problem Not Found");
                     throw new ArgumentNullException("Problem", "Not Found Problem");
 
                 }
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Problem Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
 
@@ -96,6 +92,8 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
             try
             {
+                Log.Information("Problem Is strating GetProblemById");
+
                 var Problem = from p in _context.Problem
                               where p.ProblemId == ProblemId
                               join o in _context.Order
@@ -119,32 +117,39 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                 var qu = await Problem.LastOrDefaultAsync();
                 if (qu != null)
                 {
+                    Log.Information("Problem Is Geted");
+                    Log.Debug($"Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = {qu.ProblemId}");
 
                     return qu;
                 }
                 else
                 {
-
+                    Log.Error($"Problem Not Found");
                     throw new ArgumentNullException("Problem", "Not Found Problem");
 
                 }
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Problem Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
 
+        }
+        public async Task CreateProblem(Problem Inpute)
+        {
+            _context.Problem.Add(Inpute);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateProblem(Problem Inpute)
@@ -152,5 +157,14 @@ namespace ProjectFinalWebIbrahim_infra.Repository
             _context.Problem.Update(Inpute);
             await _context.SaveChangesAsync();
         }
+        public async Task DeleteProblem(Problem Inpute)
+        {
+            _context.Problem.Remove(Inpute);
+            await _context.SaveChangesAsync();
+        }
+
+
+
+ 
     }
 }

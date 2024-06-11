@@ -1,12 +1,14 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
+using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -21,12 +23,26 @@ namespace ProjectFinalWebIbrahim_infra.Services
             _IUserRepository = iUserRepository; 
         }
 
+
+        //admin
+        public async Task<List<GetProblemAllDTO>> GetProblemAll()
+        {
+            return await _IProblemRepository.GetProblemAll();
+        }
+
+        //admin
+        public async Task<GetProblemDetailDTO> GetProblemById(int ProblemId)
+        {
+            return await _IProblemRepository.GetProblemById(ProblemId);
+        }
+
+
         //client
-        public  async Task<string> CreateProblem(CreateProblemDTO Inpute)
+        public async Task<string> CreateProblem(CreateProblemDTO Inpute)
         {
             try
             {
-               
+                Log.Information("Order Is In Createing");
 
 
                 var Problem = new Problem
@@ -49,11 +65,15 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     await _IProblemRepository.CreateProblem(Problem);
 
+                    Log.Information("Problem Is Created");
+                    Log.Debug($"Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = {Problem.ProblemId}");
+
+
                     return "AddProblem Has been Finised Successfully ";
                 }
                 else
                 {
-
+                    Log.Error($"Problem Not Found");
                     throw new ArgumentNullException("Problem", "Not Found Problem");
 
                 }
@@ -62,77 +82,21 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Problem Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
 
-
-        //admin
-        public async Task<string> DeleteProblem(int ProblemId)
-        {
-            try
-            {
-
-                var Problem = await _IProblemRepository.GetProblemByIdServ(ProblemId);
-
-                if (Problem != null)
-                {
-
-                    await _IProblemRepository.DeleteProblem(Problem);
-
-                    return "DeleteProblem success";
-
-                }
-                else
-                {
-
-                    throw new ArgumentNullException("Problem", "Not Found Problem");
-
-                }
-
-
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"Exception: {ex.Message}");
-            }
-        }
-
-
-
-        //admin
-        public async Task<List<GetProblemAllDTO>> GetProblemAll()
-        {
-            return await _IProblemRepository.GetProblemAll();
-        }
-
-        //admin
-        public async Task<GetProblemDetailDTO> GetProblemById(int ProblemId)
-        {
-            return await _IProblemRepository.GetProblemById(ProblemId);
-        }
 
         //not found 
         public async Task<string> UpdateProblem(UpdateProblemDTO Inpute)
@@ -140,7 +104,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             try
             {
 
-
+                Log.Information("Order Is In Updateing");
 
                 var Problem = await _IProblemRepository.GetProblemByIdServ(Inpute.ProblemId);
 
@@ -156,12 +120,15 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     await _IProblemRepository.UpdateProblem(Problem);
 
+                    Log.Information("Problem Is Updated");
+                    Log.Debug($"Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = {Problem.ProblemId}");
+
                     return "UpdateProblem success";
 
                 }
                 else
                 {
-
+                    Log.Error($"Problem Not Found");
                     throw new ArgumentNullException("Problem", "Not Found Problem");
 
                 }
@@ -171,20 +138,70 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Problem Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
+
+
+
+
+        //admin
+        public async Task<string> DeleteProblem(int ProblemId)
+        {
+            try
+            {
+                Log.Information("Order Is In Deleteing");
+
+                var Problem = await _IProblemRepository.GetProblemByIdServ(ProblemId);
+
+                if (Problem != null)
+                {
+
+                    await _IProblemRepository.DeleteProblem(Problem);
+
+                    Log.Information("Problem Is Deleted");
+                    Log.Debug($"Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = {Problem.ProblemId}");
+
+                    return "DeleteProblem success";
+
+                }
+                else
+                {
+                    Log.Error($"Problem Not Found");
+                    throw new ArgumentNullException("Problem", "Not Found Problem");
+
+                }
+
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                Log.Error($"Problem Not Found: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Log.Error($"An error occurred in database: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"An error occurred Exception: {ex.Message}");
+                throw new Exception($"Exception: {ex.Message}");
+            }
+        }
+
     }
 }
 

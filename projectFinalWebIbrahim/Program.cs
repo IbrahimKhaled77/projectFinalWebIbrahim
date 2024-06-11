@@ -8,9 +8,37 @@ using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
 using ProjectFinalWebIbrahim_infra.Services;
+using Serilog;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "ProjectFinalWebIbrahim_API",
+        Version = "v1",
+        Description = "Application programming interface (API) for managing services, allowing the service provider to provide enabled services and the customer to request the service he needs through the website.",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Ibrahim Khaled",
+            Email = "Theghost12345678902001@gmail.com",
+            Url = new Uri("https://github.com/IbrahimKhaled77"),
+        }
+    });
+    /**/
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
+
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,6 +61,15 @@ builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 
+var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+
+Serilog.Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .WriteTo.File(configuration.GetValue<string>("LoggerFilePaths"), rollingInterval: RollingInterval.Day)
+    .MinimumLevel.Debug()
+    .CreateLogger();
+
 
 
 var app = builder.Build();
@@ -49,7 +86,19 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+try
+{
+    Log.Information("Starting web host");
+    app.Run();
 
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
 
+}
+finally
+{
 
-app.Run();
+    Log.CloseAndFlush();
+}

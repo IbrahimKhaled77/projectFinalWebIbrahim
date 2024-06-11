@@ -17,25 +17,6 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
         }
 
-        //Exception
-        public async Task<Login> LoginBoolen(string  emial,string password)
-        {
-          var login = await _context.Login.SingleOrDefaultAsync(x=>x.UserName.Equals(emial) && x.Password.Equals(password));
-            if (login != null)
-            {
-                return login;
-            }
-            else
-            {
-
-                throw new NotImplementedException("This method LoginBoolen is not implemented for non-empty inputs");
-            }
-        }
-        public async Task UpdateLogin(Login login)
-        {
-            _context.Login.Update(login);
-            await _context.SaveChangesAsync();
-        }
 
         //ADDLogin
         public async Task Login(Login login)
@@ -70,11 +51,27 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
            
         }
+
+
+        //Exception
+        public async Task<Login> LoginBoolen(string emial, string password)
+        {
+            var login = await _context.Login.SingleOrDefaultAsync(x => x.UserName.Equals(emial) && x.Password.Equals(password));
+            if (login != null)
+            {
+                return login;
+            }
+            else
+            {
+
+                throw new NotImplementedException("This method LoginBoolen is not implemented for non-empty inputs");
+            }
+        }
+        public async Task UpdateLogin(Login login)
+        {
+            _context.Login.Update(login);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
-/*
-    public async Task<Login> LoginGetById(int UserId)
-    {
-        return await _context.Login.FirstOrDefaultAsync(x => x.IsLoggedIn == true && x.UsersId == UserId);
-
-    }*/

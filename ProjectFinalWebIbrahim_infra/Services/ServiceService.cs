@@ -1,12 +1,14 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
+using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -22,6 +24,18 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         }
 
+        //admin and client 
+        public async Task<List<GetServiceAllDTO>> GetServiceAll()
+        {
+            return await _IServiceRepository.GetServiceAll();
+        }
+
+
+        //all user 
+        public async Task<GetServiceDetailDTO> GetServiceById(int ServiceId)
+        {
+            return await _IServiceRepository.GetServiceByIdSrev(ServiceId);
+        }
 
         //proverd
         //price and afterprice and quantityunit
@@ -29,6 +43,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
             try
             {
+                Log.Information("Service Is starting Create");
 
                 var Service = new Service
                 {
@@ -56,11 +71,14 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     await _IServiceRepository.CreateService(Service);
 
+                    Log.Information("Service Is Created");
+                    Log.Debug($"Debugging CreateService Has been Finised Successfully With Service ID  = {Service.ServiceId}");
+
                     return "AddService Has been Finised Successfully ";
                 }
                 else
                 {
-
+                    Log.Error($"Service Not Found");
                     throw new ArgumentNullException("Service", "Not Found Service");
 
                 }
@@ -69,85 +87,31 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Service Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
+
         }
 
-        //admin // provider
-        public async Task<string> DeleteService(int ServiceId)
-        {
-            try
-            {
-
-                var Service = await _IServiceRepository.GetServiceById(ServiceId);
-
-                if (Service != null)
-                {
-
-                    await _IServiceRepository.DeleteService(Service);
-
-                    return "DeleteService success";
-
-                }
-                else
-                {
-
-                    throw new ArgumentNullException("Service", "Not Found Service");
-
-                }
-
-
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"Exception: {ex.Message}");
-            }
-        }
-
-
-        //admin and client 
-        public async Task<List<GetServiceAllDTO>> GetServiceAll()
-        {
-            return await _IServiceRepository.GetServiceAll();
-        }
-
-
-        //all user 
-        public async Task<GetServiceDetailDTO> GetServiceById(int ServiceId)
-        {
-            return await _IServiceRepository.GetServiceByIdSrev(ServiceId);
-        }
 
 
         //provider
-        public async  Task<string> UpdateService(UpdateServiceDTO Inpute)
+        public async Task<string> UpdateService(UpdateServiceDTO Inpute)
         {
             try
             {
 
-
+                Log.Information("Service Is starting Updated");
 
                 var Service = await _IServiceRepository.GetServiceById(Inpute.ServiceId);
 
@@ -169,13 +133,15 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
 
                     await _IServiceRepository.UpdateService(Service);
+                    Log.Information("Service Is Updated");
+                    Log.Debug($"Debugging UpdateService Has been Finised Successfully With Order ID  = {Service.ServiceId}");
 
                     return "UpdateService success";
 
                 }
                 else
                 {
-
+                    Log.Error($"Service Not Found");
                     throw new ArgumentNullException("Service", "Not Found Service");
 
                 }
@@ -185,20 +151,71 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Service Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
+
+        //admin // provider
+        public async Task<string> DeleteService(int ServiceId)
+        {
+            try
+            {
+                Log.Information("Service Is starting Delete");
+                var Service = await _IServiceRepository.GetServiceById(ServiceId);
+
+                if (Service != null)
+                {
+
+                    await _IServiceRepository.DeleteService(Service);
+
+                    Log.Information("Service Is Deleted");
+                    Log.Debug($"Debugging DeleteService Has been Finised Successfully With Service ID  = {Service.ServiceId}");
+
+                    return "DeleteService success";
+
+                }
+                else
+                {
+                    Log.Error($"Service Not Found ");
+                    throw new ArgumentNullException("Service", "Not Found Service");
+
+                }
+
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                Log.Error($"Service Not Found: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Log.Error($"An error occurred in database: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"An error occurred Exception: {ex.Message}");
+                throw new Exception($"Exception: {ex.Message}");
+            }
+        }
+
+
+ 
+
+
+ 
 
 
     }

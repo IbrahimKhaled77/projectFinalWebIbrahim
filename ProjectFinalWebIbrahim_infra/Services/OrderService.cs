@@ -6,6 +6,7 @@ using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
+using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -21,12 +22,25 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         }
 
+
+        //provider and Client
+        public async Task<List<GetOrderAllDTO>> GetOrderAll()
+        {
+            return await _IOrderRepository.GetOrderAll();
+        }
+
+        //Admin and provider and Client 
+        public async Task<GetOrderDetailDTO> GetOrderById(int OrderId)
+        {
+            return await _IOrderRepository.GetOrderByIdServ(OrderId);
+        }
+
         //client
         public async Task<string> CreateOrder(CreateOrderDTO Inpute)
         {
             try
             {
-
+                Log.Information("Order Is strating CreateOrder");
                 var Order = new Order
                 {
 
@@ -48,30 +62,92 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     await _IOrderRepository.CreateOrder(Order);
 
+                    Log.Information("Order Is Created");
+                    Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
+
                     return "AddOrder Has been Finised Successfully ";
                 }
                 else
                 {
-
+                    Log.Error($"Order Not Found");
                     throw new ArgumentNullException("Order", "Not Found Order");
 
                 }
 
 
+
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Order Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
+                Log.Error($"An error occurred Exception: {ex.Message}");
+                throw new Exception($"Exception: {ex.Message}");
+            }
+        }
 
+
+
+        //Provider
+        public async Task<string> UpdateOrder(UpdateOrderDTO Inpute)
+        {
+            try
+            {
+
+                Log.Information("Order Is strating UpdateOrder");
+
+                var Order = await _IOrderRepository.GetOrderById(Inpute.OrderId);
+
+                if (Order != null)
+                {
+                    Order.ModifiedDate = Inpute.ModifiedDate;
+                    Order.Rate = Inpute.Rate;
+                    Order.Status = Inpute.Status;
+                    Order.IsِActive = Inpute.IsِActive;
+                    Order.UsersId = Inpute.UsersId;
+
+
+
+                    await _IOrderRepository.UpdateOrder(Order);
+
+
+                    Log.Information("Order Is Updated");
+                    Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
+
+                    return "UpdateOrder success";
+
+                }
+                else
+                {
+                    Log.Error($"Order Not Found");
+                    throw new ArgumentNullException("Order", "Not Found Order");
+
+                }
+
+
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                Log.Error($"Order Not Found: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Log.Error($"An error occurred in database: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
@@ -82,6 +158,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
             try
             {
+                Log.Information("Order Is strating DeleteOrder");
 
                 var Order = await _IOrderRepository.GetOrderById(OrderId);
 
@@ -90,76 +167,16 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     await _IOrderRepository.DeleteOrder(Order);
 
-                    return "DeleteOrder success";
+
+                    Log.Information("Order Is Deleted");
+                    Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
+
+                    return "Order success";
 
                 }
                 else
                 {
-
-                    throw new ArgumentNullException("Order", "Not Found Order");
-
-                }
-
-
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"Exception: {ex.Message}");
-            }
-        }
-
-        //provider and Client
-        public async Task<List<GetOrderAllDTO>> GetOrderAll()
-        {
-            return await _IOrderRepository.GetOrderAll();
-        }
-
-        //Admin and provider and Client 
-        public async Task<GetOrderDetailDTO> GetOrderById(int OrderId)
-        {
-            return await _IOrderRepository.GetOrderByIdServ(OrderId);
-        }
-
-
-        //Provider
-        public async  Task<string> UpdateOrder(UpdateOrderDTO Inpute)
-        {
-            try
-            {
-
-
-
-                var Order = await _IOrderRepository.GetOrderById(Inpute.OrderId);
-
-                if (Order != null)
-                {
-                    Order.ModifiedDate = Inpute.ModifiedDate;
-                    Order.Rate= Inpute.Rate;
-                    Order.Status=Inpute.Status;
-                    Order.IsِActive = Inpute.IsِActive;
-                    Order.UsersId= Inpute.UsersId;
-
-
-
-                    await _IOrderRepository.UpdateOrder(Order);
-
-                    return "UpdateOrder success";
-
-                }
-                else
-                {
-
+                    Log.Error($"Order Not Found");
                     throw new ArgumentNullException("Order", "Not Found Order");
 
                 }
@@ -169,19 +186,24 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Order Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
+
+
+
+
+    
     }
 }

@@ -5,6 +5,7 @@ using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
+using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -17,11 +18,84 @@ namespace ProjectFinalWebIbrahim_infra.Services
             _ICategoryRepository= ICategoryRepository;
         }
 
+
+        //Users all
+        public async Task<List<GetCategoryAllDTO>> GetCategoryAll()
+        {
+            return await _ICategoryRepository.GetCategoryAll();
+
+
+        }
+
+        //not QA
+        public async Task<GetCategoryAllDTO> GetCategoryById(int CategoryId)
+        {
+
+            try
+            {
+
+                Log.Information("Category Is strating GetCategoryById");
+
+                var Category = await _ICategoryRepository.GetCategoryById(CategoryId);
+
+                if (Category != null)
+                {
+
+
+                    var Categor = new GetCategoryAllDTO()
+                    {
+                        CategoryId = Category.CategoryId,
+                        CreationDate = Category.CreationDate,
+                        Description = Category.Description,
+                        imageTitleCategory = Category.imageTitleCategory,
+                        ModifiedDate = Category.ModifiedDate,
+                        Title = Category.Title,
+                        IsِActive = Category.IsِActive,
+                    };
+
+
+                    Log.Information("Category Is GetCategoryById");
+                    Log.Debug($"Debugging Get Category By Id Has been Finised Successfully With Category ID  = {Category.CategoryId}");
+
+                    return Categor;
+
+                }
+                else
+                {
+                    Log.Error($"Category Not Found");
+                    throw new ArgumentNullException("Category", "Not Found Category");
+
+                }
+
+
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                Log.Error($"Category Not Found: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Log.Error($"An error occurred in database: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"An error occurred Exception: {ex.Message}");
+                throw new Exception($"Exception: {ex.Message}");
+            }
+
+
+        }
+
         //admin
         public async Task<string> CreateCategory(CreateCategoryDTO Inpute)
         {
             
             try {
+
+                Log.Information("Order Is strating CreateCategory");
 
                 var Categor = new Category {
 
@@ -38,138 +112,45 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     await _ICategoryRepository.CreateCategory(Categor);
 
+                    Log.Information("Category Is CreateCategory");
+                    Log.Debug($"Debugging Get Category By Id Has been Finised Successfully With Category ID  = {Categor.CategoryId}");
+
                     return "AddCategory Has been Finised Successfully ";
                 }
-                else {
-
-                    throw new ArgumentNullException("Category", "Not Found Category");
-
-                }
-
-
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"Exception: {ex.Message}");
-            }
-        }
-
-        //admin
-        public async Task<string> DeleteCategory(int CategoryId)
-        {
-            try {
-
-                var Category = await _ICategoryRepository.GetCategoryById(CategoryId);
-
-                if (Category != null)
+                else
                 {
-                   
-                    await _ICategoryRepository.DeleteCategory(Category);
-
-                    return "DeleteCategory success";
-                    
-                }
-                else {
-
+                    Log.Error($"Category Not Found");
                     throw new ArgumentNullException("Category", "Not Found Category");
 
                 }
 
 
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"Exception: {ex.Message}");
-            }
-        }
-
-        //Users all
-        public async Task<List<GetCategoryAllDTO>> GetCategoryAll()
-        {
-          return await _ICategoryRepository.GetCategoryAll();
-
-
-        }
-
-        //not QA
-        public async Task<GetCategoryAllDTO> GetCategoryById(int CategoryId)
-        {
-
-            try {
-
-                var Category = await _ICategoryRepository.GetCategoryById(CategoryId);
-
-                if (Category !=null) {
-
-
-                    var Categor=new GetCategoryAllDTO() { 
-                            CategoryId=Category.CategoryId,
-                            CreationDate=Category.CreationDate,
-                            Description=Category.Description,
-                            imageTitleCategory=Category.imageTitleCategory,
-                            ModifiedDate=Category.ModifiedDate,
-                            Title=Category.Title,
-                            IsِActive = Category.IsِActive,
-                    };
-
-                    return Categor;
-
-                } 
-                else {
-
-                    throw new ArgumentNullException("Category", "Not Found Category");
-
-                }
-
 
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Category Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
-
-
         }
 
         //admin
         public async Task<string> UpdateCategory(UpdateCategoryDTO Inpute)
         {
-            try {
+            try
+            {
 
-
+                Log.Information("Category Is strating UpdateCategory");
 
                 var Category = await _ICategoryRepository.GetCategoryById(Inpute.CategoryId);
 
@@ -185,12 +166,15 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     await _ICategoryRepository.UpdateCategory(Category);
 
+                    Log.Information("Category Is Updated");
+                    Log.Debug($"Debugging Get Category By Id Has been Finised Successfully With Category ID  = {Category.CategoryId}");
+
                     return "UpdateCategory success";
 
                 }
                 else
                 {
-
+                    Log.Error($"Category Not Found");
                     throw new ArgumentNullException("Category", "Not Found Category");
 
                 }
@@ -200,19 +184,71 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
             catch (ArgumentNullException ex)
             {
-
+                Log.Error($"Category Not Found: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (DbUpdateException ex)
             {
-
+                Log.Error($"An error occurred in database: {ex.Message}");
                 throw new DbUpdateException($"Database Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
+
+        //admin
+        public async Task<string> DeleteCategory(int CategoryId)
+        {
+            try {
+
+                Log.Information("Category Is strating DeleteCategory");
+
+                var Category = await _ICategoryRepository.GetCategoryById(CategoryId);
+
+                if (Category != null)
+                {
+                   
+                    await _ICategoryRepository.DeleteCategory(Category);
+
+
+                    Log.Information("Category Is DeleteCategory");
+                    Log.Debug($"Debugging Get Category By Id Has been Finised Successfully With Category ID  = {Category.CategoryId}");
+
+                    return "DeleteCategory success";
+                    
+                }
+                else
+                {
+                    Log.Error($"Category Not Found");
+                    throw new ArgumentNullException("Category", "Not Found Category");
+
+                }
+
+
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                Log.Error($"Category Not Found: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Log.Error($"An error occurred in database: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"An error occurred Exception: {ex.Message}");
+                throw new Exception($"Exception: {ex.Message}");
+            }
+        }
+
+ 
+
+     
     }
 }

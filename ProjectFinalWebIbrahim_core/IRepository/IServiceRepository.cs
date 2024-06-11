@@ -7,18 +7,22 @@ namespace ProjectFinalWebIbrahim_core.IRepository
     public interface IServiceRepository
     {
 
-        Task CreateService(Service Inpute);
 
-        Task DeleteService(Service Inpute);
-
-        Task UpdateService(Service Inpute);
-
-
-        Task<Service> GetServiceById(int ServiceId);
 
         Task<List<GetServiceAllDTO>> GetServiceAll();
 
-         Task<GetServiceDetailDTO> GetServiceByIdSrev(int ServiceId);
+        Task<GetServiceDetailDTO> GetServiceByIdSrev(int ServiceId);
+
+        Task<Service> GetServiceById(int ServiceId);
+        Task CreateService(Service Inpute);
+
+        Task UpdateService(Service Inpute);
+        Task DeleteService(Service Inpute);
+
+
+
+
+    
 
 
 

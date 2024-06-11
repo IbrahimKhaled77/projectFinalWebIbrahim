@@ -25,6 +25,27 @@ namespace projectFinalWebIbrahim.Controllers
             _IOrderService = OrderService;
         }
 
+        #region User
+        #region  HttpGet GetAllUsers
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post api/GetAllUsers
+        ///     {        
+        ///        "UserId": "Enter Your UserId Here (Required)",
+        ///        
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Get All Users Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If an exception occurs (Exception)</response>    
+        ///<summary>
+        /// I will retrieve all the Users present on the application.
+        /// </summary>
+        /// <param name="UserId">The UserId of the  Customer to Get All Users (Required).</param>
+        /// <returns>List of Users </returns>
         [HttpGet]
         [Route("[action]/{UserId}")]
         public async Task<IActionResult> GetAllUsers([FromRoute] int UserId)
@@ -32,7 +53,7 @@ namespace projectFinalWebIbrahim.Controllers
             try
             {
 
-                return StatusCode(201, await _userService.GetUserAll(UserId));
+                return StatusCode(200, await _userService.GetUserAll(UserId));
 
             }
             catch (DbUpdateException ex)
@@ -51,13 +72,35 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+
+        #endregion
+
+        #region  HttpGet GetUserById
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Get api/GetUserById
+        ///     {        
+        ///       "UserId": "Enter Your User ID Here (Required)", 
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Get  User by UserID Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If the error was occured  (Internal Server Error OR Database)</response>   
+        /// <response code="400">If an exception occurs (Exception)</response>       
+        ///<summary>
+        /// Retrieves a User by ID from the application
+        /// </summary>
+        /// <param name="UserId">The ID of the User to retrieve (Required).</param> 
+        /// <returns>The User information. </returns>
         [HttpGet]
-        [Route("[action]/{userId}")]
-        public async Task<IActionResult> GetUserById([FromRoute] int userId)
+        [Route("[action]/{UserId}")]
+        public async Task<IActionResult> GetUserById([FromRoute] int UserId)
         {
             try
             {
-                return StatusCode(201, await _userService.GetUserById(userId)); 
+                return StatusCode(200, await _userService.GetUserById(UserId)); 
 
             }
             catch (DbUpdateException ex)
@@ -76,6 +119,37 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+
+        #endregion
+
+
+        #region  HttpPost CreateUser
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post api/CreateUser
+        ///     {        
+        ///        "FirstName": "Enter Your First Name Here (Required)",
+        ///        "LastName": "Enter Your Last Name Here (Required)",
+        ///        "Email": "Enter Your Email Here (Required)",
+        ///        "Password": "Enter Your Password Here (Required)",
+        ///        "Phone": "Enter Your Phone Number Here (Required)",
+        ///        "Gender": "Select Your Gender (Required)",
+        ///        "BirthDate": "Enter Your Birth Date Here (Required)",
+        ///        "UserType": "Select Your User Type(Admin,Client,Provider) (Required)",
+        ///        "IsActive": "Indicate if the account is active (Required)"
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="201">Returns   Create User  Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Adds a new User to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO DTO)
@@ -101,6 +175,34 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+
+        #endregion
+
+        #region  HttpPut UpdateUser
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Put api/UpdateUser
+        ///     {     
+        ///        "UserId": "Enter your User ID whose information you want to update",
+        ///        "FirstName": "Enter Your First Name Here (Required)",
+        ///        "LastName": "Enter Your Last Name Here (Required)",
+        ///        "Email": "Enter Your Email Here (Required)",
+        ///        "Phone": "Enter Your Phone Number Here (Required)",
+        ///        "ImageProfile": "Enter URL of your profile image (Optional)",
+        ///        "BirthDate": "Enter Your Birth Date Here (Required)",
+        ///        "IsActive": "Indicate if the account is active (Required)"
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Update User Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Update a  User to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
         [HttpPut]
         [Route("[action]")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO updateDTO)
@@ -126,7 +228,27 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+        #endregion
 
+        #region  HttpDelete Deleteuser
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Delete api/Deleteuser
+        ///     {     
+        ///        "userId": "Enter your user  ID whose information you want to Delete",
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Delete user Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Delete a  user from the database.
+        /// </summary>
+        /// <param name="userId">The ID of the user to Delete (Required).</param>
+        /// <returns>A message indicating the success of the operation </returns>
 
         [HttpDelete]
         [Route("[action]/{userId}")]
@@ -154,13 +276,41 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+        #endregion
+
+        #endregion
+
+
+        #region Authantication
+
+        #region  HttpPost Login
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post api/Login
+        ///     {        
+        ///        "Email": "Enter Your Email Here (Required)",
+        ///        "password": "Enter Your password Here (Required)",
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="201">Returns  Login  Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Adds a new Token customer to the database.
+        /// </summary>
+        /// <param name="DTO">The Email and Password of the  User to Login (Required).</param>
+        /// <returns>A message indicating the success of the operation </returns>
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> Login([FromBody] CreateLoginDTO DTO)
         {
             try
             {
-                return StatusCode(200, await _LoginService.Login(DTO));
+                return StatusCode(201, await _LoginService.Login(DTO));
 
             }
             catch (DbUpdateException ex)
@@ -179,14 +329,34 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+        #endregion
+
+        #region HttpPut Logout
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post api/Logout
+        ///     {        
+        ///       "UserId": "Enter the  user  UserId (Required)",
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Logout  Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Remove a Token User to the database And IsActive.
+        /// </summary>
+        /// <param name="UserId">The User Id  to Logout (Required).</param>
+        /// <returns>A message indicating the success of the operation </returns>
 
         [HttpPut]
         [Route("Logout")]
-        public async Task<IActionResult> Logout(int UserId)
+        public async Task<IActionResult> Logout([FromRoute]int UserId)
         {
             try
             {
-                return StatusCode(201, await _LoginService.Logout(UserId));
+                return StatusCode(200, await _LoginService.Logout(UserId));
 
             }
             catch (DbUpdateException ex)
@@ -205,6 +375,28 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+
+        #endregion
+
+        #region HttpPut ResetPassword
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post api/ResetPassword
+        ///     {        
+        ///       "Email": "Enter the  user  Email ",
+        ///       "NewPassword": "Enter the  user  NewPassword ",
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  ResetPassword  Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Adds a new Password  to customer by Email .
+        /// </summary>
+        /// <param name="ResetPasswordDTO">The email and new password of the user to reset (Required).</param>
+        /// <returns>A message indicating the success of the operation </returns>
 
         [HttpPut]
         [Route("ResetPassword")]
@@ -212,7 +404,7 @@ namespace projectFinalWebIbrahim.Controllers
         {
             try
             {
-                return StatusCode(201, await _LoginService.ResetPassword(ResetPasswordDTO));
+                return StatusCode(200, await _LoginService.ResetPassword(ResetPasswordDTO));
 
             }
             catch (DbUpdateException ex)
@@ -232,6 +424,31 @@ namespace projectFinalWebIbrahim.Controllers
             }
         }
 
+        #endregion
+
+
+        #endregion
+
+        #region Service
+        #region HttpGet GetServiceById
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Get api/GetServiceById
+        ///     {        
+        ///       "UserId": "Enter Your User ID Here (Required)", 
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Get  User by UserID Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If the error was occured  (Internal Server Error OR Database)</response>   
+        /// <response code="400">If an exception occurs (Exception)</response>       
+        ///<summary>
+        /// Retrieves a User by ID from the application
+        /// </summary>
+        /// <param name="userId">The ID of the User to retrieve (Required).</param> 
+        /// <returns>The User information. </returns>
         //Service
         [HttpGet]
         [Route("[action]/{userId}")]
@@ -258,11 +475,20 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+        #endregion
 
+        #endregion
 
-        //Category
-
-
+        #region Category
+        #region  HttpGet  GetCategoryAll
+        /// <response code="200">Returns  Get All Category Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If an exception occurs (Exception)</response>    
+        ///<summary>
+        /// I will retrieve all the Category present on the application.
+        /// </summary>
+        /// <returns>List of Category </returns>
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> GetCategoryAll()
@@ -289,6 +515,32 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+        #endregion
+        #endregion
+
+
+
+        #region Order
+        #region HttpGet GetOrderById
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Get api/GetOrderById
+        ///     {        
+        ///       "OrderId": "Enter Your Order ID Here (Required)", 
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Get  Order by OrderID Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If the error was occured  (Internal Server Error OR Database)</response>   
+        /// <response code="400">If an exception occurs (Exception)</response>       
+        ///<summary>
+        /// Retrieves a User by ID from the application
+        /// </summary>
+        /// <param name="OrderId">The ID of the Order to retrieve (Required).</param> 
+        /// <returns>The Order information. </returns>
+
 
         //Order
         [HttpGet]
@@ -316,5 +568,9 @@ namespace projectFinalWebIbrahim.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+        #endregion
+        #endregion
+
+
     }
 }

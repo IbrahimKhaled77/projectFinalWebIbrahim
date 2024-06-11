@@ -1,11 +1,13 @@
 ﻿
 
 
+using Org.BouncyCastle.Asn1.X509;
 using ProjectFinalWebIbrahim_core.Dtos.LoginDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 
 using ProjectFinalWebIbrahim_infra.Repository;
+using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -21,7 +23,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
         public async Task<string> Login(CreateLoginDTO Inpute)
         {
             try {
-
+                Log.Information("Starting Login");
                 if (string.IsNullOrEmpty(Inpute.UserName))
                     throw new Exception("Email Is Required");
 
@@ -45,21 +47,26 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         login.LastLoginTime = DateTime.Now;
                         await _ILoginRepository.UpdateLogin(login);
 
-                        return "login is true";
+                        Log.Information("Login Is In Finised");
+                        Log.Debug($"Debugging Login Has been Finised Successfully ");
+
+                        return "login is Successfully";
                     }
                     else {
                         login.IsLoggedIn = false;
 
                         //update login
                         await _ILoginRepository.UpdateLogin(login);
-
+                        Log.Information("User Is not Found");
+                        Log.Debug($"Youre Session Has been Closed Please Login in Again");
                         return "Youre Session Has been Closed Please Login in Again";
                     }
 
 
                 }
                 else {
-
+                    Log.Information("Either Email or Password is Incorrect");
+                    Log.Debug($"Either Email or Password is Incorrect");
                     return "Either Email or Password is Incorrect";
 
                 }
@@ -69,7 +76,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
             catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
 
             }
@@ -81,12 +88,12 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
 
             try {
-
+                Log.Information("Starting Logout");
                 var logout = await _ILoginRepository.Logout(UserId);
 
                 if (logout == null)
                 {
-
+                    Log.Error($"An error occurred Exception: You Must Login In To Your Account");
                     throw new Exception("You Must Login In To Your Account");
 
                 }
@@ -94,6 +101,11 @@ namespace ProjectFinalWebIbrahim_infra.Services
                  
                     logout.IsLoggedIn = false;
                     await _ILoginRepository.UpdateLogin(logout);
+
+
+                    Log.Information("Logout Is In Finised");
+                    Log.Debug($"Debugging Login Has been Finised Successfully With finalToken  {logout.UsersId} ");
+
 
                     return "logout successful";
 
@@ -104,7 +116,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
             }
             catch (Exception ex) {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
 
             }
@@ -118,7 +130,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
             try
             {
-
+                Log.Information("Starting ResetPassword");
                 if (Inpute.NewPassword != null && Inpute.UserName != null)
                 {
 
@@ -132,23 +144,25 @@ namespace ProjectFinalWebIbrahim_infra.Services
                       //  await Updateuser();
                       await _ILoginRepository.UpdateLogin(user);
 
-                             return " Reset Password User Is In Finised";
+                        Log.Information(" ResetPassword Is In Finised");
+                        Log.Debug($"Debugging ResetPassword Has been Finised Successfully With User  {user.UsersId} ");
+                        return " Reset Password User Is In Finised";
 
                     }
                     else {
-
+                        Log.Error($"An error occurred Exception: ERROR NOt Found User to ResetPassword ");
                         throw new Exception("ERROR NOt Found User to ResetPassword ");
 
                     }
 
                 }
                 else {
-
+                    Log.Error($"An error occurred Exception: Please Fill All Information");
                     throw new NotImplementedException("Please Fill All Information");
                 }
             }catch (Exception ex)
             {
-
+                Log.Error($"An error occurred Exception: {ex.Message}");
                 throw new Exception($"Exception: {ex.Message}");
 
             }
