@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectFinalWebIbrahim_core.Context;
 
@@ -80,13 +81,11 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("UsersId")
                         .HasColumnType("int");
@@ -115,6 +114,9 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     b.Property<DateTime>("DateOrder")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("IsِActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
@@ -127,10 +129,6 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
-
-                    b.Property<int>("PaymentMethod")
-                        .HasMaxLength(100)
-                        .HasColumnType("int");
 
                     b.Property<int>("Rate")
                         .ValueGeneratedOnAdd()
@@ -190,6 +188,44 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("OrderService");
+                });
+
+            modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.PaymentMethod", b =>
+                {
+                    b.Property<int>("PaymentMethodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal?>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CardHolder")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentMethodId");
+
+                    b.HasIndex("UsersId")
+                        .IsUnique();
+
+                    b.ToTable("PaymentMethod");
                 });
 
             modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.Problem", b =>
@@ -253,11 +289,10 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<decimal>("DiscountPrice")
+                    b.Property<decimal?>("DiscountPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("DiscountType")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
@@ -265,6 +300,9 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsHaveDiscount")
                         .ValueGeneratedOnAdd()
@@ -325,8 +363,7 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -338,6 +375,9 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
                     b.Property<string>("ImageProfile")
                         .HasColumnType("longtext");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsِActive")
                         .ValueGeneratedOnAdd()
@@ -398,6 +438,13 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.Service", null)
                         .WithMany()
                         .HasForeignKey("ServiceId");
+                });
+
+            modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.PaymentMethod", b =>
+                {
+                    b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.User", null)
+                        .WithOne()
+                        .HasForeignKey("ProjectFinalWebIbrahim_core.Model.Entity.PaymentMethod", "UsersId");
                 });
 
             modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.Problem", b =>

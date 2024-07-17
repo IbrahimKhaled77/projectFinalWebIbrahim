@@ -1,14 +1,12 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
-using ProjectFinalWebIbrahim_core.Dtos.Authantication;
 using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
-using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
-using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
+
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -143,7 +141,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             try {
                 Log.Information("Create New User");
 
-                var user = new User {
+                var user = new User() {
                     FirstName = Inpute.FirstName,
                     LastName = Inpute.LastName,
                     Email = Inpute.Email,
@@ -155,7 +153,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                     IsِActive = Inpute.IsِActive,
                     ImageProfile = Inpute.ImageProfile,
                     ModifiedDate = null,
-                    
+                    IsApproved=null,
                
                 };
 
@@ -164,13 +162,16 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 Log.Information("User Is In Finised");
                 Log.Debug($"Debugging AddUser Has been Finised Successfully With User ID  {UserId} ");
 
-                Login login = new Login
+                Login login = new Login()
                 {
 
-                    UserName =  HashingHelper.GenerateSHA384String(Inpute.Email),
-                    Password = HashingHelper.GenerateSHA384String(Inpute.Password),
+                    UserName = Inpute.Email,
+                    Password = Inpute.Password,
                     CreationDate = Inpute.CreationDate,
                     IsِActive = Inpute.IsِActive,
+                    IsLoggedIn = false,
+                    LastLoginTime = null,
+                    
                     UsersId = UserId,
                 };
                 

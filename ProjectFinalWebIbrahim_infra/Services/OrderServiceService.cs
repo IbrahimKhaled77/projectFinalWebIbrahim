@@ -6,12 +6,10 @@
 
 using Microsoft.EntityFrameworkCore;
 using Mysqlx.Crud;
-using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
 using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
-using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services

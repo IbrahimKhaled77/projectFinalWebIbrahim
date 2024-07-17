@@ -18,14 +18,12 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
  
 
             builder.Property(l => l.UserName)
-                   .HasMaxLength(50) 
-                   .IsRequired();
+                .IsRequired(); 
 
 
-            builder.Property(l => l.Password)
-                   .HasMaxLength(100) 
-                   .IsRequired();
-
+           builder.Property(l => l.Password)
+                   .IsRequired().HasMaxLength(11);
+           
             builder.ToTable(x => x.HasCheckConstraint("CK_Password_Complexity", "LENGTH(`Password`) >= 11 AND `Password` REGEXP '[0-9]' AND `Password` REGEXP '[A-Za-z]' AND `Password` REGEXP '[^A-Za-z0-9]'"));
 
             builder.Property(l => l.LastLoginTime)

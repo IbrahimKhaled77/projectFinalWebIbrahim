@@ -19,7 +19,7 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
             builder.ToTable(x => x.HasCheckConstraint("CHK_FirstName", "NOT (FirstName REGEXP '[0-9]') AND NOT (FirstName REGEXP '[^A-Za-z\\s]')"));
             builder.Property(x => x.LastName).HasMaxLength(50).IsRequired();
             builder.ToTable(x => x.HasCheckConstraint("CHK_LastName", "NOT (LastName REGEXP '[0-9]') AND NOT (LastName REGEXP '[^A-Za-z\\s]')"));
-            builder.Property(x => x.Email).HasMaxLength(100).IsRequired();
+            //builder.Property(x => x.Email).HasMaxLength(30000).IsRequired();
             builder.ToTable(x => x.HasCheckConstraint("Email", "(`Email` like '%@GMAIL%' OR `Email` like '%@HOTMAIL%' OR `Email` like '%@ICLOUD%')"));
             builder.Property(x => x.BirthDate).IsRequired();
             //mysql

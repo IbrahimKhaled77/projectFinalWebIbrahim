@@ -26,14 +26,14 @@ namespace ProjectFinalWebIbrahim_core.Helper.Enums
             Delivered,
             Cancelled
         }
-
-      //  public enum PaymentMethod
-      //  {
-      //      CreditCard,
-///PayPal ,
-       //     Cash ,
-//}
-
+        /*
+        public enum PaymentMethod
+        {
+            CreditCard,
+         PayPal ,
+           Cash ,
+            }
+        */
         public enum QuantityUnitType
         {
             Kilogram = 0,
@@ -52,8 +52,8 @@ namespace ProjectFinalWebIbrahim_core.Helper.Enums
 
         public enum Gender
         {
-            Male,
-            Female
+            Male=1,
+            Female=2,
         }
     }
 }

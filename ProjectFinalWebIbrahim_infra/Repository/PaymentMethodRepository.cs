@@ -2,11 +2,6 @@
 using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.Model.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectFinalWebIbrahim_infra.Repository
 {

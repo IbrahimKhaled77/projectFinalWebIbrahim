@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
-using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
+using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IServices;
-using ProjectFinalWebIbrahim_core.Model.Entity;
-using ProjectFinalWebIbrahim_infra.Services;
+using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace projectFinalWebIbrahim.Controllers
 {
@@ -53,11 +53,16 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>A message indicating the success of the operation </returns>
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> CreateService([FromBody] CreateServiceDTO DTO)
+        public async Task<IActionResult> CreateService([FromBody] CreateServiceDTO DTO, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(201, await _ServiceService.CreateService(DTO));
+                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                {
+                    return StatusCode(201, await _ServiceService.CreateService(DTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+              
 
             }
             catch (DbUpdateException ex)
@@ -112,11 +117,16 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>A message indicating the success of the operation </returns>
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateService([FromBody] UpdateServiceDTO updateDTO)
+        public async Task<IActionResult> UpdateService([FromBody] UpdateServiceDTO updateDTO, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(200, await _ServiceService.UpdateService(updateDTO));
+                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                {
+                    return StatusCode(200, await _ServiceService.UpdateService(updateDTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+          
 
             }
             catch (DbUpdateException ex)
@@ -162,11 +172,16 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>A message indicating the success of the operation </returns>
         [HttpDelete]
         [Route("[action]/{ServiceId}")]
-        public async Task<IActionResult> DeleteService([FromRoute] int ServiceId)
+        public async Task<IActionResult> DeleteService([FromRoute] int ServiceId, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(200, await _ServiceService.DeleteService(ServiceId));
+                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                {
+                    return StatusCode(200, await _ServiceService.DeleteService(ServiceId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+              
 
             }
             catch (ArgumentNullException ex)
@@ -210,7 +225,7 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateServiceActivation([FromQuery] int ServiceId, [FromQuery] bool value)
+        public async Task<IActionResult> UpdateServiceActivation([FromQuery] int ServiceId, [FromQuery] bool value, [FromHeader]string token)
         {
             if (ServiceId == 0)
             {
@@ -220,8 +235,14 @@ namespace projectFinalWebIbrahim.Controllers
             {
                 try
                 {
-                    await _ServiceService.UpdateServiceActivation(ServiceId, value);
-                    return StatusCode(200, "Service Has Been UpdateServiceActivation");
+                    if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                    {
+                        await _ServiceService.UpdateServiceActivation(ServiceId, value);
+                        return StatusCode(200, "Service Has Been UpdateServiceActivation");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -248,12 +269,17 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>List of Order </returns>
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetAllOrder()
+        public async Task<IActionResult> GetAllOrder([FromHeader] string token)
         {
             try
             {
+                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                {
+                    return StatusCode(200, await _IOrderService.GetOrderAll());
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
 
-                return StatusCode(200, await _IOrderService.GetOrderAll());
+              
 
             }
             catch (DbUpdateException ex)
@@ -302,11 +328,16 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderDTO updateDTO)
+        public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderDTO updateDTO, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(200, await _IOrderService.UpdateOrder(updateDTO));
+                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                {
+                    return StatusCode(200, await _IOrderService.UpdateOrder(updateDTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+               
 
             }
             catch (DbUpdateException ex)
@@ -352,11 +383,16 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpDelete]
         [Route("[action]/{OrderId}")]
-        public async Task<IActionResult> DeleteOrder([FromRoute] int OrderId)
+        public async Task<IActionResult> DeleteOrder([FromRoute] int OrderId, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(200, await _IOrderService.DeleteOrder(OrderId));
+                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                {
+                    return StatusCode(200, await _IOrderService.DeleteOrder(OrderId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+              
 
             }
             catch (ArgumentNullException ex)
@@ -400,7 +436,7 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateOrderApprovment([FromQuery] int OrderId, [FromQuery] bool value)
+        public async Task<IActionResult> UpdateOrderApprovment([FromQuery] int OrderId, [FromQuery] bool value, [FromHeader] string token)
         {
             if (OrderId == 0)
             {
@@ -410,8 +446,14 @@ namespace projectFinalWebIbrahim.Controllers
             {
                 try
                 {
-                    await _IOrderService.UpdateOrderApprovment(OrderId, value);
-                    return StatusCode(200, "Order Has Been Update");
+                    if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                    {
+                        await _IOrderService.UpdateOrderApprovment(OrderId, value);
+                        return StatusCode(200, "Order Has Been Update");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -443,7 +485,7 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateOrderActivation([FromQuery] int OrderId, [FromQuery] bool value)
+        public async Task<IActionResult> UpdateOrderActivation([FromQuery] int OrderId, [FromQuery] bool value, [FromHeader] string token)
         {
             if (OrderId == 0)
             {
@@ -453,8 +495,16 @@ namespace projectFinalWebIbrahim.Controllers
             {
                 try
                 {
-                    await _IOrderService.UpdateOrderActivation(OrderId, value);
-                    return StatusCode(200, "Order Has Been Update");
+
+                    if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                    {
+                        await _IOrderService.UpdateOrderActivation(OrderId, value);
+                        return StatusCode(200, "Order Has Been Update");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Provider");
+
+
+                   
                 }
                 catch (Exception ex)
                 {

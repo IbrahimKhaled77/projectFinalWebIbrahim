@@ -6,7 +6,6 @@ using Microsoft.OpenApi.Models;
 using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
-using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
 using ProjectFinalWebIbrahim_infra.Services;
 using Serilog;
@@ -20,20 +19,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 });
 builder.Services.AddEndpointsApiExplorer();
 
-/*
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 
-    // Resolve conflicting actions
-    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
-
-});
-*/
   builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -59,7 +45,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ProjectWebFinalDbContext>(option => option.UseMySQL(builder.Configuration.GetConnectionString("mysqlconnect")));
@@ -96,7 +82,7 @@ Serilog.Log.Logger = new LoggerConfiguration()
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

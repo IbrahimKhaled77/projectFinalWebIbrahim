@@ -25,7 +25,7 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
 
         public bool IsِActive { get; set; }
 
-        public bool IsApproved { get; set; }
+        public bool? IsApproved { get; set; }
 
     }
 }

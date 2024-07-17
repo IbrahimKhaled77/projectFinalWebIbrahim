@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ProjectFinalWebIbrahim_core.Migrations
 {
     /// <inheritdoc />
-    public partial class tewst1 : Migration
+    public partial class fr : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,7 +68,7 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "longtext", nullable: false),
                     Phone = table.Column<string>(type: "longtext", nullable: false),
                     UserType = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
@@ -76,7 +76,8 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     BirthDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false)
+                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
+                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -95,8 +96,8 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                 {
                     LoginId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    UserName = table.Column<string>(type: "longtext", nullable: false),
+                    Password = table.Column<string>(type: "longtext", nullable: false),
                     LastLoginTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IsLoggedIn = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -124,12 +125,12 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     DateOrder = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Note = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
-                    PaymentMethod = table.Column<int>(type: "int", maxLength: 100, nullable: false),
                     Status = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     Rate = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
+                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     UsersId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -138,6 +139,30 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     table.CheckConstraint("CK_Rate_ValidRange", "`Rate` >= 0 AND `Rate` <= 5");
                     table.ForeignKey(
                         name: "FK_Order_User_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "User",
+                        principalColumn: "UserId");
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "PaymentMethod",
+                columns: table => new
+                {
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CardNumber = table.Column<string>(type: "longtext", nullable: false),
+                    Code = table.Column<string>(type: "longtext", nullable: false),
+                    CardHolder = table.Column<string>(type: "longtext", nullable: false),
+                    ExpireDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UsersId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentMethod", x => x.PaymentMethodId);
+                    table.ForeignKey(
+                        name: "FK_PaymentMethod_User_UsersId",
                         column: x => x.UsersId,
                         principalTable: "User",
                         principalColumn: "UserId");
@@ -157,11 +182,12 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     PriceAfterDiscount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     QuantityUnit = table.Column<int>(type: "int", nullable: false),
                     IsHaveDiscount = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
-                    DiscountPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DiscountType = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    DiscountPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    DiscountType = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
+                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -233,6 +259,12 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PaymentMethod_UsersId",
+                table: "PaymentMethod",
+                column: "UsersId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Problem_OrderId",
                 table: "Problem",
                 column: "OrderId");
@@ -256,6 +288,9 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderService");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethod");
 
             migrationBuilder.DropTable(
                 name: "Problem");

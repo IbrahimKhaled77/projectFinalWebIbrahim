@@ -1,17 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
-using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
 using ProjectFinalWebIbrahim_core.Dtos.paymentMethodDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {

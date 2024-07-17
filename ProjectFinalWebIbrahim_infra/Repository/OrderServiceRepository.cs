@@ -1,9 +1,7 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
-using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Context;
-using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
 using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.Model.Entity;

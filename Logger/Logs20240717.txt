@@ -1,3 +1,78 @@
 2024-07-17 18:25:27.549 +03:00 [INF] Starting web host
 2024-07-17 18:30:08.845 +03:00 [INF] Create New User
 2024-07-17 18:30:10.595 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 18:34:30.427 +03:00 [INF] Starting web host
+2024-07-17 18:35:38.994 +03:00 [INF] Create New User
+2024-07-17 18:35:40.114 +03:00 [INF] User Is In Finised
+2024-07-17 18:35:40.114 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  1 
+2024-07-17 18:35:40.329 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 18:38:04.274 +03:00 [INF] Create New User
+2024-07-17 18:38:04.340 +03:00 [INF] User Is In Finised
+2024-07-17 18:38:04.340 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-07-17 18:38:04.453 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 18:43:27.304 +03:00 [INF] Starting web host
+2024-07-17 18:44:44.108 +03:00 [INF] Create New User
+2024-07-17 18:44:45.172 +03:00 [INF] User Is In Finised
+2024-07-17 18:44:45.172 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  1 
+2024-07-17 18:44:45.381 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 18:45:47.668 +03:00 [INF] Starting web host
+2024-07-17 18:46:23.619 +03:00 [INF] Create New User
+2024-07-17 18:48:20.908 +03:00 [INF] User Is In Finised
+2024-07-17 18:48:23.654 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-07-17 18:50:03.519 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 18:50:34.153 +03:00 [INF] Starting web host
+2024-07-17 18:51:18.368 +03:00 [INF] Create New User
+2024-07-17 18:51:23.748 +03:00 [INF] User Is In Finised
+2024-07-17 18:51:24.704 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  3 
+2024-07-17 18:58:35.819 +03:00 [INF] Starting web host
+2024-07-17 18:59:37.795 +03:00 [INF] Create New User
+2024-07-17 18:59:38.819 +03:00 [INF] User Is In Finised
+2024-07-17 18:59:38.819 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  1 
+2024-07-17 18:59:44.366 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 18:59:50.161 +03:00 [INF] Create New User
+2024-07-17 18:59:50.220 +03:00 [INF] User Is In Finised
+2024-07-17 18:59:50.220 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-07-17 18:59:50.342 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 19:06:15.668 +03:00 [INF] Starting web host
+2024-07-17 19:07:45.194 +03:00 [INF] Create New User
+2024-07-17 19:07:46.227 +03:00 [INF] User Is In Finised
+2024-07-17 19:07:46.227 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  1 
+2024-07-17 19:07:46.436 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 19:12:57.509 +03:00 [INF] Starting web host
+2024-07-17 19:13:16.475 +03:00 [INF] Create New User
+2024-07-17 19:13:17.502 +03:00 [INF] User Is In Finised
+2024-07-17 19:13:17.502 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-07-17 19:13:17.545 +03:00 [INF] Login Is In Finised
+2024-07-17 19:14:03.569 +03:00 [INF] Starting web host
+2024-07-17 19:14:25.710 +03:00 [INF] Create New User
+2024-07-17 19:14:26.741 +03:00 [INF] User Is In Finised
+2024-07-17 19:14:26.742 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  3 
+2024-07-17 19:14:26.951 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 19:16:27.527 +03:00 [INF] Starting web host
+2024-07-17 19:16:38.908 +03:00 [INF] Create New User
+2024-07-17 19:16:39.920 +03:00 [INF] User Is In Finised
+2024-07-17 19:16:39.920 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  1 
+2024-07-17 19:16:40.135 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 19:20:56.503 +03:00 [INF] Starting web host
+2024-07-17 19:21:07.807 +03:00 [INF] Create New User
+2024-07-17 19:21:08.851 +03:00 [INF] User Is In Finised
+2024-07-17 19:21:08.851 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-07-17 19:21:09.069 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-17 19:21:43.482 +03:00 [INF] Starting web host
+2024-07-17 19:21:53.246 +03:00 [INF] Create New User
+2024-07-17 19:21:54.249 +03:00 [INF] User Is In Finised
+2024-07-17 19:21:54.249 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  3 
+2024-07-17 19:21:54.296 +03:00 [INF] Login Is In Finised
+2024-07-17 19:25:55.410 +03:00 [INF] Starting Login
+2024-07-17 19:25:55.816 +03:00 [ERR] An error occurred Exception: Nullable object must have a value.
+2024-07-17 19:26:09.364 +03:00 [INF] Starting Login
+2024-07-17 19:26:09.503 +03:00 [ERR] An error occurred Exception: Nullable object must have a value.
+2024-07-17 19:28:16.297 +03:00 [INF] Starting web host
+2024-07-17 19:29:00.933 +03:00 [INF] Starting Login
+2024-07-17 19:31:24.945 +03:00 [INF] Starting web host
+2024-07-17 19:32:02.949 +03:00 [INF] Starting Login
+2024-07-17 19:33:43.358 +03:00 [INF] Login Is In Finised
+2024-07-17 19:33:43.765 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-17 19:34:35.805 +03:00 [INF] Order Is strating CreateCategory
+2024-07-17 19:34:35.900 +03:00 [INF] Category Is CreateCategory
+2024-07-17 19:34:35.900 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully With Category ID  = 1

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
-using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
-using ProjectFinalWebIbrahim_core.IRepository;
+using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IServices;
+
+using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace projectFinalWebIbrahim.Controllers
 {
@@ -38,12 +38,19 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetAllService()
+        public async Task<IActionResult> GetAllService([FromHeader] string token)
         {
             try
             {
 
-                return StatusCode(201, await _ServiceService.GetServiceAll());
+                if (TokenHelper.IsValidToken(token) == UserType.Clien)
+                {
+                    return StatusCode(201, await _ServiceService.GetServiceAll());
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Clien");
+
+
+             
 
             }
             catch (DbUpdateException ex)
@@ -80,12 +87,16 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>List of Order </returns>
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetAllOrder()
+        public async Task<IActionResult> GetAllOrder([FromHeader] string token)
         {
             try
             {
-
-                return StatusCode(201, await _IOrderService.GetOrderAll());
+                if (TokenHelper.IsValidToken(token) == UserType.Clien)
+                {
+                    return StatusCode(201, await _IOrderService.GetOrderAll());
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Clien");
+               
 
             }
             catch (DbUpdateException ex)
@@ -134,11 +145,17 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO DTO)
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO DTO, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(201, await _IOrderService.CreateOrder(DTO));
+                if (TokenHelper.IsValidToken(token) == UserType.Clien)
+                {
+                    return StatusCode(201, await _IOrderService.CreateOrder(DTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Clien");
+
+              
 
             }
             catch (DbUpdateException ex)
@@ -185,11 +202,16 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>The Problem information. </returns>
         [HttpGet]
         [Route("[action]/{ProblemId}")]
-        public async Task<IActionResult> GetProblemById([FromRoute] int ProblemId)
+        public async Task<IActionResult> GetProblemById([FromRoute] int ProblemId, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(201, await _IProblemService.GetProblemById(ProblemId));
+                if (TokenHelper.IsValidToken(token) == UserType.Clien)
+                {
+                    return StatusCode(201, await _IProblemService.GetProblemById(ProblemId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Clien");
+               
 
             }
             catch (DbUpdateException ex)
@@ -238,11 +260,16 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> CreateProblem([FromBody] CreateProblemDTO DTO)
+        public async Task<IActionResult> CreateProblem([FromBody] CreateProblemDTO DTO, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(201, await _IProblemService.CreateProblem(DTO));
+                if (TokenHelper.IsValidToken(token) == UserType.Clien)
+                {
+                    return StatusCode(201, await _IProblemService.CreateProblem(DTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Clien");
+             
 
             }
             catch (DbUpdateException ex)

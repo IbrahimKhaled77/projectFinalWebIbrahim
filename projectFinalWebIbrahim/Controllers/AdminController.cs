@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
-using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
-using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
 using ProjectFinalWebIbrahim_core.Helper;
-using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
-using ProjectFinalWebIbrahim_core.Model.Entity;
-using ProjectFinalWebIbrahim_infra.Services;
 using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace projectFinalWebIbrahim.Controllers
@@ -47,12 +42,19 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetAllService()
+        public async Task<IActionResult> GetAllService([FromHeader]string token)
         {
             try
             {
 
-                return StatusCode(200, await _ServiceService.GetServiceAll());
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+                    return StatusCode(200, await _ServiceService.GetServiceAll());
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+
+             
 
             }
             catch (DbUpdateException ex)
@@ -95,11 +97,17 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>A message indicating the success of the operation </returns>
         [HttpDelete]
         [Route("[action]/{ServiceId}")]
-        public async Task<IActionResult> DeleteService([FromRoute] int ServiceId)
+        public async Task<IActionResult> DeleteService([FromRoute] int ServiceId, [FromHeader] string token)
         {
             try
             {
-                return StatusCode(200, await _ServiceService.DeleteService(ServiceId));
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+
+                    return StatusCode(200, await _ServiceService.DeleteService(ServiceId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
 
             }
             catch (ArgumentNullException ex)
@@ -144,7 +152,7 @@ namespace projectFinalWebIbrahim.Controllers
         [HttpPut]
         [Route("[action]")]
 
-        public async Task<IActionResult> UpdateServiceApprovment([FromQuery] int ServiceId, [FromQuery] bool value)
+        public async Task<IActionResult> UpdateServiceApprovment([FromQuery] int ServiceId, [FromQuery] bool value, [FromHeader] string token)
         {
             if (ServiceId == 0)
             {
@@ -154,8 +162,18 @@ namespace projectFinalWebIbrahim.Controllers
             {
                 try
                 {
-                    await _ServiceService.UpdateServiceApprovment(ServiceId, value);
-                    return StatusCode(200, "Service Has Been UpdateServiceApprovment");
+
+                    if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                    {
+
+                        await _ServiceService.UpdateServiceApprovment(ServiceId, value);
+                        return StatusCode(200, "Service Has Been UpdateServiceApprovment");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -186,7 +204,7 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateServiceActivation([FromQuery] int ServiceId, [FromQuery] bool value)
+        public async Task<IActionResult> UpdateServiceActivation([FromQuery] int ServiceId, [FromQuery] bool value, [FromHeader] string token)
         {
             if (ServiceId == 0)
             {
@@ -196,8 +214,17 @@ namespace projectFinalWebIbrahim.Controllers
             {
                 try
                 {
-                    await _ServiceService.UpdateServiceActivation(ServiceId, value);
-                    return StatusCode(200, "Service Has Been UpdateServiceActivation");
+
+                    if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                    {
+
+                        await _ServiceService.UpdateServiceActivation(ServiceId, value);
+                        return StatusCode(200, "Service Has Been UpdateServiceActivation");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -224,12 +251,18 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>List of problem </returns>
         [HttpGet]
             [Route("[action]")]
-            public async Task<IActionResult> GetAllproblem()
+            public async Task<IActionResult> GetAllproblem([FromHeader] string token)
             {
                 try
                 {
 
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+
                     return StatusCode(200, await _IProblemService.GetProblemAll());
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+              
 
                 }
                 catch (DbUpdateException ex)
@@ -271,11 +304,18 @@ namespace projectFinalWebIbrahim.Controllers
             /// <returns>A message indicating the success of the operation </returns>
             [HttpDelete]
             [Route("[action]/{problemId}")]
-            public async Task<IActionResult> Deleteproblem([FromRoute] int problemId)
+            public async Task<IActionResult> Deleteproblem([FromRoute] int problemId, [FromHeader] string token)
             {
                 try
                 {
+
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+
                     return StatusCode(200, await _IProblemService.DeleteProblem(problemId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+             
 
                 }
                 catch (ArgumentNullException ex)
@@ -317,7 +357,7 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateProblemActivation([FromQuery] int ProblemId, [FromQuery] bool value)
+        public async Task<IActionResult> UpdateProblemActivation([FromQuery] int ProblemId, [FromQuery] bool value, [FromHeader] string token)
         {
             if (ProblemId == 0)
             {
@@ -327,8 +367,15 @@ namespace projectFinalWebIbrahim.Controllers
             {
                 try
                 {
-                    await _IOrderService.UpdateOrderActivation(ProblemId, value);
-                    return StatusCode(200, "Problem Has Been Update");
+                    if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                    {
+
+                        await _IProblemService.UpdateProblemActivation(ProblemId, value);
+                        return StatusCode(200, "Problem Has Been Update");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -422,11 +469,18 @@ namespace projectFinalWebIbrahim.Controllers
             /// <returns>A message indicating the success of the operation </returns>
             [HttpPut]
             [Route("[action]")]
-            public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryDTO updateDTO)
+            public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryDTO updateDTO, [FromHeader] string token)
             {
                 try
                 {
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+
                     return StatusCode(201, await _ICategoryService.UpdateCategory(updateDTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+           
 
                 }
                 catch (DbUpdateException ex)
@@ -468,11 +522,20 @@ namespace projectFinalWebIbrahim.Controllers
             /// <returns>A message indicating the success of the operation </returns>
             [HttpDelete]
             [Route("[action]/{CategoryId}")]
-            public async Task<IActionResult> DeleteCategory([FromRoute] int CategoryId)
+            public async Task<IActionResult> DeleteCategory([FromRoute] int CategoryId, [FromHeader] string token)
             {
                 try
                 {
+
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+
                     return StatusCode(200, await _ICategoryService.DeleteCategory(CategoryId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+
+       
 
                 }
                 catch (ArgumentNullException ex)
@@ -516,7 +579,7 @@ namespace projectFinalWebIbrahim.Controllers
 
             [HttpPut]
             [Route("[action]")]
-            public async Task<IActionResult> UpdateCategoryActivation([FromQuery] int UserId, [FromQuery] bool value)
+            public async Task<IActionResult> UpdateCategoryActivation([FromQuery] int UserId, [FromQuery] bool value, [FromHeader] string token)
             {
                 if (UserId == 0)
                 {
@@ -526,8 +589,17 @@ namespace projectFinalWebIbrahim.Controllers
                 {
                     try
                     {
+
+
+                    if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                    {
+
                         await _ICategoryService.UpdateCategoryActivation(UserId, value);
                         return StatusCode(200, "Category Has Been Update");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+                 
                     }
                     catch (Exception ex)
                     {
@@ -569,11 +641,20 @@ namespace projectFinalWebIbrahim.Controllers
             /// <returns>A message indicating the success of the operation </returns>
             [HttpDelete]
             [Route("[action]/{OrderId}")]
-            public async Task<IActionResult> DeleteOrder([FromRoute] int OrderId)
+            public async Task<IActionResult> DeleteOrder([FromRoute] int OrderId, [FromHeader] string token)
             {
                 try
                 {
+
+
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+
                     return StatusCode(200, await _IOrderService.DeleteOrder(OrderId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+            
 
                 }
                 catch (ArgumentNullException ex)
@@ -616,7 +697,7 @@ namespace projectFinalWebIbrahim.Controllers
 
             [HttpPut]
             [Route("[action]")]
-            public async Task<IActionResult> UpdateOrderActivation([FromQuery] int OrderId, [FromQuery] bool value)
+            public async Task<IActionResult> UpdateOrderActivation([FromQuery] int OrderId, [FromQuery] bool value, [FromHeader] string token)
             {
                 if (OrderId == 0)
                 {
@@ -626,8 +707,16 @@ namespace projectFinalWebIbrahim.Controllers
                 {
                     try
                     {
+                    if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                    {
+
                         await _IOrderService.UpdateOrderActivation(OrderId, value);
                         return StatusCode(200, "Order Has Been Update");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+
+               
                     }
                     catch (Exception ex)
                     {
@@ -661,7 +750,7 @@ namespace projectFinalWebIbrahim.Controllers
 
             [HttpPut]
             [Route("[action]")]
-            public async Task<IActionResult> UpdateUserApprovment([FromQuery] int UserId, [FromQuery] bool value)
+            public async Task<IActionResult> UpdateUserApprovment([FromQuery] int UserId, [FromQuery] bool value, [FromHeader] string token)
             {
                 if (UserId == 0)
                 {
@@ -671,8 +760,15 @@ namespace projectFinalWebIbrahim.Controllers
                 {
                     try
                     {
+                    if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                    {
+
                         await _IUserService.UpdateUserApprovment(UserId, value);
                         return StatusCode(200, "Blog Has Been Update");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+              
                     }
                     catch (Exception ex)
                     {
@@ -703,7 +799,7 @@ namespace projectFinalWebIbrahim.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateeUserActivation([FromQuery] int UserId, [FromQuery] bool value)
+        public async Task<IActionResult> UpdateeUserActivation([FromQuery] int UserId, [FromQuery] bool value, [FromHeader] string token)
         {
             if (UserId == 0)
             {
@@ -713,8 +809,16 @@ namespace projectFinalWebIbrahim.Controllers
             {
                 try
                 {
-                    await _IUserService.UpdateeUserActivation(UserId, value);
-                    return StatusCode(200, "User Has Been UpdateeUserActivation");
+                    if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                    {
+
+                        await _IUserService.UpdateeUserActivation(UserId, value);
+                        return StatusCode(200, "User Has Been UpdateeUserActivation");
+                    }
+                    return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+
+
+                    
                 }
                 catch (Exception ex)
                 {

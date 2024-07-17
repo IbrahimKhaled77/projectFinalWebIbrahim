@@ -1,11 +1,9 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
-using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
-using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
 using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 

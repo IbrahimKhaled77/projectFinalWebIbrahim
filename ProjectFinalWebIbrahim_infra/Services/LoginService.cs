@@ -1,8 +1,7 @@
 ﻿
 
 
-using Org.BouncyCastle.Asn1.X509;
-using ProjectFinalWebIbrahim_core.Dtos.Authantication;
+
 using ProjectFinalWebIbrahim_core.Dtos.LoginDTO;
 using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IRepository;
@@ -51,6 +50,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         login.IsِActive= true;
                         login.LastLoginTime = DateTime.Now;
                         login.CreationDate = DateTime.Now;
+                       
                         await _ILoginRepository.UpdateLogin(login);
 
                         Log.Information("Login Is In Finised");
@@ -194,9 +194,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         public async Task<User> TryAuthanticate(string UserName, string Password)
         {
-           UserName = HashingHelper.GenerateSHA384String(UserName);
-            Password = HashingHelper.GenerateSHA384String(Password);
-
+       
             var userId = await _IUserRepository.GetUserIdAfterLoginOperation(UserName,Password);
             if (userId != 0)
             {
