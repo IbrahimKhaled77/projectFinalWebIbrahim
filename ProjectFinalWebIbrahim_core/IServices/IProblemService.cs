@@ -18,6 +18,7 @@ namespace ProjectFinalWebIbrahim_core.IServices
         Task<string> DeleteProblem(int ProblemId);
 
 
+        Task UpdateProblemActivation(int Id, bool value);
 
 
 

@@ -81,7 +81,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
         }
 
-        public async Task<Category> GetCategoryById(int CategoryId)
+        public async Task<Category> GetCategoryById(int? CategoryId)
         {
             var Category = await _context.Categorie.FindAsync(CategoryId);
 

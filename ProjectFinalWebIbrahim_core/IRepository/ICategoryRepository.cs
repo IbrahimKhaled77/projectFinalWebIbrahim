@@ -8,8 +8,8 @@ namespace ProjectFinalWebIbrahim_core.IRepository
     //t
     public interface ICategoryRepository
     {
-
-        Task<Category> GetCategoryById(int CategoryId);
+        
+        Task<Category> GetCategoryById(int? CategoryId);
 
         Task<List<GetCategoryAllDTO>> GetCategoryAll();
 

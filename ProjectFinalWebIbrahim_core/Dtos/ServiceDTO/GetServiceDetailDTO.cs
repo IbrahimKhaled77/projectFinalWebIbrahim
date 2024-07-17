@@ -12,12 +12,12 @@ namespace ProjectFinalWebIbrahim_core.Dtos.ServiceDTO
         public string Image { get; set; }
         public decimal Price { get; set; }
 
-        public decimal PriceAfterDiscount { get; set; }
+        public decimal? PriceAfterDiscount { get; set; }
 
         public QuantityUnitType QuantityUnit { get; set; }
         public bool IsHaveDiscount { get; set; }
-        public decimal DiscountPrice { get; set; }
-        public string DiscountType { get; set; }
+        public decimal? DiscountPrice { get; set; }
+        public string? DiscountType { get; set; }
 
         public DateTime? CreationDate { get; set; }
         public DateTime? ModifiedDate { get; set; }

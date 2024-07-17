@@ -5,6 +5,7 @@ using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
+using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using Serilog;
@@ -141,10 +142,19 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
 
                                };
+         
+
 
                 var qu = await Services.LastOrDefaultAsync();
                 if (qu != null)
                 {
+
+                    if (string.IsNullOrEmpty(qu.Image))
+                    {
+                        qu.Image = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                    }
+
+
                     Log.Information("Service Is Reached");
                     Log.Debug($"Debugging Get Service By Id Has been Finised Successfully {qu.ServiceId}");
                     return qu;

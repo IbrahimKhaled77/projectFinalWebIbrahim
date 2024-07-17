@@ -25,4 +25,10 @@
     <ProjectReference Include="..\ProjectFinalWebIbrahim_infra\ProjectFinalWebIbrahim_infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Category\" />
+    <Folder Include="Images\Service\" />
+    <Folder Include="Images\User\" />
+  </ItemGroup>
+
 </Project>

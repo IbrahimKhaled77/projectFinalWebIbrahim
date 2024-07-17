@@ -15,12 +15,13 @@ namespace ProjectFinalWebIbrahim_infra.Services
     public class ProblemService : IProblemService
     {
         private readonly IProblemRepository _IProblemRepository;
-        private readonly IUserRepository _IUserRepository;
-        public ProblemService(IProblemRepository IProblemRepository, IUserRepository iUserRepository)
+        private readonly IOrderRepository _IOrderRepository;
+
+        public ProblemService(IProblemRepository IProblemRepository, IOrderRepository IOrderRepository)
         {
 
             _IProblemRepository = IProblemRepository;
-            _IUserRepository = iUserRepository; 
+            _IOrderRepository = IOrderRepository; 
         }
 
 
@@ -42,41 +43,53 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
             try
             {
+
+                var Order = await _IOrderRepository.GetOrderById((int) Inpute.OrderId);
+
                 Log.Information("Order Is In Createing");
 
-
-                var Problem = new Problem
+                if (Order != null )
                 {
-
-                    
-                    ModifiedDate=null,
-                    OrderId = Inpute.OrderId,
-                    Title = Inpute.Title,
-                    Purpose = Inpute.Purpose,
-                    IsِActive = Inpute.IsِActive,
-                    CreationDate = DateTime.UtcNow,
-                    Description = Inpute.Description,
-                  
-
-                };
-
-                if (Problem != null)
-                {
-
-                    await _IProblemRepository.CreateProblem(Problem);
-
-                    Log.Information("Problem Is Created");
-                    Log.Debug($"Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = {Problem.ProblemId}");
+                    var Problem = new Problem
+                    {
 
 
-                    return "AddProblem Has been Finised Successfully ";
+                        ModifiedDate = null,
+                        OrderId = Order.OrderId,
+                        Title = Inpute.Title,
+                        Purpose = Inpute.Purpose,
+                        IsِActive = Inpute.IsِActive,
+                        CreationDate = DateTime.UtcNow,
+                        Description = Inpute.Description,
+
+
+                    };
+
+                    if (Problem != null)
+                    {
+
+                        await _IProblemRepository.CreateProblem(Problem);
+
+                        Log.Information("Problem Is Created");
+                        Log.Debug($"Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = {Problem.ProblemId}");
+
+
+                        return "AddProblem Has been Finised Successfully ";
+                    }
+                    else
+                    {
+                        Log.Error($"Problem Not Found");
+                        throw new ArgumentNullException("Problem", "Not Found Problem");
+
+                    }
+
                 }
-                else
-                {
-                    Log.Error($"Problem Not Found");
-                    throw new ArgumentNullException("Problem", "Not Found Problem");
+                else {
 
+                    throw new Exception($"Order Dose not Exisit ");
                 }
+
+               
 
 
             }
@@ -110,11 +123,29 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                 if (Problem != null)
                 {
-                    Problem.Purpose = Inpute.Purpose;
-                    Problem.Description = Inpute.Description;
-                    Problem.Title = Inpute.Title;
+
+
+                    if (!string.IsNullOrEmpty(Inpute.Purpose)) {
+                        Problem.Purpose = Inpute.Purpose;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Description)) {
+                        Problem.Description = Inpute.Description;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Title)) {
+
+                        Problem.Title = Inpute.Title;
+
+                    }
+                    if (Inpute.IsِActive != null) {
+
+                        Problem.IsِActive = (bool) Inpute.IsِActive;
+                    }
+
+        
+              
+               
                     Problem.ModifiedDate = Inpute.ModifiedDate;
-                    Problem.IsِActive = Inpute.IsِActive;
+                   
 
 
 
@@ -201,6 +232,23 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
+
+
+
+        public async Task UpdateProblemActivation(int Id, bool value)
+        {
+            var Problem = await _IProblemRepository.GetProblemByIdServ(Id);
+            if (Problem != null)
+            {
+                Problem.IsِActive = value;
+                await _IProblemRepository.UpdateProblem(Problem);
+            }
+            else
+            {
+                throw new Exception("Problem Dose not Exisit");
+            }
+        }
+
 
     }
 }

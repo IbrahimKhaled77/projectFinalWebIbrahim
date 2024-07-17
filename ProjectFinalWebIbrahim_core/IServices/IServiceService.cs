@@ -17,7 +17,9 @@ namespace ProjectFinalWebIbrahim_core.IServices
         Task<string> DeleteService(int ServiceId);
 
 
+        Task UpdateServiceApprovment(int Id, bool value);
 
+        Task UpdateServiceActivation(int Id, bool value);
 
 
     }

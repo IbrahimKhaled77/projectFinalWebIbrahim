@@ -190,6 +190,49 @@ namespace projectFinalWebIbrahim.Controllers
 
         #endregion
 
+        #region  HttpPut UpdateServiceActivation
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Put api/UpdateServiceActivation
+        ///     {     
+        ///        "ServiceId": "Enter the ID of the Service to update",
+        ///        "value": "Enter the IsActivation ",
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns Category Has Been Update</response>
+        /// <response code="503">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Update a  UpdateServiceActivation to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
+
+        [HttpPut]
+        [Route("[action]")]
+        public async Task<IActionResult> UpdateServiceActivation([FromQuery] int ServiceId, [FromQuery] bool value)
+        {
+            if (ServiceId == 0)
+            {
+                return BadRequest("Please Fill All Data");
+            }
+            else
+            {
+                try
+                {
+                    await _ServiceService.UpdateServiceActivation(ServiceId, value);
+                    return StatusCode(200, "Service Has Been UpdateServiceActivation");
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(503, $"Error Orrued {ex.Message}");
+                }
+            }
+        }
+
+        #endregion
+
+
         #endregion
 
         #region Order
@@ -337,8 +380,95 @@ namespace projectFinalWebIbrahim.Controllers
 
         #endregion
 
+        #region  HttpPut UpdateOrderApprovment
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Put api/UpdateOrderApprovment
+        ///     {     
+        ///        "OrderId": "Enter the ID of the Order to update",
+        ///        "value": "Enter the IsApprovment ",
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns Order Has Been Update</response>
+        /// <response code="503">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Update a  OrderApprovment to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
 
-        
+        [HttpPut]
+        [Route("[action]")]
+        public async Task<IActionResult> UpdateOrderApprovment([FromQuery] int OrderId, [FromQuery] bool value)
+        {
+            if (OrderId == 0)
+            {
+                return BadRequest("Please Fill All Data");
+            }
+            else
+            {
+                try
+                {
+                    await _IOrderService.UpdateOrderApprovment(OrderId, value);
+                    return StatusCode(200, "Order Has Been Update");
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(503, $"Error Orrued {ex.Message}");
+                }
+            }
+        }
+
         #endregion
+
+
+        #region  HttpPut UpdateOrderActivation
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Put api/UpdateOrderActivation
+        ///     {     
+        ///        "OrderId": "Enter the ID of the Order to update",
+        ///        "value": "Enter the IsActivation ",
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns Order Has Been Update</response>
+        /// <response code="503">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Update a  UpdateOrderActivation to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
+
+        [HttpPut]
+        [Route("[action]")]
+        public async Task<IActionResult> UpdateOrderActivation([FromQuery] int OrderId, [FromQuery] bool value)
+        {
+            if (OrderId == 0)
+            {
+                return BadRequest("Please Fill All Data");
+            }
+            else
+            {
+                try
+                {
+                    await _IOrderService.UpdateOrderActivation(OrderId, value);
+                    return StatusCode(200, "Order Has Been Update");
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(503, $"Error Orrued {ex.Message}");
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+
+     
+
     }
 }

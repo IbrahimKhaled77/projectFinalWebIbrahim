@@ -94,8 +94,17 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
 
         }
+        public async Task<int> GetUserIdAfterLoginOperation(string email, string password)
+        {
+            var query = from login in _context.Login
+                        where login.UserName == email
+                        && login.Password == password
+                        select login.UsersId;
 
-        public async Task<User> GetUserById(int UserId)
+            var Id = await query.SingleOrDefaultAsync();
+            return  (int)Id;
+        }
+        public async Task<User> GetUserById(int? UserId)
         {
             var user = await _context.User.FirstOrDefaultAsync(x => x.UserId.Equals(UserId));
             return user;

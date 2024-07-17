@@ -27,12 +27,12 @@ namespace ProjectFinalWebIbrahim_core.Helper.Enums
             Cancelled
         }
 
-        public enum PaymentMethod
-        {
-            CreditCard,
-            PayPal ,
-            Cash ,
-        }
+      //  public enum PaymentMethod
+      //  {
+      //      CreditCard,
+///PayPal ,
+       //     Cash ,
+//}
 
         public enum QuantityUnitType
         {

@@ -1,0 +1,3 @@
+2024-07-17 18:25:27.549 +03:00 [INF] Starting web host
+2024-07-17 18:30:08.845 +03:00 [INF] Create New User
+2024-07-17 18:30:10.595 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.

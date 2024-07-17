@@ -7,6 +7,7 @@ using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
+using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -14,12 +15,16 @@ namespace ProjectFinalWebIbrahim_infra.Services
     {
 
         private readonly IOrderRepository _IOrderRepository;
+        private readonly IUserRepository _IUserRepository;
+        private readonly IPaymentMethodRepository _IPaymentMethodRepository;
+        private readonly IOrderServiceRepository _IOrderServiceRepository;
+        public OrderServices(IOrderRepository IOrderRepository , IUserRepository IUserRepository, IPaymentMethodRepository iPaymentMethodRepository, IOrderServiceRepository iOrderServiceRepository)
+        {
 
-        public OrderServices(IOrderRepository IOrderRepository ) {
-
-            _IOrderRepository= IOrderRepository;
-
-
+            _IOrderRepository = IOrderRepository;
+            _IUserRepository = IUserRepository;
+            _IPaymentMethodRepository = iPaymentMethodRepository;
+            _IOrderServiceRepository = iOrderServiceRepository;
         }
 
 
@@ -40,40 +45,66 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
             try
             {
+                
+
+                var user = await _IUserRepository.GetUserById(Inpute.UsersId);
+
+              
+
+
                 Log.Information("Order Is strating CreateOrder");
-                var Order = new Order
-                {
+
+                if (user != null) {
 
 
-                    ModifiedDate = null,
-                     Title = Inpute.Title,
-                     Note = Inpute.Note,
-                     DateOrder = Inpute.DateOrder,
-                     Status = Inpute.Status,
-                     Rate = Inpute.Rate,
-                     UsersId = Inpute.UsersId,
-                     PaymentMethod = Inpute.PaymentMethod,
-                     IsِActive = Inpute.IsِActive,
-                     CreationDate = DateTime.UtcNow,
-            };
 
-                if (Order != null)
-                {
 
-                    await _IOrderRepository.CreateOrder(Order);
+                    var Order = new Order
+                    {
 
-                    Log.Information("Order Is Created");
-                    Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
 
-                    return "AddOrder Has been Finised Successfully ";
+                        ModifiedDate = null,
+                        Title = Inpute.Title,
+                        Note = Inpute.Note,
+                        DateOrder = Inpute.DateOrder,
+                        Status = Inpute.Status,
+                        Rate = Inpute.Rate,
+                        UsersId = user.UserId,
+                        //PaymentMethod = Inpute.PaymentMethod,
+                        IsِActive = Inpute.IsِActive,
+                        CreationDate = DateTime.UtcNow,
+                    };
+
+
+
+
+                    if (Order != null)
+                    {
+                       
+
+
+                        await _IOrderRepository.CreateOrder(Order);
+
+                        Log.Information("Order Is Created");
+                        Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
+
+                        return "AddOrder Has been Finised Successfully ";
+                    }
+                    else
+                    {
+                        Log.Error($"Order Not Found");
+                        throw new ArgumentNullException("Order", "Not Found Order");
+
+                    }
+
+
                 }
-                else
-                {
-                    Log.Error($"Order Not Found");
-                    throw new ArgumentNullException("Order", "Not Found Order");
 
+                else {
+
+                    throw new Exception("User Dose not Exisit");
                 }
-
+       
 
 
             }
@@ -105,14 +136,43 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 Log.Information("Order Is strating UpdateOrder");
 
                 var Order = await _IOrderRepository.GetOrderById(Inpute.OrderId);
+                var user = await _IUserRepository.GetUserById(Inpute.UsersId);
 
-                if (Order != null)
+                if (Order != null && user !=null)
                 {
+
+                    if (Inpute.Rate !=null) {
+                        Order.Rate = (int) Inpute.Rate;
+                    }
+                    if (Inpute.Status != null)
+                    {
+                        Order.Status = (OrderStatus) Inpute.Status;
+
+                    }
+                    if (Inpute.IsِActive != null)
+                    {
+                        Order.IsِActive =  (bool) Inpute.IsِActive;
+                    }
+                    if (Inpute.DateOrder !=null) {
+
+                        Order.DateOrder = (DateTime)Inpute.DateOrder;
+
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Title)) { 
+                    
+                        Order.Title = Inpute.Title;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Note)) { 
+                    
+                        Order.Note = Inpute.Note;
+
+                    }
+                  
+
+
                     Order.ModifiedDate = Inpute.ModifiedDate;
-                    Order.Rate = Inpute.Rate;
-                    Order.Status = Inpute.Status;
-                    Order.IsِActive = Inpute.IsِActive;
-                    Order.UsersId = Inpute.UsersId;
+                 
+                    Order.UsersId = user.UserId;
 
 
 
@@ -203,7 +263,36 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
 
 
+        public async Task UpdateOrderApprovment(int Id, bool value)
+        {
+            var Order = await _IOrderRepository.GetOrderById(Id);
+            if (Order != null)
+            {
+                Order.IsApproved = value;
+                await _IOrderRepository.UpdateOrder(Order);
+            }
+            else
+            {
+                throw new Exception("Order Dose not Exisit");
+            }
+        }
 
-    
+
+        public async Task UpdateOrderActivation(int Id, bool value)
+        {
+            var Order = await _IOrderRepository.GetOrderById(Id);
+            if (Order != null)
+            {
+                Order.IsِActive = value;
+                await _IOrderRepository.UpdateOrder(Order);
+            }
+            else
+            {
+                throw new Exception("Order Dose not Exisit");
+            }
+        }
+
+
+
     }
 }

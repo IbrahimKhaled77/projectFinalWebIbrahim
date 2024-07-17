@@ -2,10 +2,12 @@
 
 
 using Org.BouncyCastle.Asn1.X509;
+using ProjectFinalWebIbrahim_core.Dtos.Authantication;
 using ProjectFinalWebIbrahim_core.Dtos.LoginDTO;
+using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
-
+using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
 
@@ -14,10 +16,11 @@ namespace ProjectFinalWebIbrahim_infra.Services
     public class LoginService : ILoginService
     {
         private readonly ILoginRepository _ILoginRepository;
-        public LoginService(ILoginRepository LoginRepository)
+        private readonly IUserRepository _IUserRepository;
+        public LoginService(ILoginRepository LoginRepository, IUserRepository iUserRepository)
         {
             _ILoginRepository = LoginRepository;
-
+            _IUserRepository = iUserRepository;
         }
 
         public async Task<string> Login(CreateLoginDTO Inpute)
@@ -42,15 +45,18 @@ namespace ProjectFinalWebIbrahim_infra.Services
                     {
 
                         //add token
+                        var token = await GenerateUserAccessToken(Inpute.UserName, Inpute.Password);
                         //update login
                         login.IsLoggedIn = true;
+                        login.IsِActive= true;
                         login.LastLoginTime = DateTime.Now;
+                        login.CreationDate = DateTime.Now;
                         await _ILoginRepository.UpdateLogin(login);
 
                         Log.Information("Login Is In Finised");
                         Log.Debug($"Debugging Login Has been Finised Successfully ");
 
-                        return "login is Successfully";
+                        return token;
                     }
                     else {
                         login.IsLoggedIn = false;
@@ -171,5 +177,37 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
          
         }
+
+
+
+
+        public async Task<string> GenerateUserAccessToken(string UserName , string Password )
+        {
+            var user = await TryAuthanticate(UserName, Password);
+            if (user != null)
+            {
+                return TokenHelper.GenerateJwtToken(user);
+            }
+            throw new Exception("Failed To Generate Token");
+        }
+
+
+        public async Task<User> TryAuthanticate(string UserName, string Password)
+        {
+           UserName = HashingHelper.GenerateSHA384String(UserName);
+            Password = HashingHelper.GenerateSHA384String(Password);
+
+            var userId = await _IUserRepository.GetUserIdAfterLoginOperation(UserName,Password);
+            if (userId != 0)
+            {
+                return await _IUserRepository.GetUserById(userId);
+            }
+            else
+            {
+                throw new Exception("Not Same Email Or Password");
+            }
+
+        }
+
     }
 }

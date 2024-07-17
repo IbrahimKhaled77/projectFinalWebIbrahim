@@ -23,13 +23,16 @@ namespace ProjectFinalWebIbrahim_core.Context
             modelBuilder.ApplyConfiguration(new CategoryEntityConfigartion());
             modelBuilder.ApplyConfiguration(new OrderEntityConfigartion());
             modelBuilder.ApplyConfiguration(new OrderServerEntityConfigartion());
-            modelBuilder.ApplyConfiguration(new ProblemEntityConfigartion()); 
+            modelBuilder.ApplyConfiguration(new ProblemEntityConfigartion());
+
+            modelBuilder.Entity<PaymentMethod>().HasKey(x => x.PaymentMethodId);
+            modelBuilder.Entity<PaymentMethod>().Property(x => x.PaymentMethodId).UseIdentityColumn();
         }
 
 
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<PaymentMethod> PaymentMethod { get; set; }
 
-     
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Login> Login { get; set; }
 
         public virtual DbSet<Service> Services { get; set; }

@@ -15,11 +15,11 @@ namespace ProjectFinalWebIbrahim_core.IServices
         Task<string> UpdateOrder(UpdateOrderDTO Inpute);
         Task<string> DeleteOrder(int OrderId);
 
-   
+
+        Task UpdateOrderApprovment(int Id, bool value);
 
 
-
-
+        Task UpdateOrderActivation(int Id, bool value);
 
     }
 }

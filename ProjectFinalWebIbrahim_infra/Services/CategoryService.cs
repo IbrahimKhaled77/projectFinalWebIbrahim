@@ -2,9 +2,11 @@
 
 using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
+using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
+using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
@@ -53,7 +55,10 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         IsِActive = Category.IsِActive,
                     };
 
-
+                    if (string.IsNullOrEmpty(Categor.imageTitleCategory))
+                    {
+                        Categor.imageTitleCategory = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                    }
                     Log.Information("Category Is GetCategoryById");
                     Log.Debug($"Debugging Get Category By Id Has been Finised Successfully With Category ID  = {Category.CategoryId}");
 
@@ -156,11 +161,26 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                 if (Category != null)
                 {
-                    Category.imageTitleCategory = Inpute.imageTitleCategory;
-                    Category.Description = Inpute.Description;
-                    Category.Title = Inpute.Title;
-                    Category.ModifiedDate = DateTime.UtcNow;
-                    Category.IsِActive = Inpute.IsِActive;
+
+                    if (Inpute.IsِActive != null) {
+                        Category.IsِActive = (bool) Inpute.IsِActive;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.imageTitleCategory)) {
+
+                        Category.imageTitleCategory = Inpute.imageTitleCategory;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Description))
+                    {
+                        Category.Description = Inpute.Description;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Title))
+                    {
+                        Category.Title = Inpute.Title;
+                    }
+
+                
+                    Category.ModifiedDate = Inpute.ModifiedDate;
+                    
 
 
 
@@ -247,8 +267,22 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
         }
 
- 
 
-     
+        public async Task UpdateCategoryActivation(int Id, bool value)
+        {
+            var Category = await _ICategoryRepository.GetCategoryById(Id);
+            if (Category != null)
+            {
+                Category.IsِActive = value;
+                await _ICategoryRepository.UpdateCategory(Category);
+            }
+            else
+            {
+                throw new Exception("Category Dose not Exisit");
+            }
+        }
+
+
+
     }
 }

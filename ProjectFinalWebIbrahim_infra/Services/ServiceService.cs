@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
@@ -9,6 +10,7 @@ using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
+using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace ProjectFinalWebIbrahim_infra.Services
 {
@@ -16,10 +18,13 @@ namespace ProjectFinalWebIbrahim_infra.Services
     {
 
         private readonly IServiceRepository  _IServiceRepository ;
-
-        public ServiceService(IServiceRepository IServiceRepository ) {
+        private readonly IUserRepository _IUserRepository;
+        private readonly ICategoryRepository _ICategoryRepository;
+        public ServiceService(IServiceRepository IServiceRepository , IUserRepository IUserRepository, ICategoryRepository ICategoryRepository) {
 
             _IServiceRepository= IServiceRepository;
+            _IUserRepository = IUserRepository;
+            _ICategoryRepository = ICategoryRepository;
 
 
         }
@@ -43,45 +48,57 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
             try
             {
+
+                var user = await _IUserRepository.GetUserById(Inpute.UserId);
+                var Category = await _ICategoryRepository.GetCategoryById(Inpute.CategoryId);
+
                 Log.Information("Service Is starting Create");
 
-                var Service = new Service
-                {
+                if (user != null && Category !=null) {
+                    var Service = new Service
+                    {
 
-                    CategoryId = Inpute.CategoryId,
-                    UserId = Inpute.UserId,
-                    Name = Inpute.Name,
-                    Description = Inpute.Description,
-                    DiscountType = Inpute.DiscountType,
-                    Price = Inpute.Price,
-                    IsHaveDiscount = Inpute.IsHaveDiscount,
-                    DiscountPrice = Inpute.DiscountPrice,
-                    Image= Inpute.Image,
-                    QuantityUnit=Inpute.QuantityUnit,
-                    //price-disprice
-                    PriceAfterDiscount=Inpute.PriceAfterDiscount,
-                    ModifiedDate=null,
-                    CreationDate = DateTime.UtcNow,
-                    IsِActive = Inpute.IsِActive,
+                        CategoryId = Category.CategoryId,
+                        UserId = user.UserId,
+                        Name = Inpute.Name,
+                        Description = Inpute.Description,
+                        DiscountType = Inpute.DiscountType,
+                        Price = Inpute.Price,
+                        IsHaveDiscount = Inpute.IsHaveDiscount,
+                        DiscountPrice = Inpute.DiscountPrice,
+                        Image = Inpute.Image,
+                        QuantityUnit = Inpute.QuantityUnit,
+                        //price-disprice
+                        PriceAfterDiscount = Inpute.PriceAfterDiscount,
+                        ModifiedDate = null,
+                        CreationDate = DateTime.UtcNow,
+                        IsِActive = Inpute.IsِActive,
 
-                };
+                    };
 
-                if (Service != null)
-                {
+                    if (Service != null)
+                    {
 
-                    await _IServiceRepository.CreateService(Service);
+                        await _IServiceRepository.CreateService(Service);
 
-                    Log.Information("Service Is Created");
-                    Log.Debug($"Debugging CreateService Has been Finised Successfully With Service ID  = {Service.ServiceId}");
+                        Log.Information("Service Is Created");
+                        Log.Debug($"Debugging CreateService Has been Finised Successfully With Service ID  = {Service.ServiceId}");
 
-                    return "AddService Has been Finised Successfully ";
+                        return "AddService Has been Finised Successfully ";
+                    }
+                    else
+                    {
+                        Log.Error($"Service Not Found");
+                        throw new ArgumentNullException("Service", "Not Found Service");
+
+                    }
                 }
                 else
                 {
-                    Log.Error($"Service Not Found");
-                    throw new ArgumentNullException("Service", "Not Found Service");
-
+                    throw new Exception("User Dose not Exisit Or Category Dose not Exisit ");
                 }
+
+                
 
 
             }
@@ -117,19 +134,56 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                 if (Service != null)
                 {
-                    Service.Name = Inpute.Name;
-                    Service.Description = Inpute.Description;
-                    Service.Image = Inpute.Image;
-                    Service.Price = Inpute.Price;
-                    Service.PriceAfterDiscount = Inpute.PriceAfterDiscount;
-                    Service.QuantityUnit = Inpute.QuantityUnit;
-                    Service.IsHaveDiscount = Inpute.IsHaveDiscount;
-                    Service.DiscountPrice = Inpute.DiscountPrice;
-                    Service.DiscountType = Inpute.DiscountType;
+
+                    if (!string.IsNullOrEmpty(Inpute.Name)) {
+                        Service.Name = Inpute.Name;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Description))
+                    {
+                        Service.Description = Inpute.Description;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Image))
+                    {
+                        Service.Image = Inpute.Image;
+                    }
+                    if (Inpute.Price != null)
+                    {
+                        Service.Price = (decimal) Inpute.Price;
+                    }
+                    if (Inpute.PriceAfterDiscount != null)
+                    {
+                        Service.PriceAfterDiscount = (decimal)Inpute.PriceAfterDiscount;
+                    }
+                    if (Inpute.QuantityUnit != null)
+                    {
+                        Service.QuantityUnit =  (QuantityUnitType) Inpute.QuantityUnit;
+                    }
+                    if (Inpute.IsHaveDiscount != null)
+                    {
+
+                        Service.IsHaveDiscount = (bool)Inpute.IsHaveDiscount;
+                    }
+
+                    if (Inpute.DiscountPrice != null)
+                    {
+                        Service.DiscountPrice = Inpute.DiscountPrice;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.DiscountType))
+                    {
+                        Service.DiscountType = Inpute.DiscountType;
+                    }
+                    if (Inpute.IsِActive != null)
+                    {
+                        Service.IsِActive = (bool)Inpute.IsِActive;
+                    }
+
+
                     Service.ModifiedDate = Inpute.ModifiedDate;
-                    Service.IsِActive = Inpute.IsِActive;
-                    Service.CategoryId = Inpute.CategoryId;
-                    Service.UserId = Inpute.UserId;
+                   
+
+
+                    //Service.CategoryId = Inpute.CategoryId;
+                    //Service.UserId = Inpute.UserId;
 
 
                     await _IServiceRepository.UpdateService(Service);
@@ -212,11 +266,35 @@ namespace ProjectFinalWebIbrahim_infra.Services
         }
 
 
- 
+        public async Task UpdateServiceApprovment(int Id, bool value)
+        {
+            var Service = await _IServiceRepository.GetServiceById(Id);
+            if (Service != null)
+            {
+                Service.IsApproved = value;
+                await _IServiceRepository.UpdateService(Service);
+            }
+            else
+            {
+                throw new Exception("Service Dose not Exisit");
+            }
+        }
 
 
- 
 
+        public async Task UpdateServiceActivation(int Id, bool value)
+        {
+            var Service = await _IServiceRepository.GetServiceById(Id);
+            if (Service != null)
+            {
+                Service.IsِActive = value;
+                await _IServiceRepository.UpdateService(Service);
+            }
+            else
+            {
+                throw new Exception("Service Dose not Exisit");
+            }
+        }
 
     }
 

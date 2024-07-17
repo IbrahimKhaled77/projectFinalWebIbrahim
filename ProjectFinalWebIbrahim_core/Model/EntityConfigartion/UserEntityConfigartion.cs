@@ -44,6 +44,9 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
 
             builder.HasMany<Order>().WithOne().HasForeignKey(x => x.UsersId);
 
+
+            builder.HasOne<PaymentMethod>().WithOne().HasForeignKey<PaymentMethod>(x => x.UsersId);
+
         }
     }
 }

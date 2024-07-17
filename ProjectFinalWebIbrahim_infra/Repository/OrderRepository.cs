@@ -118,7 +118,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                  Status = p.Status,
                                  ClientName = x.FirstName,
                                  Rate = p.Rate,
-                                 PaymentMethod = p.PaymentMethod,
+                                 //PaymentMethod = p.PaymentMethod,
                                  Note = p.Note,
                                  IsِActive = p.IsِActive,
 

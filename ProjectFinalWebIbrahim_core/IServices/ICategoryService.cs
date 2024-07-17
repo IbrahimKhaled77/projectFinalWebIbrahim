@@ -20,7 +20,7 @@ namespace ProjectFinalWebIbrahim_core.IServices
         Task<string> DeleteCategory(int CategoryId);
 
 
-
+        Task UpdateCategoryActivation(int Id, bool value);
 
 
     }

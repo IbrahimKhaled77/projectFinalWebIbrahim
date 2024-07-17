@@ -11,6 +11,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.UserDTO
         public string   LastName         { get; set; }
         public string    Email           { get; set; }
 
+        public string ImageProfile { get; set; }
         public string Password              { get; set; }    
         public string    Phone           { get; set; }
 

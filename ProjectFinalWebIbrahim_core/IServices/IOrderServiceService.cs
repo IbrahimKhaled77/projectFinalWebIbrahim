@@ -17,11 +17,11 @@ namespace ProjectFinalWebIbrahim_core.IServices
 
         Task<string> UpdateOrderService(UpdateOrderServiceDTO Inpute);
         Task<string> DeleteOrderService(int OrderServiceId);
-        
- 
+
+
+        Task UpdateOrderServiceActivation(int Id, bool value);
 
 
 
-       
     }
 }

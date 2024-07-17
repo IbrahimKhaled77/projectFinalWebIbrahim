@@ -20,10 +20,16 @@ namespace ProjectFinalWebIbrahim_infra.Services
     {
 
         private readonly IOrderServiceRepository _IOrderServiceRepository;
-
-        public OrderServiceService(IOrderServiceRepository IOrderServiceRepository) {
+        private readonly IOrderRepository _IOrderRepository;
+        private readonly IServiceRepository _IServiceRepository;
+        private readonly IPaymentMethodRepository _IPaymentMethodRepository;
+        public OrderServiceService(IOrderServiceRepository IOrderServiceRepository, IOrderRepository iOrderRepository, IServiceRepository IServiceRepository, IPaymentMethodRepository iPaymentMethodRepository)
+        {
 
             _IOrderServiceRepository = IOrderServiceRepository;
+            _IOrderRepository = iOrderRepository;
+            _IServiceRepository = IServiceRepository;
+            _IPaymentMethodRepository = iPaymentMethodRepository;
         }
         public async Task<List<GetOrderServiceAllDTO>> GetOrderServiceAll()
         {
@@ -90,40 +96,73 @@ namespace ProjectFinalWebIbrahim_infra.Services
         {
             try
             {
-                Log.Information("Order Is In Createing");
 
-                var OrderServices = new OrderService
+
+                var Order = await _IOrderRepository.GetOrderById((int)Inpute.OrderId);
+                var Service= await _IServiceRepository.GetServiceById((int)Inpute.ServiceId);
+
+                Log.Information("OrderService Is In Createing");
+
+
+                if (Order != null && Service != null)
                 {
 
-                    OrderId= Inpute.OrderId,
-                    ServiceId= Inpute.ServiceId,
-                    CreationDate= Inpute.CreationDate,
-                    IsِActive = Inpute.IsِActive
-                   
-                   
+                    //Payment 
+
+                    var paymentMethod = await _IPaymentMethodRepository.IsValidPayment(Inpute.Code, Inpute.CardNumber, Inpute.CardHolder, Service.PriceAfterDiscount);
+
+                    if (paymentMethod != null)
+                    {
+                        paymentMethod.Balance -= Service.PriceAfterDiscount;
+                        var OrderServices = new OrderService
+                        {
+
+                            OrderId = Order.OrderId,
+                            ServiceId = Inpute.ServiceId,
+                            CreationDate = Inpute.CreationDate,
+                            ModifiedDate = null,
+                            IsِActive = Inpute.IsِActive,
 
 
 
-                };
 
-                if (OrderServices != null)
-                {
 
-                    await _IOrderServiceRepository.CreateOrderService(OrderServices);
 
-                    Log.Information("OrderService Is Created");
-                    Log.Debug($"Debugging Get OrderService By Id Has been Finised Successfully With Order ID  = {OrderServices.OrderServiceId}");
+                        };
+                        await _IPaymentMethodRepository.UpdatePaymentMethod(paymentMethod);
+                        if (OrderServices != null)
+                        {
 
-                    return "AddOrderService Has been Finised Successfully ";
+                            await _IOrderServiceRepository.CreateOrderService(OrderServices);
+
+                            Log.Information("OrderService Is Created");
+                            Log.Debug($"Debugging Get OrderService By Id Has been Finised Successfully With Order ID  = {OrderServices.OrderServiceId}");
+
+                            return "AddOrderService Has been Finised Successfully ";
+                        }
+                        else
+                        {
+                            paymentMethod.Balance += Service.PriceAfterDiscount;
+                            await _IPaymentMethodRepository.UpdatePaymentMethod(paymentMethod);
+                            Log.Error($"OrderService Not Found");
+                            throw new ArgumentNullException("OrderService", "Not Found OrderService");
+
+                        }
+
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid Payment Method");
+                    }
+
+
                 }
-                else
-                {
-                    Log.Error($"OrderService Not Found");
-                    throw new ArgumentNullException("OrderService", "Not Found OrderService");
+                else {
 
+                    throw new Exception("Service  && Order Not Found");
                 }
 
-
+              
 
             }
             catch (ArgumentNullException ex)
@@ -149,17 +188,26 @@ namespace ProjectFinalWebIbrahim_infra.Services
             try
             {
 
-                Log.Information("Order Is In Updateing");
+                Log.Information("OrderService Is In Updateing");
 
                 var OrderService = await _IOrderServiceRepository.GetOrderServiceById(Inpute.OrderServiceId);
+                var Order = await _IOrderRepository.GetOrderById((int)Inpute.OrderId);
+                var Service = await _IServiceRepository.GetServiceById((int)Inpute.ServiceId);
 
-                if (OrderService != null)
+                if (OrderService != null && Order !=null && Service !=null)
                 {
-                    OrderService.ServiceId = Inpute.OrderServiceId;
-                    OrderService.OrderId = Inpute.OrderId;
-                    OrderService.ModifiedDate = Inpute.ModifiedDate;
-                    OrderService.IsِActive = Inpute.IsِActive;
 
+                    if (Inpute.IsِActive !=null) {
+
+
+                        OrderService.IsِActive = Inpute.IsِActive;
+
+                    }
+                   
+                        OrderService.OrderId = Order.OrderId;
+                        OrderService.ServiceId = Service.ServiceId;
+                    OrderService.ModifiedDate = Inpute.ModifiedDate;
+                   
 
 
 
@@ -246,9 +294,21 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
         }
 
-   
 
-    
+        public async Task UpdateOrderServiceActivation(int Id, bool value)
+        {
+            var OrderService = await _IOrderServiceRepository.GetOrderServiceById(Id);
+            if (OrderService != null)
+            {
+                OrderService.IsِActive = value;
+                await _IOrderServiceRepository.UpdateOrderService(OrderService);
+            }
+            else
+            {
+                throw new Exception("ProbOrderServicelem Dose not Exisit");
+            }
+        }
+
 
     }
 }

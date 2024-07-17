@@ -11,8 +11,15 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
         public int? ServiceId { get; set; }
 
 
+        public string CardNumber { get; set; }
+        public string Code { get; set; }
+        public string CardHolder { get; set; }
+
+
         public DateTime? CreationDate { get; set; }= DateTime.Now;
 
+
+        public DateTime? ModifiedDate { get; set; } = null;
 
         public bool IsِActive { get; set; }
     }

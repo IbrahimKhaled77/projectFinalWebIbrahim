@@ -1,10 +1,13 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using ProjectFinalWebIbrahim_core.Dtos.Authantication;
 using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
+using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
+using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
@@ -94,6 +97,11 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         userType = user.UserType,
                         IsِActive = user.IsِActive,
                     };
+                    if (string.IsNullOrEmpty(GetUserDetailDTO.ImageProfile))
+                    {
+                        GetUserDetailDTO.ImageProfile = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                    }
+                  
                     Log.Information("User Is Reached");
                     Log.Debug($"Debugging GetUserById Has been Finised Successfully With User ID  = {user.UserId}");
 
@@ -145,7 +153,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                     Gender = Inpute.Gender,
                     UserType = Inpute.UserType,
                     IsِActive = Inpute.IsِActive,
-                    ImageProfile = null,
+                    ImageProfile = Inpute.ImageProfile,
                     ModifiedDate = null,
                     
                
@@ -159,9 +167,9 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 Login login = new Login
                 {
 
-                    UserName = Inpute.Email,
-                    Password = Inpute.Password,
-                    CreationDate= Inpute.CreationDate,
+                    UserName =  HashingHelper.GenerateSHA384String(Inpute.Email),
+                    Password = HashingHelper.GenerateSHA384String(Inpute.Password),
+                    CreationDate = Inpute.CreationDate,
                     IsِActive = Inpute.IsِActive,
                     UsersId = UserId,
                 };
@@ -192,6 +200,9 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         }
 
+
+     
+
         public async Task<string> UpdateUser(UpdateUserDTO Inpute)
         {
             try
@@ -202,13 +213,41 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 if (user != null)
                 {
 
-                   user.Email = Inpute.Email;
-                    user.FirstName = Inpute.FirstName;
-                    user.LastName = Inpute.LastName;
-                    user.BirthDate = Inpute.BirthDate;
+                    if (!string.IsNullOrEmpty(Inpute.Email)) {
+                        user.Email = Inpute.Email;
+
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.FirstName)) {
+
+                        user.FirstName = Inpute.FirstName;
+
+                    }
+                    if(!string.IsNullOrEmpty(Inpute.LastName)) {
+                        user.LastName = Inpute.LastName;
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.Phone)) {
+                        user.Phone = Inpute.Phone;
+
+                    }
+                    if (!string.IsNullOrEmpty(Inpute.ImageProfile)) {
+                        user.ImageProfile = Inpute.ImageProfile;
+
+                    }
+                    if (Inpute.BirthDate != null ) {
+                        user.BirthDate = (DateTime)Inpute.BirthDate;
+                    }
+                    if (Inpute.IsِActive !=null) {
+
+                        user.IsِActive = (bool) Inpute.IsِActive;
+
+                    }
+                 
+                   
+                   
+                  
                     user.ModifiedDate = Inpute.ModifiedDate;
-                    user.Phone = Inpute.Phone;
-                    user.ImageProfile =Inpute.ImageProfile;
+                 
+                    
 
 
                     await _IUserRepository.UpdateUser(user);
@@ -290,5 +329,37 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
             }
         }
+
+
+
+        public async Task UpdateUserApprovment(int Id, bool value)
+        {
+            var User = await _IUserRepository.GetUserById(Id);
+            if (User != null)
+            {
+                User.IsApproved = value;
+                await _IUserRepository.UpdateUser(User);
+            }
+            else
+            {
+                throw new Exception("User Dose not Exisit");
+            }
+        }
+
+
+        public async Task UpdateeUserActivation(int Id, bool value)
+        {
+            var User = await _IUserRepository.GetUserById(Id);
+            if (User != null)
+            {
+                User.IsِActive = value;
+                await _IUserRepository.UpdateUser(User);
+            }
+            else
+            {
+                throw new Exception("User Dose not Exisit");
+            }
+        }
+
     }
 }

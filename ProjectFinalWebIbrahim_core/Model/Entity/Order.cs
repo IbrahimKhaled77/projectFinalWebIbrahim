@@ -11,7 +11,7 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
         public string Note { get; set; }
 
         //??
-        public PaymentMethod PaymentMethod { get; set; }
+        // public PaymentMethod PaymentMethod { get; set; }
 
         //is deafult peding
         public OrderStatus Status { get; set; }
@@ -20,6 +20,8 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
         public DateTime? ModifiedDate { get; set; }
 
         public bool IsِActive { get; set; }
+
+        public bool IsApproved { get; set; }
         public int? UsersId { get; set; }
 
       

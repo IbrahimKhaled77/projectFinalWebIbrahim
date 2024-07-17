@@ -32,8 +32,8 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
                    .HasMaxLength(500); 
 
       
-            builder.Property(o => o.PaymentMethod)
-                   .HasMaxLength(100);
+           // builder.Property(o => o.PaymentMethod)
+            //       .HasMaxLength(100);
             //communit2
            // builder.ToTable(x => x.HasCheckConstraint("CK_PaymentMethod_ValidValues", "`PaymentMethod` IN ('CreditCard', 'PayPal', 'Cash')"));
 
