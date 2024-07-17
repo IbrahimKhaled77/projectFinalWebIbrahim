@@ -9,7 +9,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.paymentMethodDTO
     public  class UpdatePaymentMethodDTo
     {
         
-            public int UsersId { get; set; }
+         public int? UsersId { get; set; }
         public int PaymentMethodId { get; set; }  
         public string CardNumber { get; set; }
         public string Code { get; set; }

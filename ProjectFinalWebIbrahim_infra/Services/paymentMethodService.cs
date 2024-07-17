@@ -39,7 +39,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                     CardNumber = Inpute.CardNumber,
                     CardHolder = Inpute.CardHolder,
                     Balance = Inpute.Balance,
-                    UsersId = Inpute.UsersId,
+                    UsersId = user.UserId,
                 
 
                 };

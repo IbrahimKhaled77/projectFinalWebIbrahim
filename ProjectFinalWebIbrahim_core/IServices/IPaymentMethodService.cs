@@ -1,10 +1,6 @@
-﻿using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
+﻿
 using ProjectFinalWebIbrahim_core.Dtos.paymentMethodDTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ProjectFinalWebIbrahim_core.IServices
 {
@@ -12,5 +8,7 @@ namespace ProjectFinalWebIbrahim_core.IServices
     {
 
         Task<string> CreatepaymentMethod(CreatepaymentMethodDTO Inpute);
+
+        Task<string> UpdatePaymentMethod(UpdatePaymentMethodDTo Inpute);
     }
 }

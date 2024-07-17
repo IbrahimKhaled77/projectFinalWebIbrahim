@@ -1,7 +1,6 @@
 ﻿
-using ProjectFinalWebIbrahim_core.Dtos.Authantication;
+
 using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
-using ProjectFinalWebIbrahim_core.Model.Entity;
 
 namespace ProjectFinalWebIbrahim_core.IServices
 {

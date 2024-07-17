@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
 using ProjectFinalWebIbrahim_core.Dtos.LoginDTO;
+using ProjectFinalWebIbrahim_core.Dtos.paymentMethodDTO;
 using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
+using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IServices;
+using ProjectFinalWebIbrahim_infra.Services;
 
 
 namespace projectFinalWebIbrahim.Controllers
@@ -16,13 +20,15 @@ namespace projectFinalWebIbrahim.Controllers
         private readonly ICategoryService _ICategoryService;
         private readonly IServiceService _ServiceService;
         private readonly IOrderService _IOrderService;
-        public SharedController(IOrderService OrderService, IUserService userService, ICategoryService categoryService , ILoginService loginService, IServiceService serviceService)
+        private readonly IPaymentMethodService _IPaymentMethodService;
+        public SharedController(IOrderService OrderService, IPaymentMethodService IPaymentMethodService, IUserService userService, ICategoryService categoryService , ILoginService loginService, IServiceService serviceService)
         {
             _userService = userService;
             _LoginService = loginService;
             _ServiceService = serviceService;
             _ICategoryService = categoryService;
             _IOrderService = OrderService;
+            _IPaymentMethodService = IPaymentMethodService;
         }
 
         #region User
@@ -519,6 +525,116 @@ namespace projectFinalWebIbrahim.Controllers
         #endregion
 
 
+        #region  HttpPost CreatePaymentMethod
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post api/CreatePaymentMethod
+        ///     {        
+        ///        "CardNumber": "Enter the category CardNumber (Required)",
+        ///        "Code": "Enter the Code ",
+        ///        "CardHolder": "Enter the URL of the CardHolder title image (Optional)",
+        ///        "ExpireDate": "Enter the ExpireDate  ",
+        ///        "Balance": "Enter if the Balance  (Required)"
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="201">Returns   Create PaymentMethod  Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Adds a new PaymentMethod to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> CreatePaymentMethod([FromBody] CreatepaymentMethodDTO DTO)
+        {
+            try
+            {
+
+               
+                    return StatusCode(201, await _IPaymentMethodService.CreatepaymentMethod(DTO));
+                
+               
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+        #endregion
+
+        #region  HttpPut UpdatePaymentMethod
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Put api/UpdatePaymentMethod
+        ///     {     
+        ///        "PaymentMethodId": "Enter the ID of the PaymentMethod to update",
+        ///        "UsersId": "Enter the Users Id ",
+        ///        "CardNumber": "Enter the CardNumber ",
+        ///        "Code": "Enter  the Code ",
+        ///        "CardHolder": "Enter the CardHolder",
+        ///        "ExpireDate": "Enter  the ExpireDate ",
+        ///           "Balance": "Enter  the Balance "
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Update PaymentMethod Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Update a  PaymentMethod to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
+        [HttpPut]
+        [Route("[action]")]
+        public async Task<IActionResult> UpdatePaymentMethod([FromBody] UpdatePaymentMethodDTo updateDTO)
+        {
+            try
+            {
+         
+           
+
+                    return StatusCode(201, await _IPaymentMethodService.UpdatePaymentMethod(updateDTO));
+               
+             
+
+
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+        #endregion
 
         #region Order
         #region HttpGet GetOrderById
