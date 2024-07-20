@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ProjectFinalWebIbrahim_core.Migrations
 {
     /// <inheritdoc />
-    public partial class fr : Migration
+    public partial class database1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,7 +97,7 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     LoginId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(type: "longtext", nullable: false),
-                    Password = table.Column<string>(type: "longtext", nullable: false),
+                    Password = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
                     LastLoginTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IsLoggedIn = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),

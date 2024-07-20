@@ -65,8 +65,7 @@ builder.Services.AddScoped<IProblemService, ProblemService>();
 builder.Services.AddScoped<IProblemRepository, ProblemRepository>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
-builder.Services.AddScoped<IPaymentMethodService, paymentMethodService>();
-builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+
 
 var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 

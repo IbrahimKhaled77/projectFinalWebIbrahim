@@ -12,8 +12,8 @@ using ProjectFinalWebIbrahim_core.Context;
 namespace ProjectFinalWebIbrahim_core.Migrations
 {
     [DbContext(typeof(ProjectWebFinalDbContext))]
-    [Migration("20240717161557_fr")]
-    partial class fr
+    [Migration("20240720030746_database1")]
+    partial class database1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,7 +84,8 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -133,7 +134,8 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<int>("Rate")
+                    b.Property<int?>("Rate")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);

@@ -39,7 +39,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
                                  OrderId = p.OrderId,
                                  UsersId = p.UsersId,
-                                 Rate = p.Rate,
+                                 Rate = (int) p.Rate,
                                  Status = p.Status,
                                  Title = p.Title,
                                  DateOrder = p.DateOrder,
@@ -117,7 +117,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                  Title = p.Title,
                                  Status = p.Status,
                                  ClientName = x.FirstName,
-                                 Rate = p.Rate,
+                                 Rate = (int)p.Rate,
                                  //PaymentMethod = p.PaymentMethod,
                                  Note = p.Note,
                                  IsِActive = p.IsِActive,

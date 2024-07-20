@@ -81,7 +81,8 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -130,7 +131,8 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<int>("Rate")
+                    b.Property<int?>("Rate")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
