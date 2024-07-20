@@ -17,7 +17,7 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
         public Gender Gender { get; set; }
        
         public string? ImageProfile { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public DateTime? CreationDate { get; set; }
         public DateTime? ModifiedDate { get; set; }

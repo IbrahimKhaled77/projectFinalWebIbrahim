@@ -8,6 +8,8 @@ using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace projectFinalWebIbrahim.Controllers
 {
+
+    [Route("api/Admin")]
     public class AdminController : ControllerBase
     {
 
@@ -579,9 +581,9 @@ namespace projectFinalWebIbrahim.Controllers
 
             [HttpPut]
             [Route("[action]")]
-            public async Task<IActionResult> UpdateCategoryActivation([FromQuery] int UserId, [FromQuery] bool value, [FromHeader] string token)
+            public async Task<IActionResult> UpdateCategoryActivation([FromQuery] int CategoryId, [FromQuery] bool value, [FromHeader] string token)
             {
-                if (UserId == 0)
+                if (CategoryId == 0)
                 {
                     return BadRequest("Please Fill All Data");
                 }
@@ -594,7 +596,7 @@ namespace projectFinalWebIbrahim.Controllers
                     if (TokenHelper.IsValidToken(token) == UserType.Admin)
                     {
 
-                        await _ICategoryService.UpdateCategoryActivation(UserId, value);
+                        await _ICategoryService.UpdateCategoryActivation(CategoryId, value);
                         return StatusCode(200, "Category Has Been Update");
                     }
                     return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");

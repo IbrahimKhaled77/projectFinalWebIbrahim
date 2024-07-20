@@ -140,18 +140,20 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 if (Inpute.NewPassword != null && Inpute.UserName != null)
                 {
 
-                    var user = await _ILoginRepository.ResetPassword(Inpute.UserName);
+                    var login = await _ILoginRepository.ResetPassword(Inpute.UserName);
+                    var user = await _IUserRepository.GetUserById((int)login.UsersId);
 
-                    if (user != null)
+                    if (login != null)
                     {
-                        user.Password = Inpute.NewPassword;
+                        login.Password = Inpute.NewPassword;
 
-                        //note**
-                      //  await Updateuser();
-                      await _ILoginRepository.UpdateLogin(user);
+                     
+
+                       
+                      await _ILoginRepository.UpdateLogin(login);
 
                         Log.Information(" ResetPassword Is In Finised");
-                        Log.Debug($"Debugging ResetPassword Has been Finised Successfully With User  {user.UsersId} ");
+                        Log.Debug($"Debugging ResetPassword Has been Finised Successfully With User  {login.UsersId} ");
                         return " Reset Password User Is In Finised";
 
                     }

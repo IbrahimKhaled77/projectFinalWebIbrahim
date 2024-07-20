@@ -114,7 +114,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
                               };
 
-                var qu = await Problem.LastOrDefaultAsync();
+                var qu = await Problem.FirstOrDefaultAsync();
                 if (qu != null)
                 {
                     Log.Information("Problem Is Geted");

@@ -104,7 +104,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
             var Id = await query.SingleOrDefaultAsync();
             return  (int)Id;
         }
-        public async Task<User> GetUserById(int? UserId)
+        public async Task<User> GetUserById(int UserId)
         {
             var user = await _context.User.FirstOrDefaultAsync(x => x.UserId.Equals(UserId));
             return user;

@@ -8,7 +8,7 @@ namespace ProjectFinalWebIbrahim_core.IRepository
     public  interface IUserRepository
     {
         Task<int> GetUserIdAfterLoginOperation(string email, string password);
-        Task<User> GetUserById(int? UserId);
+        Task<User> GetUserById(int UserId);
 
         Task<List<GetUserAllDTO>> GetUserAll(int UserId);
         Task<int> CreateUser(User Inpute);

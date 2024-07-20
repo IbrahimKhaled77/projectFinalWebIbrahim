@@ -45,7 +45,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             try
             {
 
-                var user = await _IUserRepository.GetUserById(Inpute.UserId);
+                var user = await _IUserRepository.GetUserById((int)Inpute.UserId);
                 var Category = await _ICategoryRepository.GetCategoryById(Inpute.CategoryId);
 
                 Log.Information("Service Is starting Create");

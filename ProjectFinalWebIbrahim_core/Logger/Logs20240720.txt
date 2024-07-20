@@ -1,1 +1,222 @@
 2024-07-20 06:09:12.967 +03:00 [INF] Starting web host
+2024-07-20 19:08:32.439 +03:00 [INF] Starting web host
+2024-07-20 19:12:42.487 +03:00 [INF] Create New User
+2024-07-20 19:12:44.071 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-20 19:13:43.870 +03:00 [INF] Create New User
+2024-07-20 19:13:43.967 +03:00 [INF] User Is In Finised
+2024-07-20 19:13:43.968 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  1 
+2024-07-20 19:13:44.008 +03:00 [INF] Login Is In Finised
+2024-07-20 19:19:12.485 +03:00 [INF] Create New User
+2024-07-20 19:19:12.542 +03:00 [INF] User Is In Finised
+2024-07-20 19:19:12.542 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-07-20 19:19:12.550 +03:00 [INF] Login Is In Finised
+2024-07-20 19:20:44.445 +03:00 [INF] Starting Login
+2024-07-20 19:20:44.784 +03:00 [ERR] An error occurred Exception: Sequence contains more than one element.
+2024-07-20 19:25:21.817 +03:00 [INF] Starting Login
+2024-07-20 19:25:21.947 +03:00 [ERR] An error occurred Exception: Sequence contains more than one element.
+2024-07-20 19:25:37.549 +03:00 [INF] Starting web host
+2024-07-20 19:26:51.033 +03:00 [INF] Create New User
+2024-07-20 19:26:52.040 +03:00 [INF] User Is In Finised
+2024-07-20 19:26:52.040 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  3 
+2024-07-20 19:26:52.093 +03:00 [INF] Login Is In Finised
+2024-07-20 19:27:25.191 +03:00 [INF] Starting Login
+2024-07-20 19:27:25.733 +03:00 [INF] Login Is In Finised
+2024-07-20 19:27:25.733 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-20 19:32:25.421 +03:00 [INF] Order Is strating CreateCategory
+2024-07-20 19:32:25.473 +03:00 [INF] Category Is CreateCategory
+2024-07-20 19:32:25.473 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully With Category ID  = 1
+2024-07-20 19:34:40.519 +03:00 [INF] Category Is strating UpdateCategory
+2024-07-20 19:34:40.558 +03:00 [INF] Category Is Updated
+2024-07-20 19:34:40.558 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully With Category ID  = 1
+2024-07-20 19:38:51.490 +03:00 [INF] Starting web host
+2024-07-20 19:41:05.951 +03:00 [INF] Order Is strating GetCategoryAll
+2024-07-20 19:41:06.019 +03:00 [INF] Category Is CreateCategory
+2024-07-20 19:41:06.019 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-07-20 19:46:22.287 +03:00 [INF] Create New User
+2024-07-20 19:46:22.438 +03:00 [INF] User Is In Finised
+2024-07-20 19:46:22.438 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  4 
+2024-07-20 19:46:22.475 +03:00 [INF] Login Is In Finised
+2024-07-20 19:47:35.487 +03:00 [INF] Starting Login
+2024-07-20 19:47:35.604 +03:00 [INF] Login Is In Finised
+2024-07-20 19:47:35.604 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-20 19:50:09.155 +03:00 [INF] Starting web host
+2024-07-20 19:50:45.064 +03:00 [INF] User Is Reached
+2024-07-20 19:50:45.065 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 4
+2024-07-20 19:51:41.205 +03:00 [INF] Users are Reached
+2024-07-20 19:51:41.205 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-07-20 19:51:52.377 +03:00 [INF] Users are Reached
+2024-07-20 19:51:52.377 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-07-20 19:52:32.033 +03:00 [INF] Users are Reached
+2024-07-20 19:52:32.033 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-07-20 19:54:26.103 +03:00 [INF] Starting web host
+2024-07-20 19:56:48.735 +03:00 [INF] Starting web host
+2024-07-20 19:58:09.083 +03:00 [INF] User Is Updated
+2024-07-20 19:58:09.083 +03:00 [DBG] Debugging UpdateUser Has been Finised Successfully With User ID  = 4
+2024-07-20 19:58:38.585 +03:00 [INF] Starting web host
+2024-07-20 19:59:04.707 +03:00 [INF] User Is Updated
+2024-07-20 19:59:04.707 +03:00 [DBG] Debugging UpdateUser Has been Finised Successfully With User ID  = 4
+2024-07-20 20:00:13.020 +03:00 [INF] Starting web host
+2024-07-20 20:00:45.373 +03:00 [INF] Starting web host
+2024-07-20 20:01:08.552 +03:00 [INF] Starting web host
+2024-07-20 20:01:37.043 +03:00 [INF] User Is Updated
+2024-07-20 20:01:37.044 +03:00 [DBG] Debugging UpdateUser Has been Finised Successfully With User ID  = 4
+2024-07-20 20:07:51.188 +03:00 [INF] Service Is starting Create
+2024-07-20 20:07:51.315 +03:00 [INF] Service Is Created
+2024-07-20 20:07:51.315 +03:00 [DBG] Debugging CreateService Has been Finised Successfully With Service ID  = 1
+2024-07-20 20:09:25.484 +03:00 [INF] Service Is starting Updated
+2024-07-20 20:09:29.008 +03:00 [ERR] An error occurred Exception: Object reference not set to an instance of an object.
+2024-07-20 20:09:42.482 +03:00 [INF] Service Is starting Updated
+2024-07-20 20:09:42.542 +03:00 [INF] Service Is Updated
+2024-07-20 20:09:42.542 +03:00 [DBG] Debugging UpdateService Has been Finised Successfully With Order ID  = 1
+2024-07-20 20:11:22.515 +03:00 [INF] Service Is  strating GetByID
+2024-07-20 20:11:22.556 +03:00 [ERR] Service Not Found
+2024-07-20 20:11:22.589 +03:00 [ERR] Services Not Found: Not Found Services (Parameter 'Services')
+2024-07-20 20:11:33.942 +03:00 [INF] Service Is  strating GetByID
+2024-07-20 20:11:33.957 +03:00 [INF] Service Is Reached
+2024-07-20 20:11:33.957 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully 1
+2024-07-20 20:12:37.507 +03:00 [INF] Starting web host
+2024-07-20 20:12:47.781 +03:00 [INF] Starting web host
+2024-07-20 20:12:57.845 +03:00 [INF] Service Is  strating GetByID
+2024-07-20 20:12:58.873 +03:00 [INF] Service Is Reached
+2024-07-20 20:12:58.873 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully 1
+2024-07-20 20:15:05.575 +03:00 [INF] Create New User
+2024-07-20 20:15:05.799 +03:00 [INF] User Is In Finised
+2024-07-20 20:15:05.799 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  5 
+2024-07-20 20:15:05.839 +03:00 [INF] Login Is In Finised
+2024-07-20 20:15:48.753 +03:00 [INF] Starting Login
+2024-07-20 20:15:49.036 +03:00 [INF] Login Is In Finised
+2024-07-20 20:15:49.036 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-20 20:17:14.723 +03:00 [INF] User Is Reached
+2024-07-20 20:17:14.723 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 5
+2024-07-20 20:17:45.247 +03:00 [INF] Users are Reached
+2024-07-20 20:17:45.247 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-07-20 20:18:40.214 +03:00 [INF] Create New User
+2024-07-20 20:18:40.237 +03:00 [INF] User Is In Finised
+2024-07-20 20:18:40.237 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  6 
+2024-07-20 20:18:40.247 +03:00 [INF] Login Is In Finised
+2024-07-20 20:19:00.578 +03:00 [INF] Starting Login
+2024-07-20 20:19:00.621 +03:00 [INF] Login Is In Finised
+2024-07-20 20:19:00.621 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-20 20:19:28.076 +03:00 [INF] User Is Reached
+2024-07-20 20:19:28.076 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 6
+2024-07-20 20:19:45.670 +03:00 [INF] Users are Reached
+2024-07-20 20:19:45.670 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-07-20 20:24:35.643 +03:00 [INF] Order Is strating CreateOrder
+2024-07-20 20:24:35.686 +03:00 [INF] Order Is Created
+2024-07-20 20:24:35.686 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-07-20 20:29:46.859 +03:00 [INF] Starting web host
+2024-07-20 20:39:29.793 +03:00 [INF] Starting web host
+2024-07-20 20:40:40.169 +03:00 [INF] OrderService Is In Createing
+2024-07-20 20:40:40.393 +03:00 [INF] OrderService Is Created
+2024-07-20 20:40:40.394 +03:00 [DBG] Debugging Get OrderService By Id Has been Finised Successfully With Order ID  = 1
+2024-07-20 20:46:39.924 +03:00 [INF] Starting web host
+2024-07-20 20:47:23.087 +03:00 [INF] Order Is strating UpdateOrder
+2024-07-20 20:47:24.252 +03:00 [INF] Order Is Updated
+2024-07-20 20:47:24.252 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-07-20 20:49:20.424 +03:00 [INF] Starting web host
+2024-07-20 20:50:15.284 +03:00 [INF] Starting web host
+2024-07-20 20:50:27.569 +03:00 [INF] Order Is strating UpdateOrder
+2024-07-20 20:50:28.697 +03:00 [INF] Order Is Updated Rating
+2024-07-20 20:50:28.697 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-07-20 20:53:29.163 +03:00 [INF] Starting web host
+2024-07-20 20:53:54.716 +03:00 [INF] Order Is starting GetOrderAll
+2024-07-20 20:53:55.698 +03:00 [INF] Order Is GetOrderAll
+2024-07-20 20:53:55.698 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-07-20 20:54:25.265 +03:00 [INF] Order Is strating GetCategoryAll
+2024-07-20 20:54:25.294 +03:00 [INF] Category Is CreateCategory
+2024-07-20 20:54:25.294 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-07-20 20:55:15.493 +03:00 [INF] Order Is strating UpdateOrder
+2024-07-20 20:55:15.730 +03:00 [INF] Order Is Updated Rating
+2024-07-20 20:55:15.730 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-07-20 20:56:26.433 +03:00 [INF] Service Is  strating GetServiceAll
+2024-07-20 20:56:26.496 +03:00 [INF] Service Is Reached
+2024-07-20 20:56:26.496 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully
+2024-07-20 20:58:12.756 +03:00 [INF] Order Is In Createing
+2024-07-20 20:58:12.848 +03:00 [INF] Problem Is Created
+2024-07-20 20:58:12.848 +03:00 [DBG] Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = 1
+2024-07-20 20:58:58.765 +03:00 [INF] Problem Is strating GetProblemById
+2024-07-20 20:58:58.825 +03:00 [ERR] An error occurred Exception: Queries performing 'LastOrDefault' operation must have a deterministic sort order. Rewrite the query to apply an 'OrderBy' operation on the sequence before calling 'LastOrDefault'.
+2024-07-20 21:00:04.567 +03:00 [INF] Order Is starting GetOrderAll
+2024-07-20 21:00:04.581 +03:00 [INF] Order Is GetOrderAll
+2024-07-20 21:00:04.582 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-07-20 21:02:15.063 +03:00 [INF] Problem Is strating GetProblemAll
+2024-07-20 21:02:15.081 +03:00 [INF] Problem Is Geted
+2024-07-20 21:02:15.081 +03:00 [DBG] Debugging Get Problem By Id Has been Finised Successfully
+2024-07-20 21:03:37.906 +03:00 [INF] Service Is  strating GetServiceAll
+2024-07-20 21:03:37.943 +03:00 [INF] Service Is Reached
+2024-07-20 21:03:37.943 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully
+2024-07-20 21:05:53.212 +03:00 [INF] Starting web host
+2024-07-20 21:18:51.335 +03:00 [INF] Order Is strating GetCategoryAll
+2024-07-20 21:18:51.371 +03:00 [INF] Category Is CreateCategory
+2024-07-20 21:18:51.372 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-07-20 21:19:18.509 +03:00 [INF] Order Is starting GetOrderByIdServ
+2024-07-20 21:19:18.542 +03:00 [INF] Order Is GetOrderByIdServ
+2024-07-20 21:19:18.542 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-07-20 21:20:28.545 +03:00 [INF] Starting ResetPassword
+2024-07-20 21:20:28.627 +03:00 [ERR] An error occurred Exception: This method ResetPassword is not implemented for non-empty inputs
+2024-07-20 21:29:34.020 +03:00 [INF] Starting web host
+2024-07-20 21:30:33.526 +03:00 [INF] Starting ResetPassword
+2024-07-20 21:30:34.769 +03:00 [INF]  ResetPassword Is In Finised
+2024-07-20 21:30:34.769 +03:00 [DBG] Debugging ResetPassword Has been Finised Successfully With User  4 
+2024-07-20 21:35:08.344 +03:00 [INF] Starting web host
+2024-07-20 21:37:06.683 +03:00 [INF] User Is Updated
+2024-07-20 21:37:06.683 +03:00 [DBG] Debugging UpdateUser Has been Finised Successfully With User ID  = 4
+2024-07-20 21:38:11.438 +03:00 [INF] Starting Logout
+2024-07-20 21:38:11.470 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:38:11.510 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:38:59.505 +03:00 [INF] Starting Logout
+2024-07-20 21:38:59.597 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:38:59.640 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:40:33.812 +03:00 [INF] Starting web host
+2024-07-20 21:40:58.044 +03:00 [INF] Starting Logout
+2024-07-20 21:42:03.094 +03:00 [INF] Starting web host
+2024-07-20 21:42:22.418 +03:00 [INF] Starting Logout
+2024-07-20 21:42:29.121 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:42:30.924 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:43:32.472 +03:00 [INF] Starting web host
+2024-07-20 21:43:47.935 +03:00 [INF] Starting Logout
+2024-07-20 21:44:42.821 +03:00 [INF] Starting web host
+2024-07-20 21:44:57.715 +03:00 [INF] Starting Logout
+2024-07-20 21:44:58.380 +03:00 [ERR] An error occurred Exception: Queries performing 'LastOrDefault' operation must have a deterministic sort order. Rewrite the query to apply an 'OrderBy' operation on the sequence before calling 'LastOrDefault'.
+2024-07-20 21:45:23.964 +03:00 [INF] Starting web host
+2024-07-20 21:45:34.253 +03:00 [INF] Starting Logout
+2024-07-20 21:45:35.253 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:45:35.282 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-07-20 21:46:31.917 +03:00 [INF] Starting web host
+2024-07-20 21:46:49.616 +03:00 [INF] Starting Logout
+2024-07-20 21:47:42.653 +03:00 [INF] Logout Is In Finised
+2024-07-20 21:47:43.701 +03:00 [DBG] Debugging Login Has been Finised Successfully With finalToken  4 
+2024-07-20 21:49:49.612 +03:00 [INF] Order Is starting GetOrderByIdServ
+2024-07-20 21:49:49.661 +03:00 [INF] Order Is GetOrderByIdServ
+2024-07-20 21:49:49.661 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-07-20 21:50:12.693 +03:00 [INF] Order Is strating GetCategoryAll
+2024-07-20 21:50:12.756 +03:00 [INF] Category Is CreateCategory
+2024-07-20 21:50:12.756 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-07-20 21:50:39.876 +03:00 [INF] Service Is  strating GetByID
+2024-07-20 21:50:39.904 +03:00 [INF] Service Is Reached
+2024-07-20 21:50:39.904 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully 1
+2024-07-20 21:51:41.969 +03:00 [INF] Starting ResetPassword
+2024-07-20 21:51:42.093 +03:00 [INF]  ResetPassword Is In Finised
+2024-07-20 21:51:42.093 +03:00 [DBG] Debugging ResetPassword Has been Finised Successfully With User  6 
+2024-07-20 21:52:28.383 +03:00 [INF] User Is Updated
+2024-07-20 21:52:28.384 +03:00 [DBG] Debugging UpdateUser Has been Finised Successfully With User ID  = 6
+2024-07-20 21:53:11.238 +03:00 [INF] Problem Is strating GetProblemById
+2024-07-20 21:53:11.270 +03:00 [ERR] An error occurred Exception: Queries performing 'LastOrDefault' operation must have a deterministic sort order. Rewrite the query to apply an 'OrderBy' operation on the sequence before calling 'LastOrDefault'.
+2024-07-20 21:53:55.213 +03:00 [INF] Starting web host
+2024-07-20 21:54:05.490 +03:00 [INF] Problem Is strating GetProblemById
+2024-07-20 21:54:06.483 +03:00 [INF] Problem Is Geted
+2024-07-20 21:54:06.483 +03:00 [DBG] Debugging Get Problem By Id Has been Finised Successfully With Problem ID  = 1
+2024-07-20 21:54:59.190 +03:00 [INF] Starting Logout
+2024-07-20 21:55:02.075 +03:00 [INF] Logout Is In Finised
+2024-07-20 21:55:02.075 +03:00 [DBG] Debugging Login Has been Finised Successfully With finalToken  6 
+2024-07-20 21:57:12.143 +03:00 [INF] User Is Reached
+2024-07-20 21:57:12.143 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-07-20 21:58:13.923 +03:00 [INF] Service Is  strating GetByID
+2024-07-20 21:58:13.957 +03:00 [INF] Service Is Reached
+2024-07-20 21:58:13.958 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully 1
+2024-07-20 21:58:33.005 +03:00 [INF] Order Is strating GetCategoryAll
+2024-07-20 21:58:33.031 +03:00 [INF] Category Is CreateCategory
+2024-07-20 21:58:33.031 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-07-20 21:58:44.050 +03:00 [INF] Order Is starting GetOrderByIdServ
+2024-07-20 21:58:44.065 +03:00 [INF] Order Is GetOrderByIdServ
+2024-07-20 21:58:44.066 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1

@@ -43,7 +43,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             {
                 
 
-                var user = await _IUserRepository.GetUserById(Inpute.UsersId);
+                var user = await _IUserRepository.GetUserById((int)Inpute.UsersId);
 
               
 
@@ -131,47 +131,25 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 Log.Information("Order Is strating UpdateOrder");
 
                 var Order = await _IOrderRepository.GetOrderById(Inpute.OrderId);
-                var user = await _IUserRepository.GetUserById(Inpute.UsersId);
+             //   var user = await _IUserRepository.GetUserById((int)Inpute.UsersId);
 
-                if (Order != null && user !=null)
+                if (Order != null )
                 {
 
 
-                    
-
-
-                    if (Inpute.Rate !=null) {
-                        Order.Rate = (int) Inpute.Rate;
-                    }
                     if (Inpute.Status != null)
                     {
-                        Order.Status = (OrderStatus) Inpute.Status;
+                        Order.Status = (OrderStatus)Inpute.Status;
 
                     }
-                    if (Inpute.IsِActive != null)
-                    {
-                        Order.IsِActive =  (bool) Inpute.IsِActive;
-                    }
-                    if (Inpute.DateOrder !=null) {
-
-                        Order.DateOrder = (DateTime)Inpute.DateOrder;
-
-                    }
-                    if (!string.IsNullOrEmpty(Inpute.Title)) { 
-                    
-                        Order.Title = Inpute.Title;
-                    }
-                    if (!string.IsNullOrEmpty(Inpute.Note)) { 
-                    
-                        Order.Note = Inpute.Note;
-
-                    }
-                  
-
-
                     Order.ModifiedDate = Inpute.ModifiedDate;
+
+                   
+
+
                  
-                    Order.UsersId = user.UserId;
+                 
+                    
 
 
 
@@ -335,6 +313,15 @@ namespace ProjectFinalWebIbrahim_infra.Services
             if (Order != null)
             {
                 Order.IsApproved = value;
+                if (value==true) {
+                    Order.Status = OrderStatus.Shipped;
+
+                }
+                else {
+                    Order.Status = OrderStatus.Cancelled;
+                }
+
+
                 await _IOrderRepository.UpdateOrder(Order);
             }
             else

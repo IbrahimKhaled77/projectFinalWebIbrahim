@@ -10,6 +10,7 @@ using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace projectFinalWebIbrahim.Controllers
 {
+    [Route("api/client")]
     public class ClientController : ControllerBase
     {
         private readonly IServiceService _ServiceService;
@@ -209,7 +210,7 @@ namespace projectFinalWebIbrahim.Controllers
         {
             try
             {
-                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                if (TokenHelper.IsValidToken(token) == UserType.Clien)
                 {
                     return StatusCode(200, await _IOrderService.Rating(DTO));
                 }

@@ -88,7 +88,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         Gender = user.Gender,
                         Phone = user.Phone,
                         Email = user.Email,
-                        BirthDate = user.BirthDate,
+                        BirthDate = (DateTime)user.BirthDate,
                         CreationDate = user.CreationDate,
                         ModifiedDate = user.ModifiedDate,
                         ImageProfile = user.ImageProfile,
@@ -210,12 +210,14 @@ namespace ProjectFinalWebIbrahim_infra.Services
             {
 
                 var user = await _IUserRepository.GetUserById(Inpute.UserId);
+                var login=await _ILoginRepository.GetLoginById(user.UserId);
 
                 if (user != null)
                 {
 
                     if (!string.IsNullOrEmpty(Inpute.Email)) {
                         user.Email = Inpute.Email;
+                        login.UserName= Inpute.Email;
 
                     }
                     if (!string.IsNullOrEmpty(Inpute.FirstName)) {

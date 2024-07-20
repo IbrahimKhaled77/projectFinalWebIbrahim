@@ -9,9 +9,9 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderDTO
 
         public int OrderId { get; set; }
 
-        public OrderStatus? Status { get; set; }
+     
         public int? Rate { get; set; }
 
-        public int? UsersId { get; set; }
+   
     }
 }

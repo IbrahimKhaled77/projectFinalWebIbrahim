@@ -357,7 +357,7 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>A message indicating the success of the operation </returns>
 
         [HttpPut]
-        [Route("Logout")]
+        [Route("Logout/{UserId}")]
         public async Task<IActionResult> Logout([FromRoute]int UserId)
         {
             try
@@ -453,16 +453,16 @@ namespace projectFinalWebIbrahim.Controllers
         ///<summary>
         /// Retrieves a User by ID from the application
         /// </summary>
-        /// <param name="userId">The ID of the User to retrieve (Required).</param> 
+        /// <param name="ServiceId">The ID of the Service to retrieve (Required).</param> 
         /// <returns>The User information. </returns>
         //Service
         [HttpGet]
-        [Route("[action]/{userId}")]
-        public async Task<IActionResult> GetServiceById([FromRoute] int userId)
+        [Route("[action]/{ServiceId}")]
+        public async Task<IActionResult> GetServiceById([FromRoute] int ServiceId)
         {
             try
             {
-                return StatusCode(201, await _ServiceService.GetServiceById(userId));
+                return StatusCode(201, await _ServiceService.GetServiceById(ServiceId));
 
             }
             catch (DbUpdateException ex)

@@ -27,7 +27,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
         public async Task<Login> Logout(int UserId)
         {
-           var logout= await _context.Login.FirstOrDefaultAsync(x=>x.IsLoggedIn==true && x.UsersId==UserId);
+           var logout= await _context.Login.FirstOrDefaultAsync(x=>x.IsLoggedIn.Equals(true) && x.UsersId.Equals(UserId));
 
             return logout;
         }
@@ -50,6 +50,13 @@ namespace ProjectFinalWebIbrahim_infra.Repository
             
 
            
+        }
+
+
+        public async Task<Login> GetLoginById(int LoginId)
+        {
+            var Login = await _context.Login.FirstOrDefaultAsync(x => x.LoginId.Equals(LoginId));
+            return Login;
         }
 
 

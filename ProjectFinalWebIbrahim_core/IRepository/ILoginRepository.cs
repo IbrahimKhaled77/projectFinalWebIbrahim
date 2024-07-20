@@ -17,6 +17,6 @@ namespace ProjectFinalWebIbrahim_core.IRepository
 
         Task UpdateLogin(Login login);
 
-
+        Task<Login> GetLoginById(int LoginId);
     }
 }
