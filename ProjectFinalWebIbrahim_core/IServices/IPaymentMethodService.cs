@@ -1,4 +1,4 @@
-﻿
+﻿/*
 using ProjectFinalWebIbrahim_core.Dtos.paymentMethodDTO;
 
 
@@ -12,3 +12,4 @@ namespace ProjectFinalWebIbrahim_core.IServices
         Task<string> UpdatePaymentMethod(UpdatePaymentMethodDTo Inpute);
     }
 }
+*/

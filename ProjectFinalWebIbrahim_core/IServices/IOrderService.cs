@@ -21,5 +21,7 @@ namespace ProjectFinalWebIbrahim_core.IServices
 
         Task UpdateOrderActivation(int Id, bool value);
 
+        Task<string> Rating(RatingDTO Inpute);
+
     }
 }

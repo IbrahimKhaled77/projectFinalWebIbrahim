@@ -61,21 +61,39 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         DiscountType = Inpute.DiscountType,
                         Price = Inpute.Price,
                         IsHaveDiscount = Inpute.IsHaveDiscount,
-                        DiscountPrice = Inpute.DiscountPrice,
+                        DiscountPrice = 0,
                         Image = Inpute.Image,
                         QuantityUnit = Inpute.QuantityUnit,
-                        //price-disprice
-                        PriceAfterDiscount = Inpute.PriceAfterDiscount,
+                       
+                        PriceAfterDiscount = 0,
                         ModifiedDate = null,
                         CreationDate = DateTime.UtcNow,
-                        IsِActive = Inpute.IsِActive,
+                        IsِActive = false,
 
                     };
 
                     if (Service != null)
                     {
 
-                        await _IServiceRepository.CreateService(Service);
+                    var ServiceId=    await _IServiceRepository.CreateService(Service);
+
+                     var service  = await _IServiceRepository.GetServiceById(ServiceId);
+
+                        if (Inpute.IsHaveDiscount == true)
+                        {
+
+
+                            service.DiscountPrice = Inpute.DiscountPrice;
+
+                            service.PriceAfterDiscount = service.Price - Inpute.DiscountPrice;
+
+                        }
+                        else {
+
+                            service.PriceAfterDiscount = service.Price;
+                        }
+
+                        await _IServiceRepository.UpdateService(service);
 
                         Log.Information("Service Is Created");
                         Log.Debug($"Debugging CreateService Has been Finised Successfully With Service ID  = {Service.ServiceId}");

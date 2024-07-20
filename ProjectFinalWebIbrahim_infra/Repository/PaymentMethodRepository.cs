@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/*using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.Model.Entity;
@@ -47,3 +47,4 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
     }
 }
+*/

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
+using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IServices;
@@ -15,13 +16,15 @@ namespace projectFinalWebIbrahim.Controllers
 
         private readonly IProblemService _IProblemService;
         private readonly IOrderService _IOrderService;
-        public ClientController(IServiceService serviceService ,IProblemService problemService , IOrderService orderService )
+        private readonly IOrderServiceService _IOrderServiceService;
+
+        public ClientController(IServiceService serviceService ,IProblemService problemService , IOrderService orderService, IOrderServiceService IOrderServiceService)
         {
 
             _ServiceService = serviceService;
             _IProblemService = problemService;
             _IOrderService= orderService;
-
+            _IOrderServiceService = IOrderServiceService;
         }
 
         #region Service
@@ -177,7 +180,126 @@ namespace projectFinalWebIbrahim.Controllers
 
         #endregion
 
+        #region HttpDelete  Rating
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PUT api/Rating
+        ///     {     
+        ///        "OrderId": "Enter the ID of the order to update",
+        ///        "Status": "Enter the status of the order",
+        ///        "Rate": "Enter the rate of the order",
+        ///        "IsActive": "Indicate if the order is active",
+        ///        "UsersId": "Enter the ID of the user associated with the order (Optional)"
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Update Rating Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Update Rating from the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
+
+
+        [HttpPut]
+        [Route("[action]")]
+        public async Task<IActionResult> Rating([FromBody] RatingDTO DTO, [FromHeader] string token)
+        {
+            try
+            {
+                if (TokenHelper.IsValidToken(token) == UserType.Provider)
+                {
+                    return StatusCode(200, await _IOrderService.Rating(DTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Client");
+
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+
         #endregion
+
+
+        #endregion
+
+
+
+        #region  HttpPost CreateOrderService
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST api/CreateOrderService
+        ///     {     
+        ///        "OrderId": "Enter the order Id (Required)",
+        ///        "ServiceId": "Enter the Service Id  (Required)",
+        ///        "CardNumber": "Enter the CardNumber   (Required)",
+        ///         "Code": "Enter the Code   (Required)",
+        ///         "CardNumber": "Enter the CardNumber   (Required)",
+        ///        "CardHolder": "Enter the CardHolder   (Required)",
+        ///        "IsActive": "Indicate if the order is active (Required)",
+        ///     }
+        /// </remarks>
+        /// <response code="201">Returns   Create Order Service  Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Adds a new Order Service to the database.
+        /// </summary>
+        /// <returns>A message indicating the success of the operation </returns>
+
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> CreateOrderService([FromBody] CreateOrderServiceDTO DTO, [FromHeader] string token)
+        {
+            try
+            {
+                if (TokenHelper.IsValidToken(token) == UserType.Clien)
+                {
+                    return StatusCode(201, await _IOrderServiceService.CreateOrderService(DTO));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Clien");
+
+
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        #endregion
+
 
         #region Problem
 

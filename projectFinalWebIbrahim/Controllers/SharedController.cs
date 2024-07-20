@@ -20,15 +20,15 @@ namespace projectFinalWebIbrahim.Controllers
         private readonly ICategoryService _ICategoryService;
         private readonly IServiceService _ServiceService;
         private readonly IOrderService _IOrderService;
-        private readonly IPaymentMethodService _IPaymentMethodService;
-        public SharedController(IOrderService OrderService, IPaymentMethodService IPaymentMethodService, IUserService userService, ICategoryService categoryService , ILoginService loginService, IServiceService serviceService)
+      
+        public SharedController(IOrderService OrderService,  IUserService userService, ICategoryService categoryService , ILoginService loginService, IServiceService serviceService)
         {
             _userService = userService;
             _LoginService = loginService;
             _ServiceService = serviceService;
             _ICategoryService = categoryService;
             _IOrderService = OrderService;
-            _IPaymentMethodService = IPaymentMethodService;
+            
         }
 
         #region User
@@ -524,7 +524,7 @@ namespace projectFinalWebIbrahim.Controllers
         #endregion
         #endregion
 
-
+        /*
         #region  HttpPost CreatePaymentMethod
         /// <remarks>
         /// Sample request:
@@ -635,6 +635,8 @@ namespace projectFinalWebIbrahim.Controllers
             }
         }
         #endregion
+        */
+
 
         #region Order
         #region HttpGet GetOrderById

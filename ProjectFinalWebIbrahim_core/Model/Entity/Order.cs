@@ -10,12 +10,11 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
         public string Title { get; set; }
         public string Note { get; set; }
 
-        //??
-        // public PaymentMethod PaymentMethod { get; set; }
+      
 
-        //is deafult peding
+    
         public OrderStatus Status { get; set; }
-        public int Rate { get; set; }
+        public int? Rate { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
 

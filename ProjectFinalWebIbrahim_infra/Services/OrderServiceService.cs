@@ -20,14 +20,14 @@ namespace ProjectFinalWebIbrahim_infra.Services
         private readonly IOrderServiceRepository _IOrderServiceRepository;
         private readonly IOrderRepository _IOrderRepository;
         private readonly IServiceRepository _IServiceRepository;
-        private readonly IPaymentMethodRepository _IPaymentMethodRepository;
-        public OrderServiceService(IOrderServiceRepository IOrderServiceRepository, IOrderRepository iOrderRepository, IServiceRepository IServiceRepository, IPaymentMethodRepository iPaymentMethodRepository)
+       
+        public OrderServiceService(IOrderServiceRepository IOrderServiceRepository, IOrderRepository iOrderRepository, IServiceRepository IServiceRepository)
         {
 
             _IOrderServiceRepository = IOrderServiceRepository;
             _IOrderRepository = iOrderRepository;
             _IServiceRepository = IServiceRepository;
-            _IPaymentMethodRepository = iPaymentMethodRepository;
+           
         }
         public async Task<List<GetOrderServiceAllDTO>> GetOrderServiceAll()
         {
@@ -107,7 +107,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     //Payment 
 
-                    var paymentMethod = await _IPaymentMethodRepository.IsValidPayment(Inpute.Code, Inpute.CardNumber, Inpute.CardHolder, Service.PriceAfterDiscount);
+                    var paymentMethod = await _IOrderRepository.IsValidPayment(Inpute.Code, Inpute.CardNumber, Inpute.CardHolder, Service.PriceAfterDiscount);
 
                     if (paymentMethod != null)
                     {
@@ -127,7 +127,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
 
                         };
-                        await _IPaymentMethodRepository.UpdatePaymentMethod(paymentMethod);
+                        await _IOrderRepository.UpdatePaymentMethod(paymentMethod);
                         if (OrderServices != null)
                         {
 
@@ -141,7 +141,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         else
                         {
                             paymentMethod.Balance += Service.PriceAfterDiscount;
-                            await _IPaymentMethodRepository.UpdatePaymentMethod(paymentMethod);
+                            await _IOrderRepository.UpdatePaymentMethod(paymentMethod);
                             Log.Error($"OrderService Not Found");
                             throw new ArgumentNullException("OrderService", "Not Found OrderService");
 

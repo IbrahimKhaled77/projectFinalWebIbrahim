@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/* using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Dtos.paymentMethodDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
@@ -10,14 +10,14 @@ namespace ProjectFinalWebIbrahim_infra.Services
     public class paymentMethodService : IPaymentMethodService
     {
 
-        private readonly IOrderRepository _IOrderRepository;
+        
         private readonly IUserRepository _IUserRepository;
         private readonly IPaymentMethodRepository _IPaymentMethodRepository;
 
-        public paymentMethodService(IOrderRepository IOrderRepository, IUserRepository IUserRepository, IPaymentMethodRepository iPaymentMethodRepository)
+        public paymentMethodService(IUserRepository IUserRepository, IPaymentMethodRepository iPaymentMethodRepository)
         {
 
-            _IOrderRepository = IOrderRepository;
+          
             _IUserRepository = IUserRepository;
             _IPaymentMethodRepository = iPaymentMethodRepository;
         }
@@ -140,5 +140,8 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
         }
 
+
+        
     }
 }
+*/

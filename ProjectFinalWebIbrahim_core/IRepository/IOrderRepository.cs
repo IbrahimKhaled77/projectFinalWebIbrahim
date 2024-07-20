@@ -19,10 +19,12 @@ namespace ProjectFinalWebIbrahim_core.IRepository
         Task UpdateOrder(Order Inpute);
         Task DeleteOrder(Order Inpute);
 
-   
+        Task<PaymentMethod> IsValidPayment(string code, string cardNumber, string cardHolder, decimal Price);
+
+        Task<PaymentMethod> GetPaymentMethodById(int PaymentMethodId);
 
 
-   
+        Task UpdatePaymentMethod(PaymentMethod Inpute);
 
     }
 }

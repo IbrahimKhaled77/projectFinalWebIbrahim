@@ -14,7 +14,7 @@ namespace ProjectFinalWebIbrahim_core.IRepository
         Task<GetServiceDetailDTO> GetServiceByIdSrev(int ServiceId);
 
         Task<Service> GetServiceById(int ServiceId);
-        Task CreateService(Service Inpute);
+        Task<int> CreateService(Service Inpute);
 
         Task UpdateService(Service Inpute);
         Task DeleteService(Service Inpute);

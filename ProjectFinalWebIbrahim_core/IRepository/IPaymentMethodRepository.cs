@@ -1,5 +1,5 @@
 ﻿
-
+/*
 using ProjectFinalWebIbrahim_core.Model.Entity;
 
 namespace ProjectFinalWebIbrahim_core.IRepository
@@ -16,3 +16,4 @@ namespace ProjectFinalWebIbrahim_core.IRepository
         Task<PaymentMethod> GetPaymentMethodById(int PaymentMethodId);
     }
 }
+*/

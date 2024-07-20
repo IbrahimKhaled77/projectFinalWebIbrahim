@@ -12,7 +12,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderDTO
         public string           Note                          { get; set; }
       //  public PaymentMethod    PaymentMethod          { get; set; }
         public OrderStatus      Status                   { get; set; }
-        public int              Rate                             { get; set; }
+     
 
         public DateTime?        CreationDate               { get; set; } = DateTime.Now;
 

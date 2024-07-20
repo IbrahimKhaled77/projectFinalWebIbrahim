@@ -188,10 +188,12 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
         }
 
-        public async Task CreateService(Service Inpute)
+        public async Task<int> CreateService(Service Inpute)
         {
             _context.Services.Add(Inpute);
             await _context.SaveChangesAsync();
+
+            return Inpute.ServiceId;
         }
 
 

@@ -14,14 +14,12 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         private readonly IOrderRepository _IOrderRepository;
         private readonly IUserRepository _IUserRepository;
-        private readonly IPaymentMethodRepository _IPaymentMethodRepository;
         private readonly IOrderServiceRepository _IOrderServiceRepository;
-        public OrderServices(IOrderRepository IOrderRepository , IUserRepository IUserRepository, IPaymentMethodRepository iPaymentMethodRepository, IOrderServiceRepository iOrderServiceRepository)
+        public OrderServices(IOrderRepository IOrderRepository , IUserRepository IUserRepository, IOrderServiceRepository iOrderServiceRepository)
         {
 
             _IOrderRepository = IOrderRepository;
             _IUserRepository = IUserRepository;
-            _IPaymentMethodRepository = iPaymentMethodRepository;
             _IOrderServiceRepository = iOrderServiceRepository;
         }
 
@@ -66,9 +64,8 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         Note = Inpute.Note,
                         DateOrder = Inpute.DateOrder,
                         Status = Inpute.Status,
-                        Rate = Inpute.Rate,
+                        Rate = 0,
                         UsersId = user.UserId,
-                        //PaymentMethod = Inpute.PaymentMethod,
                         IsِActive = Inpute.IsِActive,
                         CreationDate = DateTime.UtcNow,
                     };
@@ -138,6 +135,10 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                 if (Order != null && user !=null)
                 {
+
+
+                    
+
 
                     if (Inpute.Rate !=null) {
                         Order.Rate = (int) Inpute.Rate;
@@ -209,6 +210,73 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
+
+
+        public async Task<string> Rating(RatingDTO Inpute) {
+
+            try
+            {
+
+                Log.Information("Order Is strating UpdateOrder");
+
+                var Order = await _IOrderRepository.GetOrderById(Inpute.OrderId);
+                
+
+                if (Order != null)
+                {
+
+
+                    if (Order.Status == OrderStatus.Delivered) {
+
+                        if (Inpute.Rate != null)
+                        {
+                            Order.Rate = (int)Inpute.Rate;
+                        }
+                  
+
+
+                    }
+
+
+                  
+
+
+                    await _IOrderRepository.UpdateOrder(Order);
+
+
+                    Log.Information("Order Is Updated Rating");
+                    Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
+
+                    return "UpdateOrder  Rating success";
+
+                }
+                else
+                {
+                    Log.Error($"Order Not Found");
+                    throw new ArgumentNullException("Order", "Not Found Order");
+
+                }
+
+
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                Log.Error($"Order Not Found: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Log.Error($"An error occurred in database: {ex.Message}");
+                throw new DbUpdateException($"Database Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"An error occurred Exception: {ex.Message}");
+                throw new Exception($"Exception: {ex.Message}");
+            }
+        }
+
 
 
         //provider and Admin
