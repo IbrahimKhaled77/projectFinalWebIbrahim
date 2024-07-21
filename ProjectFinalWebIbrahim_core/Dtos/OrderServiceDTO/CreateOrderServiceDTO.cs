@@ -15,6 +15,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
         public string Code { get; set; }
         public string CardHolder { get; set; }
 
+        public int Quantity { get; set; }
 
         public DateTime? CreationDate { get; set; }= DateTime.Now;
 

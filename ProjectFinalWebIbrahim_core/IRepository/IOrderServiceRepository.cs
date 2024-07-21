@@ -15,7 +15,7 @@ namespace ProjectFinalWebIbrahim_core.IRepository
         Task UpdateOrderService(OrderService Inpute);
         Task DeleteOrderService(OrderService Inpute);
 
-
+        
 
 
 

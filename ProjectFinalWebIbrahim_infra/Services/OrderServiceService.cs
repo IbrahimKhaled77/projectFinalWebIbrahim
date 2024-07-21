@@ -105,13 +105,10 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 if (Order != null && Service != null)
                 {
 
-                    //Payment 
+                   
 
-                    var paymentMethod = await _IOrderRepository.IsValidPayment(Inpute.Code, Inpute.CardNumber, Inpute.CardHolder, Service.PriceAfterDiscount);
-
-                    if (paymentMethod != null)
-                    {
-                        paymentMethod.Balance -= Service.PriceAfterDiscount;
+                  
+                        
                         var OrderServices = new OrderService
                         {
 
@@ -120,34 +117,52 @@ namespace ProjectFinalWebIbrahim_infra.Services
                             CreationDate = Inpute.CreationDate,
                             ModifiedDate = null,
                             IsِActive = Inpute.IsِActive,
-
-
+                            Quantity = Inpute.Quantity,
+                           
 
 
 
 
                         };
-                        await _IOrderRepository.UpdatePaymentMethod(paymentMethod);
+                       
                         if (OrderServices != null)
                         {
 
-                            await _IOrderServiceRepository.CreateOrderService(OrderServices);
+                         await _IOrderServiceRepository.CreateOrderService(OrderServices);
+                   
 
-                            Log.Information("OrderService Is Created");
-                            Log.Debug($"Debugging Get OrderService By Id Has been Finised Successfully With Order ID  = {OrderServices.OrderServiceId}");
 
-                            return "AddOrderService Has been Finised Successfully ";
+
+                        Order.priceFinal2 = Inpute.Quantity * Service.PriceAfterDiscount;
+
+                            await _IOrderRepository.UpdateOrder(Order);
+
+                        //Payment 
+                        var paymentMethods = await _IOrderRepository.IsValidPayment(Inpute.Code, Inpute.CardNumber, Inpute.CardHolder, (decimal)Order.priceFinal2);
+                            if (paymentMethods != null)
+                            {
+                            paymentMethods.Balance -= Order.priceFinal2;
+                                await _IOrderRepository.UpdatePaymentMethod(paymentMethods);
+
+
+                                Log.Information("OrderService Is Created");
+                                Log.Debug($"Debugging Get OrderService By Id Has been Finised Successfully With Order ID  = {OrderServices.OrderServiceId}");
+
+                                return "AddOrderService Has been Finised Successfully ";
+                            }
+                            else {
+
+                            paymentMethods.Balance += Order.priceFinal2;
+                                await _IOrderRepository.UpdatePaymentMethod(paymentMethods);
+
+                                Log.Error($"OrderService Not Found");
+                                throw new ArgumentNullException("OrderService", "Not Found OrderService");
+                            }
+
+
+
                         }
-                        else
-                        {
-                            paymentMethod.Balance += Service.PriceAfterDiscount;
-                            await _IOrderRepository.UpdatePaymentMethod(paymentMethod);
-                            Log.Error($"OrderService Not Found");
-                            throw new ArgumentNullException("OrderService", "Not Found OrderService");
-
-                        }
-
-                    }
+                   
                     else
                     {
                         throw new Exception("Invalid Payment Method");

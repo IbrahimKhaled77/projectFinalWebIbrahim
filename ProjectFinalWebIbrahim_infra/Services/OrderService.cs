@@ -68,6 +68,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         UsersId = user.UserId,
                         IsِActive = Inpute.IsِActive,
                         CreationDate = DateTime.UtcNow,
+                        priceFinal2 = 0,
                     };
 
 

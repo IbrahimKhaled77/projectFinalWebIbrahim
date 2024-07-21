@@ -14,5 +14,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderDTO
 
         public bool                 IsِActive                                            { get; set; }
         public int?                 UsersId                                                     { get; set; }
+
+        public decimal priceFinal2 { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
 
       
 
-    
+        public decimal? priceFinal2 { get; set; }
         public OrderStatus Status { get; set; }
         public int? Rate { get; set; }
         public DateTime? CreationDate { get; set; }

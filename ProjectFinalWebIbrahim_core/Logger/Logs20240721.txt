@@ -1,0 +1,8 @@
+2024-07-21 05:50:56.210 +03:00 [INF] Starting web host
+2024-07-21 06:04:32.712 +03:00 [INF] Starting web host
+2024-07-21 06:07:01.753 +03:00 [INF] Starting Login
+2024-07-21 06:07:03.556 +03:00 [INF] Login Is In Finised
+2024-07-21 06:07:03.556 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-21 06:07:25.678 +03:00 [INF] OrderService Is In Createing
+2024-07-21 06:07:25.821 +03:00 [INF] OrderService Is Created
+2024-07-21 06:07:25.821 +03:00 [DBG] Debugging Get OrderService By Id Has been Finised Successfully With Order ID  = 2

@@ -44,6 +44,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                  Title = p.Title,
                                  DateOrder = p.DateOrder,
                                  IsِActive = p.IsِActive,
+                                 priceFinal2 = (decimal)p.priceFinal2,
 
                              };
 
@@ -117,11 +118,10 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                  Title = p.Title,
                                  Status = p.Status,
                                  ClientName = x.FirstName,
-                                 Rate = (int)p.Rate,
-                                 //PaymentMethod = p.PaymentMethod,
+                                 Rate = (int)p.Rate, 
                                  Note = p.Note,
                                  IsِActive = p.IsِActive,
-
+                                 priceFinal2= (decimal)p.priceFinal2,
                              };
 
                 var qu = await Orders.LastOrDefaultAsync();
