@@ -22,7 +22,6 @@ namespace ProjectFinalWebIbrahim_core.Context
             modelBuilder.ApplyConfiguration(new ServiceEntityConfigartion());
             modelBuilder.ApplyConfiguration(new CategoryEntityConfigartion());
             modelBuilder.ApplyConfiguration(new OrderEntityConfigartion());
-            modelBuilder.ApplyConfiguration(new OrderServerEntityConfigartion());
             modelBuilder.ApplyConfiguration(new ProblemEntityConfigartion());
 
             modelBuilder.Entity<PaymentMethod>().HasKey(x => x.PaymentMethodId);
@@ -39,7 +38,7 @@ namespace ProjectFinalWebIbrahim_core.Context
 
         public virtual DbSet<Category> Categorie { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<OrderService> OrderService { get; set; }
+        
         public virtual DbSet<Problem> Problem { get; set; }
     }
 }

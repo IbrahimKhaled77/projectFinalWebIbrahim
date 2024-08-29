@@ -8,9 +8,11 @@ namespace ProjectFinalWebIbrahim_core.IServices
 
         Task<GetOrderDetailDTO> GetOrderById(int OrderId);
 
-        Task<List<GetOrderAllDTO>> GetOrderAll();
+        Task<List<GetOrderAllDTO>> GetOrderAll(bool? IsApproved);
+        Task<List<GetOrderAllDTO>> GetOrderAlUser(int userId);
 
-        Task<string> CreateOrder(CreateOrderDTO Inpute);
+
+        Task<int> CreateOrder(CreateOrderDTO Inpute,int serviceId);
 
         Task<string> UpdateOrder(UpdateOrderDTO Inpute);
         Task<string> DeleteOrder(int OrderId);

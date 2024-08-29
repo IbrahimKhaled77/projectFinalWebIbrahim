@@ -18,35 +18,10 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
 
 
-        public async Task<List<GetUserAllDTO>> GetUserAll(int UserId)
+        public async Task<List<GetUserAllDTO>> GetUserAll()
         {
-            var Provider = await IsProvider(UserId);
-
-            if (Provider)
-            {
-                var Clien = from x in _context.User
-                            where x.UserType == UserType.Clien
-                            orderby x.CreationDate descending
-                            select new GetUserAllDTO
-                            {
-
-                                UserId = x.UserId,
-                                Email = x.Email,
-                                FirstName = x.FirstName,
-                                LastName = x.LastName,
-                                CreationDate = x.CreationDate,
-                                Gender = x.Gender,
-                                ImageProfile = x.ImageProfile,
-                                IsِActive = x.IsِActive,
-                                userType = x.UserType,
-                                ModifiedDate = x.ModifiedDate,
-                            };
-
-                return await Clien.ToListAsync();
-
-            }
-            else if (await IsAdmin(UserId))
-            {
+            
+             
 
                 var user = from x in _context.User
                            orderby x.CreationDate descending
@@ -60,37 +35,15 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                CreationDate = x.CreationDate,
                                Gender = x.Gender,
                                ImageProfile = x.ImageProfile,
-                               IsِActive = x.IsِActive,
+                               isctive = x.IsActive,
                                userType = x.UserType,
                                ModifiedDate = x.ModifiedDate,
                            };
 
 
                 return await user.ToListAsync();
-            }
-            else
-            {
-
-                var Providers = from x in _context.User
-                                where x.UserType == UserType.Provider
-                                orderby x.CreationDate descending
-                                select new GetUserAllDTO
-                                {
-
-                                    UserId = x.UserId,
-                                    Email = x.Email,
-                                    FirstName = x.FirstName,
-                                    LastName = x.LastName,
-                                    CreationDate = x.CreationDate,
-                                    Gender = x.Gender,
-                                    ImageProfile = x.ImageProfile,
-                                    IsِActive = x.IsِActive,
-                                    userType = x.UserType,
-                                    ModifiedDate = x.ModifiedDate,
-                                };
-
-                return await Providers.ToListAsync();
-            }
+            
+           
 
 
         }
@@ -131,14 +84,11 @@ namespace ProjectFinalWebIbrahim_infra.Repository
         }
 
 
-
-
-
         public async Task<bool> IsAdmin(int UserId)
         {
             var Admin = await _context.User.AnyAsync( x => x.UserType == UserType.Admin && x.UserId == UserId) ;
 
-            return Admin!;
+            return Admin;
         }
 
         public async Task<bool> IsClient(int UserId)

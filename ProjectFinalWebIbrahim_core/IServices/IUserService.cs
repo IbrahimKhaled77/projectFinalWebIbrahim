@@ -10,7 +10,7 @@ namespace ProjectFinalWebIbrahim_core.IServices
      
         Task<GetUserDetailDTO> GetUserById(int UserId);
 
-        Task<List<GetUserAllDTO>> GetUserAll(int UserId);
+        Task<List<GetUserAllDTO>> GetUserAll();
 
         Task<string> CreateUser(CreateUserDTO Inpute);
 

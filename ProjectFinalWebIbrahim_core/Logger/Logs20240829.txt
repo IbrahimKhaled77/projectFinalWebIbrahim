@@ -1,0 +1,23 @@
+2024-08-29 20:26:11.049 +03:00 [INF] Starting web host
+2024-08-29 20:33:20.637 +03:00 [INF] Create New User
+2024-08-29 20:33:21.998 +03:00 [INF] User Is In Finised
+2024-08-29 20:33:21.998 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  1 
+2024-08-29 20:33:22.274 +03:00 [INF] Login Is In Finised
+2024-08-29 20:36:37.296 +03:00 [INF] Create New User
+2024-08-29 20:36:37.390 +03:00 [INF] User Is In Finised
+2024-08-29 20:36:37.390 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-08-29 20:36:37.410 +03:00 [INF] Login Is In Finised
+2024-08-29 20:42:16.767 +03:00 [INF] Create New User
+2024-08-29 20:42:24.472 +03:00 [ERR] An error occurred Exception: Object reference not set to an instance of an object.
+2024-08-29 20:42:45.533 +03:00 [INF] Create New User
+2024-08-29 20:42:49.980 +03:00 [ERR] An error occurred Exception: Object reference not set to an instance of an object.
+2024-08-29 20:42:59.129 +03:00 [INF] Create New User
+2024-08-29 20:43:03.036 +03:00 [ERR] An error occurred Exception: Object reference not set to an instance of an object.
+2024-08-29 20:44:45.082 +03:00 [INF] Create New User
+2024-08-29 20:44:45.150 +03:00 [INF] User Is In Finised
+2024-08-29 20:44:45.150 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  3 
+2024-08-29 20:44:45.163 +03:00 [INF] Login Is In Finised
+2024-08-29 20:46:39.481 +03:00 [INF] Create New User
+2024-08-29 20:46:39.502 +03:00 [INF] User Is In Finised
+2024-08-29 20:46:39.502 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  4 
+2024-08-29 20:46:39.516 +03:00 [INF] Login Is In Finised

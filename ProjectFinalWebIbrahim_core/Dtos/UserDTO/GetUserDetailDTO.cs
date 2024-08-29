@@ -22,7 +22,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.UserDTO
 
         public UserType userType { get; set; }
 
-        public bool IsِActive { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }

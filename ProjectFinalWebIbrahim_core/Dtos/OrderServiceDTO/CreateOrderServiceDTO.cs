@@ -1,5 +1,5 @@
 ﻿
-
+/*
 namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
 {
     public class CreateOrderServiceDTO
@@ -17,11 +17,8 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
 
         public int Quantity { get; set; }
 
-        public DateTime? CreationDate { get; set; }= DateTime.Now;
-
-
-        public DateTime? ModifiedDate { get; set; } = null;
-
-        public bool IsِActive { get; set; }
+  
+      
     }
 }
+*/

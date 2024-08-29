@@ -2,13 +2,12 @@
 using ProjectFinalWebIbrahim_core.Model.Entity;
 
 namespace ProjectFinalWebIbrahim_core.IRepository
-{
-    //t
+{ 
     public interface IServiceRepository
     {
 
 
-
+        Task<List<GetServiceAllDTO>> GetServiceCustomerAll(int CategorId);
         Task<List<GetServiceAllDTO>> GetServiceAll();
 
         Task<GetServiceDetailDTO> GetServiceByIdSrev(int ServiceId);

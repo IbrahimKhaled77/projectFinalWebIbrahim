@@ -1,5 +1,7 @@
-﻿using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
-using ProjectFinalWebIbrahim_core.Model.Entity;
+﻿
+/*
+using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
+
 
 
 namespace ProjectFinalWebIbrahim_core.IRepository
@@ -21,3 +23,4 @@ namespace ProjectFinalWebIbrahim_core.IRepository
 
     }
 }
+*/

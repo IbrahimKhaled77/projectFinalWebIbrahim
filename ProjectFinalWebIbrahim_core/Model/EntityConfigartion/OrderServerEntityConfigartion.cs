@@ -1,8 +1,8 @@
-﻿
+﻿/*
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProjectFinalWebIbrahim_core.Model.Entity;
-using System.Reflection.Emit;
+
 
 namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
 {
@@ -14,8 +14,8 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
 
             builder.Property(x => x.ModifiedDate).IsRequired(false);
 
-            builder.Property(x => x.IsِActive).IsRequired();
-            builder.Property(x => x.IsِActive).HasDefaultValue(false);
+            builder.Property(x => x.IsActive).IsRequired();
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
 
             builder.HasKey(l => l.OrderServiceId);
 
@@ -35,3 +35,4 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
         }
     }
 }
+*/

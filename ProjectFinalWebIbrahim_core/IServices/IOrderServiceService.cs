@@ -1,5 +1,5 @@
 ﻿
-
+/*
 using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
 
 namespace ProjectFinalWebIbrahim_core.IServices
@@ -25,3 +25,4 @@ namespace ProjectFinalWebIbrahim_core.IServices
 
     }
 }
+*/

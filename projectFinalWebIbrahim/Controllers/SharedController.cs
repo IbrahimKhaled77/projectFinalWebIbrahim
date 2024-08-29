@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
 using ProjectFinalWebIbrahim_core.Dtos.LoginDTO;
-using ProjectFinalWebIbrahim_core.Dtos.paymentMethodDTO;
 using ProjectFinalWebIbrahim_core.Dtos.UserDTO;
-using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IServices;
-using ProjectFinalWebIbrahim_infra.Services;
 
 
 namespace projectFinalWebIbrahim.Controllers
@@ -32,54 +28,7 @@ namespace projectFinalWebIbrahim.Controllers
         }
 
         #region User
-        #region  HttpGet GetAllUsers
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     Post api/GetAllUsers
-        ///     {        
-        ///        "UserId": "Enter Your UserId Here (Required)",
-        ///        
-        ///      
-        ///     }
-        /// </remarks>
-        /// <response code="200">Returns  Get All Users Successfully</response>
-        /// <response code="404">If the error was occured  (Not Found)</response>
-        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
-        /// <response code="400">If an exception occurs (Exception)</response>    
-        ///<summary>
-        /// I will retrieve all the Users present on the application.
-        /// </summary>
-        /// <param name="UserId">The UserId of the  Customer to Get All Users (Required).</param>
-        /// <returns>List of Users </returns>
-        [HttpGet]
-        [Route("[action]/{UserId}")]
-        public async Task<IActionResult> GetAllUsers([FromRoute] int UserId)
-        {
-            try
-            {
-
-                return StatusCode(200, await _userService.GetUserAll(UserId));
-
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, ex.Message);
-
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                return StatusCode(404, ex.Message);
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
-        }
-
-        #endregion
+       
 
         #region  HttpGet GetUserById
         /// <remarks>
@@ -289,53 +238,7 @@ namespace projectFinalWebIbrahim.Controllers
 
         #region Authantication
 
-        #region  HttpPost Login
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     Post api/Login
-        ///     {        
-        ///        "Email": "Enter Your Email Here (Required)",
-        ///        "password": "Enter Your password Here (Required)",
-        ///      
-        ///     }
-        /// </remarks>
-        /// <response code="201">Returns  Login  Successfully</response>
-        /// <response code="404">If the error was occured  (Not Found)</response>
-        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
-        /// <response code="400">If the error was occured  (Exception)</response>       
-        ///<summary>
-        /// Adds a new Token customer to the database.
-        /// </summary>
-        /// <param name="DTO">The Email and Password of the  User to Login (Required).</param>
-        /// <returns>A message indicating the success of the operation </returns>
-
-        [HttpPost]
-        [Route("[action]")]
-        public async Task<IActionResult> Login([FromBody] CreateLoginDTO DTO)
-        {
-            try
-            {
-                return StatusCode(201, await _LoginService.Login(DTO));
-
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, ex.Message);
-
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                return StatusCode(404, ex.Message);
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
-        }
-        #endregion
+   
 
         #region HttpPut Logout
         /// <remarks>
@@ -522,42 +425,25 @@ namespace projectFinalWebIbrahim.Controllers
             }
         }
         #endregion
-        #endregion
 
-        /*
-        #region  HttpPost CreatePaymentMethod
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     Post api/CreatePaymentMethod
-        ///     {        
-        ///        "CardNumber": "Enter the category CardNumber (Required)",
-        ///        "Code": "Enter the Code ",
-        ///        "CardHolder": "Enter the URL of the CardHolder title image (Optional)",
-        ///        "ExpireDate": "Enter the ExpireDate  ",
-        ///        "Balance": "Enter if the Balance  (Required)"
-        ///      
-        ///     }
-        /// </remarks>
-        /// <response code="201">Returns   Create PaymentMethod  Successfully</response>
+
+        #region  HttpGet  GetCategoryById
+        /// <response code="200">Returns  Get Category By Id Successfully</response>
         /// <response code="404">If the error was occured  (Not Found)</response>
         /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
-        /// <response code="400">If the error was occured  (Exception)</response>       
+        /// <response code="400">If an exception occurs (Exception)</response>    
         ///<summary>
-        /// Adds a new PaymentMethod to the database.
+        /// I will retrieve the Category present on the application.
         /// </summary>
-        /// <returns>A message indicating the success of the operation </returns>
-        [HttpPost]
-        [Route("[action]")]
-        public async Task<IActionResult> CreatePaymentMethod([FromBody] CreatepaymentMethodDTO DTO)
+        /// <returns>List of Category </returns>
+        [HttpGet]
+        [Route("[action]/{CategoryId}")]
+        public async Task<IActionResult> GetCategoryById([FromRoute] int CategoryId)
         {
             try
             {
 
-               
-                    return StatusCode(201, await _IPaymentMethodService.CreatepaymentMethod(DTO));
-                
-               
+                return StatusCode(201, await _ICategoryService.GetCategoryById(CategoryId));
 
             }
             catch (DbUpdateException ex)
@@ -577,65 +463,9 @@ namespace projectFinalWebIbrahim.Controllers
             }
         }
         #endregion
-
-        #region  HttpPut UpdatePaymentMethod
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     Put api/UpdatePaymentMethod
-        ///     {     
-        ///        "PaymentMethodId": "Enter the ID of the PaymentMethod to update",
-        ///        "UsersId": "Enter the Users Id ",
-        ///        "CardNumber": "Enter the CardNumber ",
-        ///        "Code": "Enter  the Code ",
-        ///        "CardHolder": "Enter the CardHolder",
-        ///        "ExpireDate": "Enter  the ExpireDate ",
-        ///           "Balance": "Enter  the Balance "
-        ///      
-        ///     }
-        /// </remarks>
-        /// <response code="200">Returns  Update PaymentMethod Successfully</response>
-        /// <response code="404">If the error was occured  (Not Found)</response>
-        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
-        /// <response code="400">If the error was occured  (Exception)</response>       
-        ///<summary>
-        /// Update a  PaymentMethod to the database.
-        /// </summary>
-        /// <returns>A message indicating the success of the operation </returns>
-        [HttpPut]
-        [Route("[action]")]
-        public async Task<IActionResult> UpdatePaymentMethod([FromBody] UpdatePaymentMethodDTo updateDTO)
-        {
-            try
-            {
-         
-           
-
-                    return StatusCode(201, await _IPaymentMethodService.UpdatePaymentMethod(updateDTO));
-               
-             
-
-
-
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, ex.Message);
-
-            }
-            catch (ArgumentNullException ex)
-            {
-
-                return StatusCode(404, ex.Message);
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
-        }
         #endregion
-        */
+
+
 
 
         #region Order

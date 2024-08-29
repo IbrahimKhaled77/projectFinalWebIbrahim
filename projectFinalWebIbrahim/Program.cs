@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
+using ProjectFinalWebIbrahim_core.Model.Entity;
 using ProjectFinalWebIbrahim_infra.Repository;
 using ProjectFinalWebIbrahim_infra.Services;
 using Serilog;
@@ -57,14 +58,22 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderServices>();
-builder.Services.AddScoped<IOrderServiceService, OrderServiceService>();
-builder.Services.AddScoped<IOrderServiceRepository, OrderServiceRepository>();
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProblemService, ProblemService>();
 builder.Services.AddScoped<IProblemRepository, ProblemRepository>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(name: "default", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 
 var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -102,8 +111,9 @@ app.UseStaticFiles(new StaticFileOptions
 
 
 
-
+app.UseCors("default");
 app.UseAuthorization();
+
 
 app.MapControllers();
 try

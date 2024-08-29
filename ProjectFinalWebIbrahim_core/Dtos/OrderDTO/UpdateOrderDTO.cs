@@ -12,7 +12,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderDTO
         public OrderStatus? Status { get; set; }
     
 
-        public DateTime? ModifiedDate { get; set; }=DateTime.Now;
+      
 
        
     }

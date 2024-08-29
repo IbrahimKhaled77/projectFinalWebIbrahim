@@ -1,10 +1,10 @@
 ﻿using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.Model.Entity;
-using System;
 
 namespace ProjectFinalWebIbrahim_core.IRepository
 {
-    //t
+   
+
     public interface IProblemRepository
     {
 

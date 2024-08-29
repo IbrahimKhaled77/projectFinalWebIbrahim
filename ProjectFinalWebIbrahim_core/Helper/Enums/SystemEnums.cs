@@ -5,12 +5,6 @@ namespace ProjectFinalWebIbrahim_core.Helper.Enums
     public class SystemEnums
     {
 
-        public enum UserType2
-        {
-            Clien = 3,
-            Admin = 1,
-            Provider = 2,
-        }
 
         public enum UserType
         {
@@ -26,14 +20,6 @@ namespace ProjectFinalWebIbrahim_core.Helper.Enums
             Delivered,
             Cancelled
         }
-        /*
-        public enum PaymentMethod
-        {
-            CreditCard,
-         PayPal ,
-           Cash ,
-            }
-        */
         public enum QuantityUnitType
         {
             Kilogram = 0,
@@ -41,15 +27,14 @@ namespace ProjectFinalWebIbrahim_core.Helper.Enums
             Liter = 2,
             Milliliter = 3,
             Meter = 4,
-            Centimeter = 4,
-            Kilometer = 5,
-            Inch = 6,
-            Foot = 7,
-            Yard = 8,
-            Piece = 9,
+            Centimeter = 5,
+            Kilometer = 6,
+            Inch = 7,
+            Foot = 8,
+            Yard = 9,
+            Piece = 10,
         }
-
-
+   
         public enum Gender
         {
             Male=1,

@@ -20,7 +20,7 @@ namespace projectFinalWebIbrahim.Controllers
             string newFileURL = Guid.NewGuid().ToString() + "" + file.FileName;
             using (var inputFile = new FileStream(Path.Combine(uploadFolder, newFileURL), FileMode.Create))
             {
-                //await file.CopyToAsync(inputFile);
+                await file.CopyToAsync(inputFile);
             }
             return newFileURL;
         }

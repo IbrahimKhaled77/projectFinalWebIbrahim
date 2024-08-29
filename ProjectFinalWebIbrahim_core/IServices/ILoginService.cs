@@ -11,8 +11,9 @@ namespace ProjectFinalWebIbrahim_core.IServices
 
         Task<string> GenerateUserAccessToken(string UserName, string Password);
         Task<User> TryAuthanticate(string UserName, string Password);
-        Task<string> Login(CreateLoginDTO Inpute);
+        Task<string> LoginbyAdmin(CreateLoginDTO Inpute);
 
+        Task<string> LoginbyUser(CreateLoginDTO Inpute);
         Task<string> Logout(int UserId);
 
         Task<string> ResetPassword(ResetPasswordDTO Inpute);

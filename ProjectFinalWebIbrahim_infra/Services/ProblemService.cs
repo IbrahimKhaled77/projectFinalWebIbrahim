@@ -1,7 +1,6 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
-using Mysqlx.Crud;
 using ProjectFinalWebIbrahim_core.Dtos.ProblemDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
@@ -13,50 +12,49 @@ namespace ProjectFinalWebIbrahim_infra.Services
     public class ProblemService : IProblemService
     {
         private readonly IProblemRepository _IProblemRepository;
-        private readonly IOrderRepository _IOrderRepository;
-
-        public ProblemService(IProblemRepository IProblemRepository, IOrderRepository IOrderRepository)
+      private readonly IUserRepository _IUserRepository;
+        public ProblemService(IProblemRepository IProblemRepository, IUserRepository iUserRepository)
         {
 
             _IProblemRepository = IProblemRepository;
-            _IOrderRepository = IOrderRepository; 
+            _IUserRepository = iUserRepository;
         }
 
 
-        //admin
+        
         public async Task<List<GetProblemAllDTO>> GetProblemAll()
         {
             return await _IProblemRepository.GetProblemAll();
         }
 
-        //admin
+        
         public async Task<GetProblemDetailDTO> GetProblemById(int ProblemId)
         {
             return await _IProblemRepository.GetProblemById(ProblemId);
         }
 
 
-        //client
+      
         public async Task<string> CreateProblem(CreateProblemDTO Inpute)
         {
             try
             {
 
-                var Order = await _IOrderRepository.GetOrderById((int) Inpute.OrderId);
+                var User = await _IUserRepository.GetUserById((int) Inpute.UserId);
 
                 Log.Information("Order Is In Createing");
 
-                if (Order != null )
+                if (User != null )
                 {
                     var Problem = new Problem
                     {
 
 
                         ModifiedDate = null,
-                        OrderId = Order.OrderId,
+                        UserId = User.UserId,
                         Title = Inpute.Title,
                         Purpose = Inpute.Purpose,
-                        IsِActive = Inpute.IsِActive,
+                        IsActive = true,
                         CreationDate = DateTime.UtcNow,
                         Description = Inpute.Description,
 
@@ -109,7 +107,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
         }
 
 
-        //not found 
+      
         public async Task<string> UpdateProblem(UpdateProblemDTO Inpute)
         {
             try
@@ -134,9 +132,9 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         Problem.Title = Inpute.Title;
 
                     }
-                    if (Inpute.IsِActive != null) {
+                    if (Inpute.IsActive != null) {
 
-                        Problem.IsِActive = (bool) Inpute.IsِActive;
+                        Problem.IsActive = (bool) Inpute.IsActive;
                     }
 
         
@@ -185,7 +183,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
 
 
-        //admin
+   
         public async Task<string> DeleteProblem(int ProblemId)
         {
             try
@@ -238,7 +236,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             var Problem = await _IProblemRepository.GetProblemByIdServ(Id);
             if (Problem != null)
             {
-                Problem.IsِActive = value;
+                Problem.IsActive = value;
                 await _IProblemRepository.UpdateProblem(Problem);
             }
             else

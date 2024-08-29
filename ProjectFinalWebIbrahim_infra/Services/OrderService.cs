@@ -14,30 +14,36 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         private readonly IOrderRepository _IOrderRepository;
         private readonly IUserRepository _IUserRepository;
-        private readonly IOrderServiceRepository _IOrderServiceRepository;
-        public OrderServices(IOrderRepository IOrderRepository , IUserRepository IUserRepository, IOrderServiceRepository iOrderServiceRepository)
+        private readonly IServiceRepository _IServiceRepository;
+        public OrderServices(IServiceRepository IServiceRepository,IOrderRepository IOrderRepository , IUserRepository IUserRepository)
         {
 
             _IOrderRepository = IOrderRepository;
             _IUserRepository = IUserRepository;
-            _IOrderServiceRepository = iOrderServiceRepository;
+                 _IServiceRepository = IServiceRepository;
         }
 
 
-        //provider and Client
-        public async Task<List<GetOrderAllDTO>> GetOrderAll()
+        
+        public async Task<List<GetOrderAllDTO>> GetOrderAll(bool? IsApproved)
         {
-            return await _IOrderRepository.GetOrderAll();
+            return await _IOrderRepository.GetOrderAll(IsApproved);
         }
 
-        //Admin and provider and Client 
+        public async Task<List<GetOrderAllDTO>> GetOrderAlUser(int userId)
+        {
+            return await _IOrderRepository.GetOrderAllUser(userId);
+        }
+
+
+
         public async Task<GetOrderDetailDTO> GetOrderById(int OrderId)
         {
             return await _IOrderRepository.GetOrderByIdServ(OrderId);
         }
 
-        //client
-        public async Task<string> CreateOrder(CreateOrderDTO Inpute)
+
+        public async Task<int> CreateOrder(CreateOrderDTO Inpute,int serviceId)
         {
             try
             {
@@ -45,12 +51,12 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                 var user = await _IUserRepository.GetUserById((int)Inpute.UsersId);
 
-              
+                var Serveic = await _IServiceRepository.GetServiceById((int)serviceId);
 
 
                 Log.Information("Order Is strating CreateOrder");
 
-                if (user != null) {
+                if (user != null && Serveic !=null) {
 
 
 
@@ -63,12 +69,19 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         Title = Inpute.Title,
                         Note = Inpute.Note,
                         DateOrder = Inpute.DateOrder,
-                        Status = Inpute.Status,
+                        Status = OrderStatus.Pending,
+                        Quantity = Inpute.Quantity,
+                        ServiceId = Serveic.ServiceId,
                         Rate = 0,
                         UsersId = user.UserId,
-                        IsِActive = Inpute.IsِActive,
-                        CreationDate = DateTime.UtcNow,
-                        priceFinal2 = 0,
+                        IsActive = true,
+                        CreationDate = DateTime.Now,
+                        Address1 = Inpute.Address1,
+                        Address2 = Inpute.Address2,
+                        city = Inpute.city,
+                        IsApproved = false,
+                        
+                        priceFinal2 = Inpute.Quantity * Serveic.PriceAfterDiscount,
                     };
 
 
@@ -79,22 +92,58 @@ namespace ProjectFinalWebIbrahim_infra.Services
                        
 
 
-                        await _IOrderRepository.CreateOrder(Order);
+                      var OrderId = await _IOrderRepository.CreateOrder(Order);
 
-                        Log.Information("Order Is Created");
-                        Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
 
-                        return "AddOrder Has been Finised Successfully ";
+                      //  Inpute.OrderId = OrderId;
+
+
+                     //   await _IOrderRepository.UpdateOrder(Order);
+
+
+                        //Payment 
+                        var paymentMethods = await _IOrderRepository.IsValidPayment(Inpute.Code, Inpute.CardNumber, Inpute.CardHolder, (decimal)Order.priceFinal2);
+                        if (paymentMethods != null)
+                        {
+                            paymentMethods.Balance -= Order.priceFinal2;
+                            await _IOrderRepository.UpdatePaymentMethod(paymentMethods);
+
+
+                            Log.Information("Order Is Created");
+                            Log.Debug($"Debugging Get Order By Id Has been Finised Successfully With Order ID  = {Order.OrderId}");
+
+                            return OrderId;
+                        }
+                        else
+                        {
+
+                            paymentMethods.Balance += Order.priceFinal2;
+                            await _IOrderRepository.UpdatePaymentMethod(paymentMethods);
+
+                            Log.Error($"OrderService Not Found");
+                            throw new ArgumentNullException("OrderService", "Not Found OrderService");
+                        }
+
+
+
                     }
+
                     else
                     {
-                        Log.Error($"Order Not Found");
-                        throw new ArgumentNullException("Order", "Not Found Order");
-
+                        throw new Exception("Invalid Payment Method");
                     }
 
 
-                }
+
+                   
+
+
+
+                    }
+                   
+
+
+               
 
                 else {
 
@@ -123,7 +172,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
 
 
-        //Provider
+
         public async Task<string> UpdateOrder(UpdateOrderDTO Inpute)
         {
             try
@@ -143,7 +192,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         Order.Status = (OrderStatus)Inpute.Status;
 
                     }
-                    Order.ModifiedDate = Inpute.ModifiedDate;
+                    Order.ModifiedDate = DateTime.Now;
 
                    
 
@@ -211,7 +260,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         {
                             Order.Rate = (int)Inpute.Rate;
                         }
-                  
+                        Order.ModifiedDate = DateTime.Now;
 
 
                     }
@@ -257,8 +306,6 @@ namespace ProjectFinalWebIbrahim_infra.Services
         }
 
 
-
-        //provider and Admin
         public async Task<string> DeleteOrder(int OrderId)
         {
             try
@@ -337,7 +384,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             var Order = await _IOrderRepository.GetOrderById(Id);
             if (Order != null)
             {
-                Order.IsِActive = value;
+                Order.IsActive = value;
                 await _IOrderRepository.UpdateOrder(Order);
             }
             else

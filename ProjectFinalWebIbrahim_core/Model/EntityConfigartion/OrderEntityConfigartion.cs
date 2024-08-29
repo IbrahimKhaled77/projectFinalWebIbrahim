@@ -21,8 +21,7 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
             builder.Property(o => o.DateOrder)
                    .IsRequired();
 
-            //communit3
-           // builder.ToTable(x => x.HasCheckConstraint("CK_DateOrder_NotInFuture", "`DateOrder` <= CURDATE()"));
+       
 
             builder.Property(o => o.Title)
                    .HasMaxLength(100) 
@@ -32,17 +31,12 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
                    .HasMaxLength(500); 
 
       
-           // builder.Property(o => o.PaymentMethod)
-            //       .HasMaxLength(100);
-            //communit2
-           // builder.ToTable(x => x.HasCheckConstraint("CK_PaymentMethod_ValidValues", "`PaymentMethod` IN ('CreditCard', 'PayPal', 'Cash')"));
+         
 
             builder.Property(o => o.Status)
                    .HasMaxLength(50) 
                    .IsRequired();
 
-            //communit1
-         //   builder.ToTable(x => x.HasCheckConstraint("CK_Status_ValidValues", "`Status` IN ('Pending', 'Shipped', 'Delivered', 'Cancelled')"));
 
             builder.Property(o => o.Rate)
                    .IsRequired()  
@@ -52,8 +46,17 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
 
             builder.Property(x => x.ModifiedDate).IsRequired(false);
 
-            builder.Property(x => x.IsِActive).IsRequired();
-            builder.Property(x => x.IsِActive).HasDefaultValue(false);
+            builder.Property(x => x.IsActive).IsRequired();
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
         }
     }
 }
+//communit3
+// builder.ToTable(x => x.HasCheckConstraint("CK_DateOrder_NotInFuture", "`DateOrder` <= CURDATE()"));
+// builder.Property(o => o.PaymentMethod)
+//       .HasMaxLength(100);
+//communit2
+// builder.ToTable(x => x.HasCheckConstraint("CK_PaymentMethod_ValidValues", "`PaymentMethod` IN ('CreditCard', 'PayPal', 'Cash')"));
+
+//communit1
+//   builder.ToTable(x => x.HasCheckConstraint("CK_Status_ValidValues", "`Status` IN ('Pending', 'Shipped', 'Delivered', 'Cancelled')"));

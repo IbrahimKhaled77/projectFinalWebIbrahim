@@ -19,7 +19,6 @@ namespace ProjectFinalWebIbrahim_infra.Services
         }
 
 
-        //Users all
         public async Task<List<GetCategoryAllDTO>> GetCategoryAll()
         {
             return await _ICategoryRepository.GetCategoryAll();
@@ -27,7 +26,6 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         }
 
-        //not QA
         public async Task<GetCategoryAllDTO> GetCategoryById(int CategoryId)
         {
 
@@ -40,9 +38,9 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                 if (Category != null)
                 {
+                
 
-
-                    var Categor = new GetCategoryAllDTO()
+                    var Categors = new GetCategoryAllDTO()
                     {
                         CategoryId = Category.CategoryId,
                         CreationDate = Category.CreationDate,
@@ -50,17 +48,23 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         imageTitleCategory = Category.imageTitleCategory,
                         ModifiedDate = Category.ModifiedDate,
                         Title = Category.Title,
-                        IsِActive = Category.IsِActive,
+                        TitleArabic = Category.TitleArabic,
+                        DescriptionArabic = Category.DescriptionArabic,
+                        IsActive = Category.IsActive,
                     };
 
-                    if (string.IsNullOrEmpty(Categor.imageTitleCategory))
-                    {
-                        Categor.imageTitleCategory = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
-                    }
+                   // if (string.IsNullOrEmpty(Categors.imageTitleCategory))
+                   // {
+                     //   Categors.imageTitleCategory = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                   // }
+                   // else {
+                     //   Categors.imageTitleCategory = $"https://localhost:44305/Images/Category/{Category.imageTitleCategory}";
+                    
+                  //  }
                     Log.Information("Category Is GetCategoryById");
                     Log.Debug($"Debugging Get Category By Id Has been Finised Successfully With Category ID  = {Category.CategoryId}");
 
-                    return Categor;
+                    return Categors;
 
                 }
                 else
@@ -92,7 +96,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         }
 
-        //admin
+
         public async Task<string> CreateCategory(CreateCategoryDTO Inpute)
         {
             
@@ -100,20 +104,35 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                 Log.Information("Order Is strating CreateCategory");
 
-                var Categor = new Category {
+                var Categor = new Category();
 
-                    Title = Inpute.Title,
-                    Description = Inpute.Description,
-                    CreationDate = Inpute.CreationDate,
-                    imageTitleCategory = Inpute.imageTitleCategory,
-                    ModifiedDate = null,
-                    IsِActive = Inpute.IsِActive,
-                
-                };
+                Categor.Title = Inpute.titlecategory;
+                Categor.Description = Inpute.description;
+                Categor.TitleArabic = Inpute.titlecategoryArabic;
+                Categor.DescriptionArabic = Inpute.descriptionArabic;
+                Categor.CreationDate = DateTime.Now;
+                Categor.imageTitleCategory = Inpute.imageTitleCategory;
+                Categor.ModifiedDate = null;
+                Categor.IsActive = true;
+
+             int   CategoryId = await _ICategoryRepository.CreateCategory(Categor);
+
+                var a = await _ICategoryRepository.GetCategoryById(CategoryId);
+
+                if (string.IsNullOrEmpty(a.imageTitleCategory))
+                {
+                    Categor.imageTitleCategory = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                }
+                else
+                {
+                    Categor.imageTitleCategory = $"https://localhost:44305/Images/Category/{Inpute.imageTitleCategory}";
+
+                }
+
 
                 if (Categor !=null) {
 
-                    await _ICategoryRepository.CreateCategory(Categor);
+                    await _ICategoryRepository.UpdateCategory(Categor);
 
                     Log.Information("Category Is CreateCategory");
                     Log.Debug($"Debugging Get Category By Id Has been Finised Successfully With Category ID  = {Categor.CategoryId}");
@@ -147,7 +166,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
         }
 
-        //admin
+
         public async Task<string> UpdateCategory(UpdateCategoryDTO Inpute)
         {
             try
@@ -160,24 +179,27 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 if (Category != null)
                 {
 
-                    if (Inpute.IsِActive != null) {
-                        Category.IsِActive = (bool) Inpute.IsِActive;
-                    }
-                    if (!string.IsNullOrEmpty(Inpute.imageTitleCategory)) {
-
+                  
+                        Category.IsActive = true;
                         Category.imageTitleCategory = Inpute.imageTitleCategory;
+                       if (!string.IsNullOrEmpty(Inpute.imageTitleCategory)) {
+
+                       Category.imageTitleCategory = Inpute.imageTitleCategory;
                     }
                     if (!string.IsNullOrEmpty(Inpute.Description))
                     {
                         Category.Description = Inpute.Description;
                     }
-                    if (!string.IsNullOrEmpty(Inpute.Title))
+                    if (!string.IsNullOrEmpty(Inpute.TitleArabic))
                     {
-                        Category.Title = Inpute.Title;
+                        Category.TitleArabic = Inpute.TitleArabic;
                     }
-
-                
-                    Category.ModifiedDate = Inpute.ModifiedDate;
+                    if (!string.IsNullOrEmpty(Inpute.DescriptionArabic))
+                    {
+                        Category.DescriptionArabic = Inpute.DescriptionArabic;
+                    }
+                 
+                    Category.ModifiedDate = DateTime.Now;
                     
 
 
@@ -217,7 +239,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
         }
 
-        //admin
+
         public async Task<string> DeleteCategory(int CategoryId)
         {
             try {
@@ -271,7 +293,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             var Category = await _ICategoryRepository.GetCategoryById(Id);
             if (Category != null)
             {
-                Category.IsِActive = value;
+                Category.IsActive = value;
                 await _ICategoryRepository.UpdateCategory(Category);
             }
             else

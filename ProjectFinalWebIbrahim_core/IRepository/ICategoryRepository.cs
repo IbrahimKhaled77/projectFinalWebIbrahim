@@ -5,7 +5,7 @@ using ProjectFinalWebIbrahim_core.Model.Entity;
 namespace ProjectFinalWebIbrahim_core.IRepository
 {
 
-    //t
+
     public interface ICategoryRepository
     {
         
@@ -13,7 +13,7 @@ namespace ProjectFinalWebIbrahim_core.IRepository
 
         Task<List<GetCategoryAllDTO>> GetCategoryAll();
 
-        Task CreateCategory(Category Inpute);
+        Task<int> CreateCategory(Category Inpute);
 
         Task UpdateCategory(Category Inpute);
         Task DeleteCategory(Category Inpute);

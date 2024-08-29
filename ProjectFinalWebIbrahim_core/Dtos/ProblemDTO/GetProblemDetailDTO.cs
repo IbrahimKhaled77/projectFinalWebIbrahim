@@ -12,8 +12,8 @@ namespace ProjectFinalWebIbrahim_core.Dtos.ProblemDTO
         public DateTime? CreationDate { get; set; }
 
         public DateTime? ModifiedDate { get; set; }
-        public bool IsِActive { get; set; }
-        public int? OrderId { get; set; }
+        public bool IsActive { get; set; }
+        public int? UserId { get; set; }
 
         public string TitleOrder { get; set; }
     }

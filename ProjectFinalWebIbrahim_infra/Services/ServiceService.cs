@@ -8,6 +8,7 @@ using ProjectFinalWebIbrahim_core.Model.Entity;
 using Serilog;
 using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
+
 namespace ProjectFinalWebIbrahim_infra.Services
 {
     public class ServiceService : IServiceService
@@ -25,21 +26,26 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
         }
 
-        //admin and client 
+     
         public async Task<List<GetServiceAllDTO>> GetServiceAll()
         {
             return await _IServiceRepository.GetServiceAll();
         }
 
 
-        //all user 
+        public async Task<List<GetServiceAllDTO>> GetServiceCustomerAll(int CategorId)
+        {
+            return await _IServiceRepository.GetServiceCustomerAll(CategorId);
+        }
+
+
+
         public async Task<GetServiceDetailDTO> GetServiceById(int ServiceId)
         {
             return await _IServiceRepository.GetServiceByIdSrev(ServiceId);
         }
 
-        //proverd
-        //price and afterprice and quantityunit
+        
         public async Task<string> CreateService(CreateServiceDTO Inpute)
         {
             try
@@ -51,49 +57,68 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 Log.Information("Service Is starting Create");
 
                 if (user != null && Category !=null) {
-                    var Service = new Service
+                    var Service = new Service();
+
+
+
+
+                    Service.CategoryId = Category.CategoryId;
+                       Service.UserId = user.UserId;
+                       Service.Name = Inpute.Name;
+                       Service.Description = Inpute.Description;
+                       Service.DiscountType = Inpute.DiscountType;
+                    Service.Price = Inpute.Price;
+                       Service.IsHaveDiscount = Inpute.IsHaveDiscount;
+                       Service.DiscountPrice = 0;
+                      Service.imagetitleservice = Inpute.imagetitleservice;
+                      Service.QuantityUnit = Inpute.QuantityUnit;
+                    Service.TitleArabic = Inpute.TitleArabic;
+                    Service.DescriptionArabic = Inpute.DescriptionArabic;
+                    Service.PriceAfterDiscount = 0;
+                      Service.ModifiedDate = null;
+                      Service.CreationDate = DateTime.Now;
+                     Service.IsActive = true;
+
+                    
+
+                    int serviceId = await _IServiceRepository.CreateService(Service);
+
+                    var a = await _IServiceRepository.GetServiceById(serviceId);
+
+
+                    if (string.IsNullOrEmpty(a.imagetitleservice))
                     {
+                        Service.imagetitleservice = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                    }
+                    else
+                    {
+                        Service.imagetitleservice = $"https://localhost:44305/Images/Service/{Inpute.imagetitleservice}";
 
-                        CategoryId = Category.CategoryId,
-                        UserId = user.UserId,
-                        Name = Inpute.Name,
-                        Description = Inpute.Description,
-                        DiscountType = Inpute.DiscountType,
-                        Price = Inpute.Price,
-                        IsHaveDiscount = Inpute.IsHaveDiscount,
-                        DiscountPrice = 0,
-                        Image = Inpute.Image,
-                        QuantityUnit = Inpute.QuantityUnit,
-                       
-                        PriceAfterDiscount = 0,
-                        ModifiedDate = null,
-                        CreationDate = DateTime.UtcNow,
-                        IsِActive = false,
+                    }
 
-                    };
 
                     if (Service != null)
                     {
 
-                    var ServiceId=    await _IServiceRepository.CreateService(Service);
+                  //  var ServiceId=    await _IServiceRepository.CreateService(Service);
 
-                     var service  = await _IServiceRepository.GetServiceById(ServiceId);
+                    // var service  = await _IServiceRepository.GetServiceById(ServiceId);
 
                         if (Inpute.IsHaveDiscount == true)
                         {
 
 
-                            service.DiscountPrice = Inpute.DiscountPrice;
+                            a.DiscountPrice = Inpute.DiscountPrice;
 
-                            service.PriceAfterDiscount = service.Price - Inpute.DiscountPrice;
+                            a.PriceAfterDiscount = a.Price - (decimal) Inpute.DiscountPrice;
 
                         }
                         else {
 
-                            service.PriceAfterDiscount = service.Price;
+                            a.PriceAfterDiscount = a.Price;
                         }
 
-                        await _IServiceRepository.UpdateService(service);
+                        await _IServiceRepository.UpdateService(a);
 
                         Log.Information("Service Is Created");
                         Log.Debug($"Debugging CreateService Has been Finised Successfully With Service ID  = {Service.ServiceId}");
@@ -136,7 +161,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
 
 
-        //provider
+      
         public async Task<string> UpdateService(UpdateServiceDTO Inpute)
         {
             try
@@ -156,9 +181,9 @@ namespace ProjectFinalWebIbrahim_infra.Services
                     {
                         Service.Description = Inpute.Description;
                     }
-                    if (!string.IsNullOrEmpty(Inpute.Image))
+                    if (!string.IsNullOrEmpty(Inpute.imagetitleservice))
                     {
-                        Service.Image = Inpute.Image;
+                        Service.imagetitleservice = Inpute.imagetitleservice;
                     }
                     if (Inpute.Price != null)
                     {
@@ -186,18 +211,21 @@ namespace ProjectFinalWebIbrahim_infra.Services
                     {
                         Service.DiscountType = Inpute.DiscountType;
                     }
-                    if (Inpute.IsِActive != null)
+                    if (!string.IsNullOrEmpty(Inpute.DescriptionArabic))
                     {
-                        Service.IsِActive = (bool)Inpute.IsِActive;
+                        Service.DescriptionArabic = Inpute.DescriptionArabic;
                     }
 
 
-                    Service.ModifiedDate = Inpute.ModifiedDate;
+
+                    if (!string.IsNullOrEmpty(Inpute.TitleArabic))
+                    {
+                        Service.TitleArabic = Inpute.TitleArabic;
+                    }
+                    Service.IsActive = true;
                    
-
-
-                    //Service.CategoryId = Inpute.CategoryId;
-                    //Service.UserId = Inpute.UserId;
+                    Service.ModifiedDate = DateTime.Now;
+                   
 
 
                     await _IServiceRepository.UpdateService(Service);
@@ -234,7 +262,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             }
         }
 
-        //admin // provider
+    
         public async Task<string> DeleteService(int ServiceId)
         {
             try
@@ -301,7 +329,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             var Service = await _IServiceRepository.GetServiceById(Id);
             if (Service != null)
             {
-                Service.IsِActive = value;
+                Service.IsActive = value;
                 await _IServiceRepository.UpdateService(Service);
             }
             else

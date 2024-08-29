@@ -18,19 +18,25 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
             builder.Property(c => c.Title)
                    .HasMaxLength(100)
                    .IsRequired();
-       
+
+            builder.Property(c => c.TitleArabic)
+                 .HasMaxLength(100)
+                 .IsRequired();
+
 
             builder.Property(c => c.Description)
                    .HasMaxLength(500);
 
+            builder.Property(c => c.DescriptionArabic)
+                 .HasMaxLength(500);
 
             builder.HasMany<Service>().WithOne().HasForeignKey(x => x.CategoryId);
             builder.Property(x => x.CreationDate).IsRequired();
 
             builder.Property(x => x.ModifiedDate).IsRequired(false);
 
-            builder.Property(x => x.IsِActive).IsRequired();
-            builder.Property(x => x.IsِActive).HasDefaultValue(false);
+            builder.Property(x => x.IsActive).IsRequired();
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
         }
     }
 }

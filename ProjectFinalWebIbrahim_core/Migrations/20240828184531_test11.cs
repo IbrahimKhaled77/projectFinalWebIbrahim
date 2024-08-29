@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ProjectFinalWebIbrahim_core.Migrations
 {
     /// <inheritdoc />
-    public partial class database1 : Migration
+    public partial class test11 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,41 +22,17 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    TitleArabic = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    DescriptionArabic = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     Description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     imageTitleCategory = table.Column<string>(type: "longtext", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false)
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categorie", x => x.CategoryId);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Problem",
-                columns: table => new
-                {
-                    ProblemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Purpose = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
-                    OrderId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Problem", x => x.ProblemId);
-                    table.ForeignKey(
-                        name: "FK_Problem_Problem_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Problem",
-                        principalColumn: "ProblemId",
-                        onDelete: ReferentialAction.SetNull);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -76,8 +52,7 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     BirthDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
-                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: true)
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -101,7 +76,7 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     LastLoginTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IsLoggedIn = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true),
                     UsersId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -110,35 +85,6 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     table.CheckConstraint("CK_Password_Complexity", "LENGTH(`Password`) >= 11 AND `Password` REGEXP '[0-9]' AND `Password` REGEXP '[A-Za-z]' AND `Password` REGEXP '[^A-Za-z0-9]'");
                     table.ForeignKey(
                         name: "FK_Login_User_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "User",
-                        principalColumn: "UserId");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    DateOrder = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Note = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
-                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false),
-                    Rate = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
-                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.OrderId);
-                    table.CheckConstraint("CK_Rate_ValidRange", "`Rate` >= 0 AND `Rate` <= 5");
-                    table.ForeignKey(
-                        name: "FK_Order_User_UsersId",
                         column: x => x.UsersId,
                         principalTable: "User",
                         principalColumn: "UserId");
@@ -170,6 +116,32 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Problem",
+                columns: table => new
+                {
+                    ProblemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Purpose = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Problem", x => x.ProblemId);
+                    table.ForeignKey(
+                        name: "FK_Problem_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.SetNull);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Services",
                 columns: table => new
                 {
@@ -177,8 +149,10 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
-                    Image = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
+                    imagetitleservice = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TitleArabic = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    DescriptionArabic = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     PriceAfterDiscount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     QuantityUnit = table.Column<int>(type: "int", nullable: false),
                     IsHaveDiscount = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
@@ -186,8 +160,8 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     DiscountType = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
-                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true),
+                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -210,30 +184,42 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OrderService",
+                name: "Order",
                 columns: table => new
                 {
-                    OrderServiceId = table.Column<int>(type: "int", nullable: false)
+                    OrderId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    OrderId = table.Column<int>(type: "int", nullable: true),
-                    ServiceId = table.Column<int>(type: "int", nullable: true),
+                    DateOrder = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Note = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Address1 = table.Column<string>(type: "longtext", nullable: false),
+                    Address2 = table.Column<string>(type: "longtext", nullable: true),
+                    city = table.Column<string>(type: "longtext", nullable: false),
+                    priceFinal2 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Rate = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsِActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false)
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true),
+                    IsApproved = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    UsersId = table.Column<int>(type: "int", nullable: true),
+                    ServiceId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderService", x => x.OrderServiceId);
+                    table.PrimaryKey("PK_Order", x => x.OrderId);
+                    table.CheckConstraint("CK_Rate_ValidRange", "`Rate` >= 0 AND `Rate` <= 5");
                     table.ForeignKey(
-                        name: "FK_OrderService_Order_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Order",
-                        principalColumn: "OrderId");
-                    table.ForeignKey(
-                        name: "FK_OrderService_Services_ServiceId",
+                        name: "FK_Order_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "ServiceId");
+                    table.ForeignKey(
+                        name: "FK_Order_User_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "User",
+                        principalColumn: "UserId");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -244,19 +230,14 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Order_ServiceId",
+                table: "Order",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Order_UsersId",
                 table: "Order",
                 column: "UsersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderService_OrderId",
-                table: "OrderService",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderService_ServiceId",
-                table: "OrderService",
-                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PaymentMethod_UsersId",
@@ -265,9 +246,9 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Problem_OrderId",
+                name: "IX_Problem_UserId",
                 table: "Problem",
-                column: "OrderId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_CategoryId",
@@ -287,16 +268,13 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                 name: "Login");
 
             migrationBuilder.DropTable(
-                name: "OrderService");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "PaymentMethod");
 
             migrationBuilder.DropTable(
                 name: "Problem");
-
-            migrationBuilder.DropTable(
-                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Services");

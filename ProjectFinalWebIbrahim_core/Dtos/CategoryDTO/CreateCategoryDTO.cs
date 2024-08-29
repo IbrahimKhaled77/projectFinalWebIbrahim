@@ -6,13 +6,13 @@ namespace ProjectFinalWebIbrahim_core.Dtos.CategoryDTO
     {
 
 
-        public string  Title  { get; set; }
-        public string   Description     { get; set; }
+        public string titlecategory { get; set; }
+        public string   description     { get; set; }
+        public string titlecategoryArabic { get; set; }
+        public string descriptionArabic { get; set; }
 
         public string? imageTitleCategory  { get; set; }
-        public DateTime? CreationDate { get; set; }= DateTime.Now;
-       
-        public bool IsِActive { get; set; }
+
 
     }
 }

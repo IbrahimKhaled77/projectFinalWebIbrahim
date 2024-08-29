@@ -1,8 +1,5 @@
 ﻿
-
-
-
-
+/*
 
 using Microsoft.EntityFrameworkCore;
 using Mysqlx.Crud;
@@ -54,7 +51,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         OrderId = OrderService.OrderId,
                         ModifiedDate = OrderService.ModifiedDate,
                         CreationDate = OrderService.CreationDate,
-                        IsِActive = OrderService.IsِActive,
+                        IsActive = OrderService.IsActive,
 
                     };
 
@@ -114,9 +111,9 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                             OrderId = Order.OrderId,
                             ServiceId = Inpute.ServiceId,
-                            CreationDate = Inpute.CreationDate,
+                            CreationDate = DateTime.Now,
                             ModifiedDate = null,
-                            IsِActive = Inpute.IsِActive,
+                            IsActive = true,
                             Quantity = Inpute.Quantity,
                            
 
@@ -210,10 +207,10 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 if (OrderService != null && Order !=null && Service !=null)
                 {
 
-                    if (Inpute.IsِActive !=null) {
+                    if (Inpute.IsActive !=null) {
 
 
-                        OrderService.IsِActive = Inpute.IsِActive;
+                        OrderService.IsActive = Inpute.IsActive;
 
                     }
                    
@@ -313,7 +310,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             var OrderService = await _IOrderServiceRepository.GetOrderServiceById(Id);
             if (OrderService != null)
             {
-                OrderService.IsِActive = value;
+                OrderService.IsActive = value;
                 await _IOrderServiceRepository.UpdateOrderService(OrderService);
             }
             else
@@ -325,3 +322,4 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
     }
 }
+*/

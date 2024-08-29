@@ -1,5 +1,5 @@
 ﻿
-
+/*
 using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Context;
 using ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO;
@@ -36,7 +36,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
                                        OrderId = p.OrderId,
                                        CreationDate = p.CreationDate,
-                                       IsِActive = p.IsِActive,
+                                       IsActive = p.IsActive,
                                        ModifiedDate = p.ModifiedDate,
                                        OrderServiceId = p.OrderServiceId,
                                        ServiceId = p.ServiceId,
@@ -107,3 +107,4 @@ namespace ProjectFinalWebIbrahim_infra.Repository
     
     }
 }
+*/

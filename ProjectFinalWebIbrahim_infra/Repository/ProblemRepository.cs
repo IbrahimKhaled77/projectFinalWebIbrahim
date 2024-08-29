@@ -27,15 +27,18 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                 Log.Information("Problem Is strating GetProblemAll");
 
                 var Problems = from p in _context.Problem
-                               join x in _context.Order
-                               on p.OrderId equals x.OrderId
+                               join x in _context.User
+                               on p.UserId equals x.UserId
+                               where p.IsActive == true
                                select new GetProblemAllDTO
                                {
-                                   OrderId = p.OrderId,
+                                   UserId = p.UserId,
                                    ProblemId = p.ProblemId,
                                    Title = p.Title,
                                    Purpose = p.Purpose,
-                                   IsِActive = p.IsِActive,
+                                   isActive = p.IsActive,
+                                   CreationDate = p.CreationDate,
+                                   ModifiedDate=p.ModifiedDate,
 
                                };
 
@@ -96,8 +99,8 @@ namespace ProjectFinalWebIbrahim_infra.Repository
 
                 var Problem = from p in _context.Problem
                               where p.ProblemId == ProblemId
-                              join o in _context.Order
-                              on p.OrderId equals o.OrderId
+                              join o in _context.User
+                              on p.UserId equals o.UserId
                               select new GetProblemDetailDTO
                               {
 
@@ -106,11 +109,12 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                   CreationDate = p.CreationDate,
                                   Description = p.Description,
                                   Purpose = p.Purpose,
-                                  OrderId = p.OrderId,
+                                  UserId = p.UserId,
                                   TitleOrder = p.Title,
                                   ModifiedDate = p.ModifiedDate,
                                   Title = p.Title,
-                                  IsِActive = p.IsِActive,
+                                  IsActive = p.IsActive,
+                                  
 
                               };
 

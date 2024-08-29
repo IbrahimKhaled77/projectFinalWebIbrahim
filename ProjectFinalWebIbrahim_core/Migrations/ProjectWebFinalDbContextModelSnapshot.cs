@@ -35,15 +35,25 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<bool>("IsِActive")
+                    b.Property<string>("DescriptionArabic")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(true);
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("TitleArabic")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
@@ -66,12 +76,12 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .IsRequired()
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsLoggedIn")
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(true);
 
-                    b.Property<bool>("IsِActive")
+                    b.Property<bool>("IsLoggedIn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
@@ -108,6 +118,13 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime?>("CreationDate")
                         .IsRequired()
                         .HasColumnType("datetime(6)");
@@ -115,13 +132,13 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     b.Property<DateTime>("DateOrder")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsِActive")
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(true);
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime(6)");
@@ -131,11 +148,17 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Rate")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
+
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasMaxLength(50)
@@ -149,10 +172,16 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     b.Property<int?>("UsersId")
                         .HasColumnType("int");
 
+                    b.Property<string>("city")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<decimal?>("priceFinal2")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("ServiceId");
 
                     b.HasIndex("UsersId");
 
@@ -160,42 +189,6 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         {
                             t.HasCheckConstraint("CK_Rate_ValidRange", "`Rate` >= 0 AND `Rate` <= 5");
                         });
-                });
-
-            modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.OrderService", b =>
-                {
-                    b.Property<int>("OrderServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreationDate")
-                        .IsRequired()
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsِActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderServiceId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("OrderService");
                 });
 
             modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.PaymentMethod", b =>
@@ -251,16 +244,13 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<bool>("IsِActive")
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(true);
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Purpose")
                         .IsRequired()
@@ -272,9 +262,12 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("ProblemId");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Problem");
                 });
@@ -297,6 +290,11 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
+                    b.Property<string>("DescriptionArabic")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
                     b.Property<decimal?>("DiscountPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -304,20 +302,16 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsHaveDiscount")
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(true);
 
-                    b.Property<bool>("IsِActive")
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("IsHaveDiscount")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
@@ -339,8 +333,17 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     b.Property<int>("QuantityUnit")
                         .HasColumnType("int");
 
+                    b.Property<string>("TitleArabic")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("imagetitleservice")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("ServiceId");
 
@@ -385,13 +388,10 @@ namespace ProjectFinalWebIbrahim_core.Migrations
                     b.Property<string>("ImageProfile")
                         .HasColumnType("longtext");
 
-                    b.Property<bool?>("IsApproved")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsِActive")
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(true);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -433,20 +433,13 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
             modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.Order", b =>
                 {
-                    b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId");
-                });
-
-            modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.OrderService", b =>
-                {
-                    b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.Service", null)
                         .WithMany()
                         .HasForeignKey("ServiceId");
+
+                    b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId");
                 });
 
             modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.PaymentMethod", b =>
@@ -458,9 +451,9 @@ namespace ProjectFinalWebIbrahim_core.Migrations
 
             modelBuilder.Entity("ProjectFinalWebIbrahim_core.Model.Entity.Problem", b =>
                 {
-                    b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.Problem", null)
+                    b.HasOne("ProjectFinalWebIbrahim_core.Model.Entity.User", null)
                         .WithMany()
-                        .HasForeignKey("OrderId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 

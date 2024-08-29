@@ -1,7 +1,8 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectFinalWebIbrahim_core.Dtos.CategoryDTO;
+using ProjectFinalWebIbrahim_core.Dtos.LoginDTO;
 using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
 using ProjectFinalWebIbrahim_core.Dtos.ServiceDTO;
 using ProjectFinalWebIbrahim_core.Helper;
@@ -20,7 +21,8 @@ namespace projectFinalWebIbrahim.Controllers
         private readonly ICategoryService _ICategoryService;
         private readonly IOrderService _IOrderService;
         private readonly IUserService _IUserService;
-        public AdminController(IOrderService OrderService, IServiceService serviceService, IProblemService problemService, ICategoryService categoryService, IUserService UserService)
+        private readonly ILoginService _ILoginService;
+        public AdminController(ILoginService LoginService, IOrderService OrderService, IServiceService serviceService, IProblemService problemService, ICategoryService categoryService, IUserService UserService)
         {
 
             _ServiceService = serviceService;
@@ -28,6 +30,7 @@ namespace projectFinalWebIbrahim.Controllers
             _ICategoryService = categoryService;
             _IOrderService = OrderService;
             _IUserService = UserService;
+            _ILoginService = LoginService;
         }
 
 
@@ -415,28 +418,80 @@ namespace projectFinalWebIbrahim.Controllers
                     return StatusCode(400, ex.Message);
                 }
             }
-            #endregion
+        #endregion
 
-            #region  HttpDelete Deleteproblem
-            /// <remarks>
-            /// Sample request:
-            /// 
-            ///     Delete api/Deleteproblem
-            ///     {     
-            ///        "problemId": "Enter your problem  ID whose information you want to Delete",
-            ///      
-            ///     }
-            /// </remarks>
-            /// <response code="200">Returns  Delete problem Successfully</response>
-            /// <response code="404">If the error was occured  (Not Found)</response>
-            /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
-            /// <response code="400">If the error was occured  (Exception)</response>       
-            ///<summary>
-            /// Delete a  problem from the database.
-            /// </summary>
-            /// <param name="problemId">The ID of the problem to Delete (Required).</param>
-            /// <returns>A message indicating the success of the operation </returns>
-            [HttpDelete]
+        #region  HttpGet GetProblemById
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Get api/GetProblemById
+        ///     {        
+        ///       "ProblemId": "Enter Your Problem ID Here (Required)", 
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Get  Problem by ProblemID Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If the error was occured  (Internal Server Error OR Database)</response>   
+        /// <response code="400">If an exception occurs (Exception)</response>       
+        ///<summary>
+        /// Retrieves a Problem by ID from the application
+        /// </summary>
+        /// <param name="ProblemId">The ID of the Problem to retrieve (Required).</param> 
+        /// <returns>The Problem information. </returns>
+        [HttpGet]
+        [Route("[action]/{ProblemId}")]
+        public async Task<IActionResult> GetProblemById([FromRoute] int ProblemId, [FromHeader] string token)
+        {
+            try
+            {
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+                    return StatusCode(201, await _IProblemService.GetProblemById(ProblemId));
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Clien");
+
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region  HttpDelete Deleteproblem
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Delete api/Deleteproblem
+        ///     {     
+        ///        "problemId": "Enter your problem  ID whose information you want to Delete",
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Delete problem Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Delete a  problem from the database.
+        /// </summary>
+        /// <param name="problemId">The ID of the problem to Delete (Required).</param>
+        /// <returns>A message indicating the success of the operation </returns>
+        [HttpDelete]
             [Route("[action]/{problemId}")]
             public async Task<IActionResult> Deleteproblem([FromRoute] int problemId, [FromHeader] string token)
             {
@@ -764,13 +819,13 @@ namespace projectFinalWebIbrahim.Controllers
         /// <returns>List of Order </returns>
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetAllOrder([FromHeader] string token)
+        public async Task<IActionResult> GetAllOrder([FromHeader] string token, [FromQuery]  bool? IsApproved)
         {
             try
             {
                 if (TokenHelper.IsValidToken(token) == UserType.Admin)
                 {
-                    return StatusCode(200, await _IOrderService.GetOrderAll());
+                    return StatusCode(200, await _IOrderService.GetOrderAll(IsApproved));
                 }
                 return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
 
@@ -1116,12 +1171,111 @@ namespace projectFinalWebIbrahim.Controllers
 
         #endregion
 
+
+        #region  HttpGet GetAllUsers
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Get api/GetAllUsers
+        ///     {        
+        ///     
+        ///        
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="200">Returns  Get All Users Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If an exception occurs (Exception)</response>    
+        ///<summary>
+        /// I will retrieve all the Users present on the application.
+        /// </summary>
+        /// <returns>List of Users </returns>
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetAllUsers([FromHeader] string token)
+        {
+            try
+            {
+                if (TokenHelper.IsValidToken(token) == UserType.Admin)
+                {
+
+                    return StatusCode(200, await _IUserService.GetUserAll());
+                }
+                return StatusCode(401, "You're Unautharized to Use This Funcationality & Is not Admin");
+                
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        #endregion
         #endregion
 
 
 
 
+        #region  HttpPost Login
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post api/Login
+        ///     {        
+        ///        "Email": "Enter Your Email Here (Required)",
+        ///        "password": "Enter Your password Here (Required)",
+        ///      
+        ///     }
+        /// </remarks>
+        /// <response code="201">Returns  Login  Successfully</response>
+        /// <response code="404">If the error was occured  (Not Found)</response>
+        /// <response code="500">If an internal server error or database error occurs (Internal Server Error OR Database)</response>   
+        /// <response code="400">If the error was occured  (Exception)</response>       
+        ///<summary>
+        /// Adds a new Token customer to the database.
+        /// </summary>
+        /// <param name="DTO">The Email and Password of the  User to Login (Required).</param>
+        /// <returns>A message indicating the success of the operation </returns>
 
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> LoginbyAdmin([FromBody] CreateLoginDTO DTO)
+        {
+            try
+            {
+                return StatusCode(201, await _ILoginService.LoginbyAdmin(DTO));
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return StatusCode(404, ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+        }
+        #endregion
 
 
     }

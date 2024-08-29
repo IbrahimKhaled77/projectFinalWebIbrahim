@@ -41,7 +41,7 @@ namespace ProjectFinalWebIbrahim_core.Helper
             if (token.ValidTo > DateTime.UtcNow)
             {
 
-               // int userId = int.Parse((token.Claims.First(c => c.Type == "UserId").Value.ToString()));
+               
 
                 UserType userType = (UserType)Enum.Parse(typeof(UserType), token.Claims.First(c => c.Type == "UserType").Value);
 
@@ -55,5 +55,32 @@ namespace ProjectFinalWebIbrahim_core.Helper
             }
             
         }
+
+
+        public static int IsUserIdToken(string tokenString)
+        {
+            String toke = "Bearer " + tokenString;
+            var jwtEncodedString = toke.Substring(7);
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            if (token.ValidTo > DateTime.UtcNow)
+            {
+
+                int userId = int.Parse((token.Claims.First(c => c.Type == "UserId").Value.ToString()));
+
+                
+
+
+                return userId;
+            }
+            else
+            {
+
+                throw new Exception("token is not valid");
+
+            }
+
+        }
+
+
     }
 }

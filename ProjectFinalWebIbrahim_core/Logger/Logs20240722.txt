@@ -1,0 +1,26 @@
+2024-07-22 19:45:53.032 +03:00 [INF] Starting web host
+2024-07-22 19:47:58.589 +03:00 [INF] Starting Login
+2024-07-22 19:48:00.136 +03:00 [INF] User Is not Found
+2024-07-22 19:48:00.136 +03:00 [DBG] Youre Session Has been Closed Please Login in Again
+2024-07-22 19:48:13.933 +03:00 [INF] Starting Login
+2024-07-22 19:48:14.273 +03:00 [INF] Login Is In Finised
+2024-07-22 19:48:14.273 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-22 19:49:02.775 +03:00 [INF] Service Is starting Create
+2024-07-22 19:49:02.832 +03:00 [ERR] An error occurred Exception: User Dose not Exisit Or Category Dose not Exisit 
+2024-07-22 19:49:40.511 +03:00 [INF] Order Is strating CreateCategory
+2024-07-22 19:49:40.596 +03:00 [INF] Category Is CreateCategory
+2024-07-22 19:49:40.596 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully With Category ID  = 2
+2024-07-22 19:50:41.377 +03:00 [INF] Create New User
+2024-07-22 19:50:41.695 +03:00 [ERR] An error occurred in database: Could not save changes. Please configure your entity type accordingly.
+2024-07-22 19:57:19.184 +03:00 [INF] Starting web host
+2024-07-22 19:57:47.324 +03:00 [INF] Starting Login
+2024-07-22 19:57:48.486 +03:00 [INF] User Is not Found
+2024-07-22 19:57:48.486 +03:00 [DBG] Youre Session Has been Closed Please Login in Again
+2024-07-22 19:58:41.105 +03:00 [INF] Starting Login
+2024-07-22 19:58:41.374 +03:00 [INF] Login Is In Finised
+2024-07-22 19:58:41.374 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-22 19:59:00.006 +03:00 [INF] Starting web host
+2024-07-22 19:59:11.233 +03:00 [INF] Order Is strating CreateOrder
+2024-07-22 19:59:11.293 +03:00 [ERR] An error occurred Exception: User Dose not Exisit
+2024-07-22 19:59:44.290 +03:00 [INF] OrderService Is In Createing
+2024-07-22 19:59:44.330 +03:00 [ERR] An error occurred Exception: Service  && Order Not Found

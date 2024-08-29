@@ -38,8 +38,8 @@ namespace ProjectFinalWebIbrahim_core.Model.EntityConfigartion
 
             
 
-            builder.Property(x => x.IsِActive).IsRequired();
-            builder.Property(x => x.IsِActive).HasDefaultValue(false);
+            builder.Property(x => x.IsActive).IsRequired();
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
 
         }
     }

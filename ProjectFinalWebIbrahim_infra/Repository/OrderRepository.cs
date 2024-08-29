@@ -8,6 +8,7 @@ using ProjectFinalWebIbrahim_core.Dtos.OrderDTO;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.Model.Entity;
 using Serilog;
+using static ProjectFinalWebIbrahim_core.Helper.Enums.SystemEnums;
 
 namespace ProjectFinalWebIbrahim_infra.Repository
 {
@@ -24,65 +25,275 @@ namespace ProjectFinalWebIbrahim_infra.Repository
         }
 
 
-        public async Task<List<GetOrderAllDTO>> GetOrderAll()
+        public async Task<List<GetOrderAllDTO>> GetOrderAllUser(int userId)
         {
-            try
-            {
-                Log.Information("Order Is starting GetOrderAll");
-
-                var Ordera = from p in _context.Order
-                             join x in _context.User
-                                on p.UsersId equals x.UserId
-                             orderby p.DateOrder descending
-                             select new GetOrderAllDTO
-                             {
-
-                                 OrderId = p.OrderId,
-                                 UsersId = p.UsersId,
-                                 Rate = (int) p.Rate,
-                                 Status = p.Status,
-                                 Title = p.Title,
-                                 DateOrder = p.DateOrder,
-                                 IsِActive = p.IsِActive,
-                                 priceFinal2 = (decimal)p.priceFinal2,
-
-                             };
-
-
-                var Orders = await Ordera.ToListAsync();
-
-                if (Orders != null)
+               try
                 {
-                    Log.Information("Order Is GetOrderAll");
-                    Log.Debug($"Debugging Get Order By Id Has been Finised Successfully ");
-                    return Orders;
+                    Log.Information("Order Is starting GetOrderAll");
+
+                    var Ordera = from p in _context.Order
+                                 join x in _context.User
+                                    on p.UsersId equals x.UserId
+                                    where p.UsersId == userId
+                                    join s in _context.Services
+                                    on p.ServiceId equals s.ServiceId
+                                 where p.IsActive == true
+                                 orderby p.DateOrder descending
+                                 select new GetOrderAllDTO
+                                 {
+
+                                     OrderId = p.OrderId,
+                                     UsersId = p.UsersId,
+                                     Rate = (int)p.Rate,
+                                     Status = p.Status,
+                                     Title = p.Title,
+                                     DateOrder = p.DateOrder,
+                                     isactive = p.IsActive,
+                                     priceFinal2 = (decimal)p.priceFinal2,
+                                     IsApproved = p.IsApproved,
+                                     Quantity=p.Quantity,
+                                     ImageService=s.imagetitleservice,
+
+                                 };
+
+
+                    var Orders = await Ordera.ToListAsync();
+
+                    if (Orders != null)
+                    {
+                        Log.Information("Order Is GetOrderAll");
+                        Log.Debug($"Debugging Get Order By Id Has been Finised Successfully ");
+                        return Orders;
+                    }
+                    else
+                    {
+                        Log.Error($"Order Not Found");
+                        throw new ArgumentNullException("Order", "Not Found Order");
+
+                    }
+
+
+
                 }
-                else
+                catch (ArgumentNullException ex)
                 {
-                    Log.Error($"Order Not Found");
-                    throw new ArgumentNullException("Order", "Not Found Order");
-
+                    Log.Error($"Order Not Found: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (DbUpdateException ex)
+                {
+                    Log.Error($"An error occurred in database: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"An error occurred Exception: {ex.Message}");
+                    throw new Exception($"Exception: {ex.Message}");
                 }
 
 
 
-            }
-            catch (ArgumentNullException ex)
-            {
-                Log.Error($"Order Not Found: {ex.Message}");
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (DbUpdateException ex)
-            {
-                Log.Error($"An error occurred in database: {ex.Message}");
-                throw new DbUpdateException($"Database Error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"An error occurred Exception: {ex.Message}");
-                throw new Exception($"Exception: {ex.Message}");
-            }
         }
+
+
+
+        public async Task<List<GetOrderAllDTO>> GetOrderAll(bool? IsApproved)
+        {
+            if (IsApproved == false)
+            {
+                try
+                {
+                    Log.Information("Order Is starting GetOrderAll");
+
+                    var Ordera = from p in _context.Order
+                                 join x in _context.User
+                                    on p.UsersId equals x.UserId
+                                 where p.Status == OrderStatus.Cancelled
+                                 && p.IsActive == true
+                                 orderby p.DateOrder descending
+                                 select new GetOrderAllDTO
+                                 {
+
+                                     OrderId = p.OrderId,
+                                     UsersId = p.UsersId,
+                                     Rate = (int)p.Rate,
+                                     Status = p.Status,
+                                     Title = p.Title,
+                                     DateOrder = p.DateOrder,
+                                     isactive = p.IsActive,
+                                     priceFinal2 = (decimal)p.priceFinal2,
+                                     IsApproved=p.IsApproved,
+
+                                 };
+
+
+                    var Orders = await Ordera.ToListAsync();
+
+                    if (Orders != null)
+                    {
+                        Log.Information("Order Is GetOrderAll");
+                        Log.Debug($"Debugging Get Order By Id Has been Finised Successfully ");
+                        return Orders;
+                    }
+                    else
+                    {
+                        Log.Error($"Order Not Found");
+                        throw new ArgumentNullException("Order", "Not Found Order");
+
+                    }
+
+
+
+                }
+                catch (ArgumentNullException ex)
+                {
+                    Log.Error($"Order Not Found: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (DbUpdateException ex)
+                {
+                    Log.Error($"An error occurred in database: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"An error occurred Exception: {ex.Message}");
+                    throw new Exception($"Exception: {ex.Message}");
+                }
+
+            }
+            else if (IsApproved == true)
+            {
+                try
+                {
+                
+                    Log.Information("Order Is starting GetOrderAll");
+
+                    var Ordera = from p in _context.Order
+                                 join x in _context.User
+                                    on p.UsersId equals x.UserId
+                                 where p.Status == OrderStatus.Shipped || p.Status == OrderStatus.Delivered
+                                 && p.IsActive == true
+                                 orderby p.DateOrder descending
+                                 select new GetOrderAllDTO
+                                 {
+
+                                     OrderId = p.OrderId,
+                                     UsersId = p.UsersId,
+                                     Rate = (int)p.Rate,
+                                     Status = p.Status,
+                                     Title = p.Title,
+                                     DateOrder = p.DateOrder,
+                                     isactive = p.IsActive,
+                                     priceFinal2 = (decimal)p.priceFinal2,
+                                     IsApproved = p.IsApproved,
+
+                                 };
+
+
+                    var Orders = await Ordera.ToListAsync();
+
+                    if (Orders != null)
+                    {
+                        Log.Information("Order Is GetOrderAll");
+                        Log.Debug($"Debugging Get Order By Id Has been Finised Successfully ");
+                        return Orders;
+                    }
+                    else
+                    {
+                        Log.Error($"Order Not Found");
+                        throw new ArgumentNullException("Order", "Not Found Order");
+
+                    }
+
+
+
+                }
+                catch (ArgumentNullException ex)
+                {
+                    Log.Error($"Order Not Found: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (DbUpdateException ex)
+                {
+                    Log.Error($"An error occurred in database: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"An error occurred Exception: {ex.Message}");
+                    throw new Exception($"Exception: {ex.Message}");
+                }
+
+            }
+            else {
+
+                try
+                {
+                    Log.Information("Order Is starting GetOrderAll");
+
+                    var Ordera = from p in _context.Order
+                                 join x in _context.User
+                                    on p.UsersId equals x.UserId
+                                 where p.Status == OrderStatus.Pending
+                                 && p.IsActive == true
+                                 orderby p.DateOrder descending
+                                 select new GetOrderAllDTO
+                                 {
+
+                                     OrderId = p.OrderId,
+                                     UsersId = p.UsersId,
+                                     Rate = (int)p.Rate,
+                                     Status = p.Status,
+                                     Title = p.Title,
+                                     DateOrder = p.DateOrder,
+                                     isactive = p.IsActive,
+                                     priceFinal2 = (decimal)p.priceFinal2,
+                                     IsApproved = p.IsApproved,
+
+                                 };
+
+
+                    var Orders = await Ordera.ToListAsync();
+
+                    if (Orders != null)
+                    {
+                        Log.Information("Order Is GetOrderAll");
+                        Log.Debug($"Debugging Get Order By Id Has been Finised Successfully ");
+                        return Orders;
+                    }
+                    else
+                    {
+                        Log.Error($"Order Not Found");
+                        throw new ArgumentNullException("Order", "Not Found Order");
+
+                    }
+
+
+
+                }
+                catch (ArgumentNullException ex)
+                {
+                    Log.Error($"Order Not Found: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (DbUpdateException ex)
+                {
+                    Log.Error($"An error occurred in database: {ex.Message}");
+                    throw new DbUpdateException($"Database Error: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"An error occurred Exception: {ex.Message}");
+                    throw new Exception($"Exception: {ex.Message}");
+                }
+
+            }
+           
+
+
+        }
+
 
         public async Task<Order> GetOrderById(int OrderId)
         {
@@ -103,9 +314,11 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                              where p.OrderId == OrderId
                              join x in _context.User
                                on p.UsersId equals x.UserId
+                             join S in _context.Services
+                                on p.ServiceId equals S.ServiceId
                              //QA
-                             join G in _context.OrderService
-                          on p.OrderId equals G.OrderId
+                             //join G in _context.OrderService
+                             //on p.OrderId equals G.OrderId
                              orderby p.CreationDate descending
                              select new GetOrderDetailDTO
                              {
@@ -120,8 +333,15 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                                  ClientName = x.FirstName,
                                  Rate = (int)p.Rate, 
                                  Note = p.Note,
-                                 IsِActive = p.IsِActive,
+                                 isactive = p.IsActive,
                                  priceFinal2= (decimal)p.priceFinal2,
+                                 Address1 = p.Address1,
+                                 Address2 = p.Address2,
+                                 city= p.city,
+                                 NameService = S.Name,
+                                 PhoneUser=x.Phone,
+                                 Quantity = p.Quantity,
+                                 serviceId = p.ServiceId,
                              };
 
                 var qu = await Orders.LastOrDefaultAsync();
@@ -154,10 +374,11 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                 throw new Exception($"Exception: {ex.Message}");
             }
         }
-        public async Task CreateOrder(Order Inpute)
+        public async Task<int> CreateOrder(Order Inpute)
         {
             _context.Order.Add(Inpute);
             await _context.SaveChangesAsync();
+            return Inpute.OrderId;
         }
 
         public async Task UpdateOrder(Order Inpute)

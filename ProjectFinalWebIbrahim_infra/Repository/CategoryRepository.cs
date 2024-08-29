@@ -28,22 +28,28 @@ namespace ProjectFinalWebIbrahim_infra.Repository
                 Log.Information("Order Is strating GetCategoryAll");
 
                 var Categorys = from x in _context.Categorie
+                                where x.IsActive == true
                                 orderby x.CreationDate descending
                                 select new GetCategoryAllDTO
                                 {
                                     CategoryId = x.CategoryId,
                                     Title = x.Title,
+                                    TitleArabic = x.TitleArabic,
+                                    DescriptionArabic= x.DescriptionArabic,
                                     Description = x.Description,
                                     imageTitleCategory = x.imageTitleCategory,
                                     ModifiedDate = x.ModifiedDate,
                                     CreationDate = x.CreationDate,
-                                    IsِActive = x.IsِActive,
+                                    IsActive = x.IsActive,
                                 };
-
+            
                 var Category = await Categorys.ToListAsync();
 
                 if (Category != null)
                 {
+
+                  
+
 
 
                     Log.Information("Category Is CreateCategory");
@@ -88,10 +94,11 @@ namespace ProjectFinalWebIbrahim_infra.Repository
             return Category;
         }
 
-        public  async Task CreateCategory(Category Inpute)
+        public  async Task<int> CreateCategory(Category Inpute)
         {
              _context.Categorie.Add(Inpute);
            await _context.SaveChangesAsync();
+            return Inpute.CategoryId;
         }
 
         public async Task UpdateCategory(Category Inpute)

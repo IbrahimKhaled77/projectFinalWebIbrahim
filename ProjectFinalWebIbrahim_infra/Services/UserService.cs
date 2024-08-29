@@ -21,13 +21,13 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
     }
 
-        public async Task<List<GetUserAllDTO>> GetUserAll(int userId)
+        public async Task<List<GetUserAllDTO>> GetUserAll()
         {
 
             try
             {
 
-                var userget = await _IUserRepository.GetUserAll(userId);
+                var userget = await _IUserRepository.GetUserAll();
 
                 if (userget != null)
                 {
@@ -93,12 +93,12 @@ namespace ProjectFinalWebIbrahim_infra.Services
                         ModifiedDate = user.ModifiedDate,
                         ImageProfile = user.ImageProfile,
                         userType = user.UserType,
-                        IsِActive = user.IsِActive,
+                        IsActive = user.IsActive,
                     };
-                    if (string.IsNullOrEmpty(GetUserDetailDTO.ImageProfile))
-                    {
-                        GetUserDetailDTO.ImageProfile = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
-                    }
+                   // if (string.IsNullOrEmpty(GetUserDetailDTO.ImageProfile))
+                    //{
+                   //     GetUserDetailDTO.ImageProfile = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                 //   }
                   
                     Log.Information("User Is Reached");
                     Log.Debug($"Debugging GetUserById Has been Finised Successfully With User ID  = {user.UserId}");
@@ -141,37 +141,50 @@ namespace ProjectFinalWebIbrahim_infra.Services
             try {
                 Log.Information("Create New User");
 
-                var user = new User() {
-                    FirstName = Inpute.FirstName,
-                    LastName = Inpute.LastName,
-                    Email = Inpute.Email,
-                    Phone = Inpute.Phone,
-                    BirthDate = Inpute.BirthDate,
-                    CreationDate = Inpute.CreationDate,
-                    Gender = Inpute.Gender,
-                    UserType = Inpute.UserType,
-                    IsِActive = Inpute.IsِActive,
-                    ImageProfile = Inpute.ImageProfile,
-                    ModifiedDate = null,
-                    IsApproved=null,
+                var user = new User();
+                user.FirstName = Inpute.FirstName;
+                user.LastName = Inpute.LastName;
+                user.Email = Inpute.Email;
+                user.Phone =     00962 + Inpute.Phone;
+                user.BirthDate = Inpute.BirthDate;
+                user.CreationDate = DateTime.Now;
+                user.Gender = Inpute.Gender;
+                user.UserType = Inpute.UserType;
+                user.IsActive = true;
+                user.ImageProfile = Inpute.ImageProfile;
+                user.ModifiedDate = null;
+               // user.IsApproved = null;
                
-                };
+                
 
                 //create  user and return ID
                 var UserId = await _IUserRepository.CreateUser(user);
                 Log.Information("User Is In Finised");
                 Log.Debug($"Debugging AddUser Has been Finised Successfully With User ID  {UserId} ");
 
+                var a = await _IUserRepository.GetUserById(UserId);
+
+                if (string.IsNullOrEmpty(a.ImageProfile))
+                {
+                    user.ImageProfile = "https://www.shutterstock.com/image-vector/concept-blogging-golden-blog-word-260nw-755744683.jpg";
+                }
+                else
+                {
+                    user.ImageProfile = $"https://localhost:44305/Images/User/{Inpute.ImageProfile}";
+
+                }
+
+
+
                 Login login = new Login()
                 {
 
                     UserName = Inpute.Email,
                     Password = Inpute.Password,
-                    CreationDate = Inpute.CreationDate,
-                    IsِActive = Inpute.IsِActive,
+                    CreationDate = DateTime.Now,
+                    IsActive = true,
                     IsLoggedIn = false,
                     LastLoginTime = null,
-                    
                     UsersId = UserId,
                 };
                 
@@ -233,24 +246,25 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                     }
                     if (!string.IsNullOrEmpty(Inpute.ImageProfile)) {
-                        user.ImageProfile = Inpute.ImageProfile;
+                        user.ImageProfile = $"https://localhost:44305/Images/User/{Inpute.ImageProfile}";
+                        
 
                     }
                     if (Inpute.BirthDate != null ) {
                         user.BirthDate = (DateTime)Inpute.BirthDate;
                     }
-                    if (Inpute.IsِActive !=null) {
+                    if (Inpute.IsActive != null) {
 
-                        user.IsِActive = (bool) Inpute.IsِActive;
+                        user.IsActive = (bool) Inpute.IsActive;
 
                     }
                  
                    
                    
                   
-                    user.ModifiedDate = Inpute.ModifiedDate;
-                 
-                    
+                    user.ModifiedDate = DateTime.Now;
+
+                  
 
 
                     await _IUserRepository.UpdateUser(user);
@@ -340,7 +354,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             var User = await _IUserRepository.GetUserById(Id);
             if (User != null)
             {
-                User.IsApproved = value;
+               // User.IsApproved = value;
                 await _IUserRepository.UpdateUser(User);
             }
             else
@@ -355,7 +369,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             var User = await _IUserRepository.GetUserById(Id);
             if (User != null)
             {
-                User.IsِActive = value;
+                User.IsActive = value;
                 await _IUserRepository.UpdateUser(User);
             }
             else

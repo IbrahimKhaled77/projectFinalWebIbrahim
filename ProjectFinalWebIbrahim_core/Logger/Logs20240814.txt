@@ -1,0 +1,18 @@
+2024-08-14 10:09:02.486 +03:00 [INF] Starting web host
+2024-08-14 10:10:46.420 +03:00 [INF] Starting Login
+2024-08-14 10:10:47.924 +03:00 [ERR] An error occurred Exception: This method LoginBoolen is not implemented for non-empty inputs
+2024-08-14 10:10:58.574 +03:00 [INF] Starting Login
+2024-08-14 10:10:58.648 +03:00 [ERR] An error occurred Exception: This method LoginBoolen is not implemented for non-empty inputs
+2024-08-14 10:11:02.804 +03:00 [INF] Starting Login
+2024-08-14 10:11:02.896 +03:00 [ERR] An error occurred Exception: This method LoginBoolen is not implemented for non-empty inputs
+2024-08-14 10:12:18.085 +03:00 [INF] Create New User
+2024-08-14 10:12:18.307 +03:00 [INF] User Is In Finised
+2024-08-14 10:12:18.308 +03:00 [DBG] Debugging AddUser Has been Finised Successfully With User ID  2 
+2024-08-14 10:12:18.351 +03:00 [INF] Login Is In Finised
+2024-08-14 10:12:51.312 +03:00 [INF] Starting Login
+2024-08-14 10:12:51.662 +03:00 [INF] Login Is In Finised
+2024-08-14 10:12:51.662 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-08-14 10:16:21.051 +03:00 [INF] Order Is strating CreateOrder
+2024-08-14 10:16:21.156 +03:00 [INF] Order Is Created
+2024-08-14 10:16:21.156 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-08-14 14:11:55.465 +03:00 [INF] Starting web host

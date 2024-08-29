@@ -16,7 +16,7 @@ namespace ProjectFinalWebIbrahim_core.IServices
         Task<string> UpdateService(UpdateServiceDTO Inpute);
         Task<string> DeleteService(int ServiceId);
 
-
+        Task<List<GetServiceAllDTO>> GetServiceCustomerAll(int Id);
         Task UpdateServiceApprovment(int Id, bool value);
 
         Task UpdateServiceActivation(int Id, bool value);

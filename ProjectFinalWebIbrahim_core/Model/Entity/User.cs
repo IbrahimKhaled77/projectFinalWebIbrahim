@@ -23,9 +23,9 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
         public DateTime? ModifiedDate { get; set; }
 
 
-        public bool IsِActive { get; set; }
+        public bool IsActive { get; set; }
 
-        public bool? IsApproved { get; set; }
+        
 
     }
 }

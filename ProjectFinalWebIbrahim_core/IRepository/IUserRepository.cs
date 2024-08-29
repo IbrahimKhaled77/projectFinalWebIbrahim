@@ -4,13 +4,13 @@ using ProjectFinalWebIbrahim_core.Model.Entity;
 
 namespace ProjectFinalWebIbrahim_core.IRepository
 {
-    //t
+    
     public  interface IUserRepository
     {
         Task<int> GetUserIdAfterLoginOperation(string email, string password);
         Task<User> GetUserById(int UserId);
 
-        Task<List<GetUserAllDTO>> GetUserAll(int UserId);
+        Task<List<GetUserAllDTO>> GetUserAll();
         Task<int> CreateUser(User Inpute);
 
         Task UpdateUser(User Inpute);

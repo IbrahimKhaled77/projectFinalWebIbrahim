@@ -1,4 +1,4 @@
-﻿
+﻿/*
 
 namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
 {
@@ -13,6 +13,7 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
 
         public DateTime? ModifiedDate { get; set; } = DateTime.Now;
 
-        public bool IsِActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }
+*/

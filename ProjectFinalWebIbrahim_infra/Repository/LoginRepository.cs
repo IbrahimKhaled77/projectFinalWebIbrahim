@@ -18,7 +18,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
         }
 
 
-        //ADDLogin
+        
         public async Task Login(Login login)
         {
             _context.Login.Add(login);
@@ -60,7 +60,7 @@ namespace ProjectFinalWebIbrahim_infra.Repository
         }
 
 
-        //Exception
+     
         public async Task<Login> LoginBoolen(string emial, string password)
         {
             var login = await _context.Login.SingleOrDefaultAsync(x => x.UserName.Equals(emial) && x.Password.Equals(password));

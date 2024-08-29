@@ -1,4 +1,4 @@
-﻿
+﻿/*
 namespace ProjectFinalWebIbrahim_core.IServices
 {
     public interface IUserTypeService
@@ -14,6 +14,7 @@ namespace ProjectFinalWebIbrahim_core.IServices
         Task<GetUserTypeDetailDTO> GetUserTypeById(int UserId);
 
         Task<List<GetUserTypeAllDTO>> GetUserTypeAll();
-        */
+        
     }
 }
+*/

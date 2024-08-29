@@ -7,7 +7,6 @@ using ProjectFinalWebIbrahim_core.Helper;
 using ProjectFinalWebIbrahim_core.IRepository;
 using ProjectFinalWebIbrahim_core.IServices;
 using ProjectFinalWebIbrahim_core.Model.Entity;
-using ProjectFinalWebIbrahim_infra.Repository;
 using Serilog;
 
 namespace ProjectFinalWebIbrahim_infra.Services
@@ -22,7 +21,7 @@ namespace ProjectFinalWebIbrahim_infra.Services
             _IUserRepository = iUserRepository;
         }
 
-        public async Task<string> Login(CreateLoginDTO Inpute)
+        public async Task<string> LoginbyAdmin(CreateLoginDTO Inpute)
         {
             try {
                 Log.Information("Starting Login");
@@ -34,8 +33,9 @@ namespace ProjectFinalWebIbrahim_infra.Services
                     throw new Exception("Password Is Required");
 
                 var login = await _ILoginRepository.LoginBoolen(Inpute.UserName,Inpute.Password);
+                var admin = await _IUserRepository.IsAdmin((int)login.UsersId);
 
-                if (login != null)
+                if (login != null && admin !=false)
                 {
                     //**
                 
@@ -45,27 +45,33 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
                         //add token
                         var token = await GenerateUserAccessToken(Inpute.UserName, Inpute.Password);
-                        //update login
-                        login.IsLoggedIn = true;
-                        login.IsِActive= true;
-                        login.LastLoginTime = DateTime.Now;
-                        login.CreationDate = DateTime.Now;
+
                        
-                        await _ILoginRepository.UpdateLogin(login);
+                            //update login
+                            login.IsLoggedIn = true;
+                            login.IsActive = true;
+                            login.LastLoginTime = DateTime.Now;
+                            login.CreationDate = DateTime.Now;
 
-                        Log.Information("Login Is In Finised");
-                        Log.Debug($"Debugging Login Has been Finised Successfully ");
+                            await _ILoginRepository.UpdateLogin(login);
 
-                        return token;
+                            Log.Information("Login Is In Finised");
+                            Log.Debug($"Debugging Login Has been Finised Successfully ");
+
+                            return token;
+                       
+                       
                     }
                     else {
                         login.IsLoggedIn = false;
 
                         //update login
                         await _ILoginRepository.UpdateLogin(login);
+                        await _ILoginRepository.Logout((int)login.UsersId);
                         Log.Information("User Is not Found");
                         Log.Debug($"Youre Session Has been Closed Please Login in Again");
-                        return "Youre Session Has been Closed Please Login in Again";
+                        throw new Exception($"Youre Session Has been Closed Please Login in Again");
+                        
                     }
 
 
@@ -73,7 +79,8 @@ namespace ProjectFinalWebIbrahim_infra.Services
                 else {
                     Log.Information("Either Email or Password is Incorrect");
                     Log.Debug($"Either Email or Password is Incorrect");
-                    return "Either Email or Password is Incorrect";
+                    throw new Exception($"Either Email or Password is Incorrect");
+             
 
                 }
 
@@ -89,6 +96,86 @@ namespace ProjectFinalWebIbrahim_infra.Services
 
 
         }
+
+
+        public async Task<string> LoginbyUser(CreateLoginDTO Inpute)
+        {
+            try
+            {
+                Log.Information("Starting Login");
+                if (string.IsNullOrEmpty(Inpute.UserName))
+                    throw new Exception("Email Is Required");
+
+
+                if (string.IsNullOrEmpty(Inpute.Password))
+                    throw new Exception("Password Is Required");
+
+                var login = await _ILoginRepository.LoginBoolen(Inpute.UserName, Inpute.Password);
+               
+
+                if (login != null)
+                {
+                    //**
+
+
+                    if (!login.IsLoggedIn)
+                    {
+
+                        //add token
+                        var token = await GenerateUserAccessToken(Inpute.UserName, Inpute.Password);
+
+
+                        //update login
+                        login.IsLoggedIn = true;
+                        login.IsActive = true;
+                        login.LastLoginTime = DateTime.Now;
+                        login.CreationDate = DateTime.Now;
+
+                        await _ILoginRepository.UpdateLogin(login);
+
+                        Log.Information("Login Is In Finised");
+                        Log.Debug($"Debugging Login Has been Finised Successfully ");
+
+                        return token;
+
+
+                    }
+                    else
+                    {
+                        login.IsLoggedIn = false;
+
+                        //update login
+                        await _ILoginRepository.UpdateLogin(login);
+                        await _ILoginRepository.Logout((int)login.UsersId);
+                        Log.Information("User Is not Found");
+                        Log.Debug($"Youre Session Has been Closed Please Login in Again");
+                        throw new Exception($"Youre Session Has been Closed Please Login in Again");
+                    }
+
+
+                }
+                else
+                {
+                    Log.Information("Either Email or Password is Incorrect");
+                    Log.Debug($"Either Email or Password is Incorrect");
+                    throw new Exception($"Either Email or Password is Incorrect");
+
+
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"An error occurred Exception: {ex.Message}");
+                throw new Exception($"Exception: {ex.Message}");
+
+            }
+
+
+        }
+
 
         public async Task<string> Logout(int UserId)
         {

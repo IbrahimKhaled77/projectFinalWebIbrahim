@@ -1,4 +1,4 @@
-﻿
+﻿/*
 namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
 {
     public class GetOrderServiceAllDTO
@@ -12,8 +12,9 @@ namespace ProjectFinalWebIbrahim_core.Dtos.OrderServiceDTO
         public DateTime? CreationDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
-        public bool IsِActive { get; set; }
+        public bool IsActive { get; set; }
 
 
     }
 }
+*/

@@ -1,5 +1,5 @@
 ﻿
-
+/*
 namespace ProjectFinalWebIbrahim_core.Model.Entity
 {
     public class OrderService
@@ -15,7 +15,8 @@ namespace ProjectFinalWebIbrahim_core.Model.Entity
         public DateTime? CreationDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
-        public bool IsِActive { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }
+*/

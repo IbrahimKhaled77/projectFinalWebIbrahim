@@ -1,0 +1,13 @@
+2024-07-30 20:20:35.460 +03:00 [INF] Starting web host
+2024-07-30 20:21:37.614 +03:00 [INF] Starting Login
+2024-07-30 20:21:39.191 +03:00 [ERR] An error occurred Exception: This method LoginBoolen is not implemented for non-empty inputs
+2024-07-30 20:21:45.599 +03:00 [INF] Starting Login
+2024-07-30 20:21:45.797 +03:00 [INF] User Is not Found
+2024-07-30 20:21:45.797 +03:00 [DBG] Youre Session Has been Closed Please Login in Again
+2024-07-30 20:21:48.694 +03:00 [INF] Starting Login
+2024-07-30 20:21:49.083 +03:00 [INF] Login Is In Finised
+2024-07-30 20:21:49.083 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-07-30 20:22:02.156 +03:00 [INF] Service Is  strating GetServiceAll
+2024-07-30 20:22:02.187 +03:00 [INF] Service Is Reached
+2024-07-30 20:22:02.187 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully
+2024-07-30 20:23:31.390 +03:00 [INF] Starting web host
