@@ -1,0 +1,310 @@
+2024-08-31 20:52:11.910 +03:00 [INF] Starting web host
+2024-08-31 20:53:05.989 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 20:53:07.441 +03:00 [INF] Category Is CreateCategory
+2024-08-31 20:53:07.441 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 20:53:07.441 +03:00 [ERR] user Not Found 
+2024-08-31 20:53:07.522 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 20:53:10.278 +03:00 [INF] Starting Login
+2024-08-31 20:53:10.505 +03:00 [INF] User Is not Found
+2024-08-31 20:53:10.505 +03:00 [DBG] Youre Session Has been Closed Please Login in Again
+2024-08-31 20:53:10.529 +03:00 [ERR] An error occurred Exception: Youre Session Has been Closed Please Login in Again
+2024-08-31 20:53:12.240 +03:00 [INF] Starting Login
+2024-08-31 20:53:12.504 +03:00 [INF] Login Is In Finised
+2024-08-31 20:53:12.504 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-08-31 20:53:12.612 +03:00 [INF] User Is Reached
+2024-08-31 20:53:12.612 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 20:53:12.615 +03:00 [INF] Users are Reached
+2024-08-31 20:53:12.615 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-08-31 20:53:30.002 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:53:30.002 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:53:30.002 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:53:30.043 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:53:30.043 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:53:30.052 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:53:30.052 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:53:30.077 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:53:30.078 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:53:33.193 +03:00 [INF] Order Is starting GetOrderByIdServ
+2024-08-31 20:53:33.210 +03:00 [INF] Order Is GetOrderByIdServ
+2024-08-31 20:53:33.210 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-08-31 20:54:08.351 +03:00 [INF] User Is Reached
+2024-08-31 20:54:08.351 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 20:54:08.380 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:54:08.380 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:54:08.380 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:54:08.401 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:54:08.402 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:54:08.408 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:54:08.408 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:54:08.410 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:54:08.410 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:15.897 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:15.898 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:15.899 +03:00 [INF] User Is Reached
+2024-08-31 20:55:15.899 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 20:55:15.900 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:15.933 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:15.933 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:15.937 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:15.937 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:15.946 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:15.946 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:30.363 +03:00 [INF] User Is Reached
+2024-08-31 20:55:30.363 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 20:55:30.390 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:30.390 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:30.393 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:30.405 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:30.405 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:30.406 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:30.407 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:30.412 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:30.412 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:34.809 +03:00 [INF] User Is Reached
+2024-08-31 20:55:34.809 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 20:55:34.830 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:34.830 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:34.830 +03:00 [INF] Order Is starting GetOrderAll
+2024-08-31 20:55:34.850 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:34.851 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:34.855 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:34.855 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:34.856 +03:00 [INF] Order Is GetOrderAll
+2024-08-31 20:55:34.856 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully 
+2024-08-31 20:55:37.475 +03:00 [INF] Order Is starting GetOrderByIdServ
+2024-08-31 20:55:37.482 +03:00 [INF] Order Is GetOrderByIdServ
+2024-08-31 20:55:37.482 +03:00 [DBG] Debugging Get Order By Id Has been Finised Successfully With Order ID  = 1
+2024-08-31 20:57:56.012 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 20:57:56.112 +03:00 [INF] Category Is CreateCategory
+2024-08-31 20:57:56.112 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 20:57:56.126 +03:00 [ERR] user Not Found 
+2024-08-31 20:57:56.176 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 20:59:06.370 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 20:59:06.426 +03:00 [INF] Category Is CreateCategory
+2024-08-31 20:59:06.426 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 20:59:06.433 +03:00 [ERR] user Not Found 
+2024-08-31 20:59:06.456 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 20:59:52.790 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 20:59:52.816 +03:00 [INF] Category Is CreateCategory
+2024-08-31 20:59:52.818 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 20:59:52.826 +03:00 [ERR] user Not Found 
+2024-08-31 20:59:52.850 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:00:09.326 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:00:09.340 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:00:09.340 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:00:09.352 +03:00 [ERR] user Not Found 
+2024-08-31 21:00:09.378 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:01:03.840 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:01:03.871 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:01:03.871 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:01:03.876 +03:00 [INF] User Is Reached
+2024-08-31 21:01:03.876 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 21:01:33.919 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:01:33.991 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:01:33.992 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:01:33.997 +03:00 [INF] User Is Reached
+2024-08-31 21:01:33.998 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 21:02:12.133 +03:00 [INF] User Is Reached
+2024-08-31 21:02:12.133 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 21:02:12.164 +03:00 [INF] Starting Logout
+2024-08-31 21:02:12.185 +03:00 [INF] Logout Is In Finised
+2024-08-31 21:02:12.185 +03:00 [DBG] Debugging Login Has been Finised Successfully With finalToken  3 
+2024-08-31 21:02:12.200 +03:00 [INF] Starting Logout
+2024-08-31 21:02:12.210 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:02:12.236 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:03:05.274 +03:00 [ERR] user Not Found 
+2024-08-31 21:03:05.302 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:03:05.303 +03:00 [INF] Starting Logout
+2024-08-31 21:03:05.369 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:03:05.390 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:03:13.352 +03:00 [ERR] user Not Found 
+2024-08-31 21:03:13.383 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:03:13.410 +03:00 [INF] Starting Logout
+2024-08-31 21:03:13.441 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:03:13.459 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:03:58.309 +03:00 [INF] Starting Login
+2024-08-31 21:03:58.351 +03:00 [INF] Login Is In Finised
+2024-08-31 21:03:58.351 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-08-31 21:03:58.404 +03:00 [INF] Users are Reached
+2024-08-31 21:03:58.404 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-08-31 21:03:58.445 +03:00 [INF] User Is Reached
+2024-08-31 21:03:58.445 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
+2024-08-31 21:04:05.644 +03:00 [INF] Starting Logout
+2024-08-31 21:04:05.662 +03:00 [INF] Logout Is In Finised
+2024-08-31 21:04:05.662 +03:00 [DBG] Debugging Login Has been Finised Successfully With finalToken  3 
+2024-08-31 21:04:05.685 +03:00 [INF] Starting Logout
+2024-08-31 21:04:05.695 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:04:05.716 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:04:38.088 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:04:38.136 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:04:38.136 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:04:38.141 +03:00 [ERR] user Not Found 
+2024-08-31 21:04:38.183 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:06:00.427 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:06:00.455 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:06:00.455 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:06:00.474 +03:00 [ERR] user Not Found 
+2024-08-31 21:06:00.506 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:06:06.344 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:06:06.367 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:06:06.367 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:06:06.373 +03:00 [ERR] user Not Found 
+2024-08-31 21:06:06.405 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:06:09.380 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:06:09.389 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:06:09.389 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:06:09.402 +03:00 [ERR] user Not Found 
+2024-08-31 21:06:09.435 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:06:11.862 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:06:11.876 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:06:11.876 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:06:11.901 +03:00 [ERR] user Not Found 
+2024-08-31 21:06:12.024 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:06:42.041 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:06:42.081 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:06:42.081 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:06:42.087 +03:00 [ERR] user Not Found 
+2024-08-31 21:06:42.119 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:07:25.285 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:07:25.312 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:07:25.312 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:07:25.315 +03:00 [ERR] user Not Found 
+2024-08-31 21:07:25.370 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:07:29.644 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:07:29.654 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:07:29.654 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:07:29.669 +03:00 [ERR] user Not Found 
+2024-08-31 21:07:29.698 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:07:59.500 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:07:59.540 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:07:59.540 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:07:59.544 +03:00 [ERR] user Not Found 
+2024-08-31 21:07:59.568 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:08:15.020 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:08:15.029 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:08:15.029 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:08:15.041 +03:00 [ERR] user Not Found 
+2024-08-31 21:08:15.069 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:09:06.493 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:09:06.563 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:09:06.563 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:09:06.566 +03:00 [ERR] user Not Found 
+2024-08-31 21:09:06.588 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:09:37.062 +03:00 [ERR] user Not Found 
+2024-08-31 21:09:37.087 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:09:37.148 +03:00 [INF] Starting Logout
+2024-08-31 21:09:37.164 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:09:37.193 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:10:09.992 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:10:10.034 +03:00 [ERR] user Not Found 
+2024-08-31 21:10:10.095 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:10:10.166 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:10:10.188 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:10:12.440 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:10:12.448 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:10:12.448 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:10:12.456 +03:00 [ERR] user Not Found 
+2024-08-31 21:10:12.485 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:10:37.643 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:10:37.692 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:10:37.693 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:10:37.696 +03:00 [ERR] user Not Found 
+2024-08-31 21:10:37.727 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:11:13.946 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:11:14.002 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:11:14.002 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:11:14.004 +03:00 [ERR] user Not Found 
+2024-08-31 21:11:14.024 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:11:22.193 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:11:22.202 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:11:22.202 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:11:22.211 +03:00 [ERR] user Not Found 
+2024-08-31 21:11:22.230 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:11:54.357 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:11:54.416 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:11:54.418 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:11:54.436 +03:00 [ERR] user Not Found 
+2024-08-31 21:11:54.455 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:12:50.973 +03:00 [ERR] user Not Found 
+2024-08-31 21:12:50.994 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:12:51.062 +03:00 [INF] Starting Logout
+2024-08-31 21:12:51.076 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:12:51.100 +03:00 [ERR] An error occurred Exception: You Must Login In To Your Account
+2024-08-31 21:13:22.840 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:13:22.866 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:13:22.866 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:13:22.877 +03:00 [ERR] user Not Found 
+2024-08-31 21:13:22.899 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:14:52.383 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:14:52.439 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:14:52.439 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:14:52.446 +03:00 [ERR] user Not Found 
+2024-08-31 21:14:52.468 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:15:14.438 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:15:14.464 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:15:14.464 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:15:14.468 +03:00 [ERR] user Not Found 
+2024-08-31 21:15:14.489 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:15:40.029 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:15:40.056 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:15:40.056 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:15:40.090 +03:00 [ERR] user Not Found 
+2024-08-31 21:15:40.119 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:16:05.959 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:16:05.978 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:16:05.978 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:16:05.991 +03:00 [ERR] user Not Found 
+2024-08-31 21:16:06.014 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:17:43.794 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:17:43.820 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:17:43.820 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:17:43.830 +03:00 [ERR] user Not Found 
+2024-08-31 21:17:43.851 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:17:45.513 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:17:45.523 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:17:45.523 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:17:45.533 +03:00 [ERR] user Not Found 
+2024-08-31 21:17:45.567 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:17:47.864 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:17:47.873 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:17:47.873 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:17:47.881 +03:00 [ERR] user Not Found 
+2024-08-31 21:17:47.903 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:17:52.022 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:17:52.030 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:17:52.030 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:17:52.038 +03:00 [ERR] user Not Found 
+2024-08-31 21:17:52.059 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:17:53.897 +03:00 [INF] Service Is  strating GetServiceAll
+2024-08-31 21:17:53.912 +03:00 [INF] Service Is Reached
+2024-08-31 21:17:53.912 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully
+2024-08-31 21:17:53.927 +03:00 [INF] Service Is  strating GetServiceAll
+2024-08-31 21:17:53.947 +03:00 [ERR] user Not Found 
+2024-08-31 21:17:53.959 +03:00 [INF] Service Is Reached
+2024-08-31 21:17:53.959 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully
+2024-08-31 21:17:53.970 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:17:55.389 +03:00 [INF] Service Is  strating GetByID
+2024-08-31 21:17:55.403 +03:00 [INF] Service Is Reached
+2024-08-31 21:17:55.403 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully 1
+2024-08-31 21:17:55.426 +03:00 [INF] Service Is  strating GetByID
+2024-08-31 21:17:55.436 +03:00 [INF] Service Is Reached
+2024-08-31 21:17:55.436 +03:00 [DBG] Debugging Get Service By Id Has been Finised Successfully 1
+2024-08-31 21:17:55.447 +03:00 [ERR] user Not Found 
+2024-08-31 21:17:55.470 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:17:57.596 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:17:57.603 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:17:57.603 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:17:57.611 +03:00 [ERR] user Not Found 
+2024-08-31 21:17:57.631 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:18:05.393 +03:00 [INF] Order Is strating GetCategoryAll
+2024-08-31 21:18:05.403 +03:00 [INF] Category Is CreateCategory
+2024-08-31 21:18:05.403 +03:00 [DBG] Debugging Get Category By Id Has been Finised Successfully
+2024-08-31 21:18:05.412 +03:00 [ERR] user Not Found 
+2024-08-31 21:18:05.442 +03:00 [ERR] user Not Found: Not Found User (Parameter 'User')
+2024-08-31 21:18:35.722 +03:00 [INF] Starting Login
+2024-08-31 21:18:35.765 +03:00 [INF] Login Is In Finised
+2024-08-31 21:18:35.765 +03:00 [DBG] Debugging Login Has been Finised Successfully 
+2024-08-31 21:18:35.828 +03:00 [INF] Users are Reached
+2024-08-31 21:18:35.828 +03:00 [DBG] Debugging GetAllUsers Has been Finised Successfully
+2024-08-31 21:18:35.868 +03:00 [INF] User Is Reached
+2024-08-31 21:18:35.868 +03:00 [DBG] Debugging GetUserById Has been Finised Successfully With User ID  = 3
